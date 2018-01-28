@@ -1,10 +1,9 @@
 @extends('master')
 
 @section('content')
-    <!-- Breadcrumb -->
+
     <ol class="breadcrumb hidden-xs">
-        <li><a href="#">Home</a></li>
-        <li><a href="{{ url('register') }}"></a></li>
+        <li><a href="{{ url('/welcome') }}"></a>Home</li>
         <li class="active">Departments List</li>
     </ol>
 
@@ -42,7 +41,7 @@
         </div>
     </div>
     {{--@include('departments.edit')--}}
-    {{--@include('departments.add')--}}
+    @include('departments.new')
 @endsection
 
 @section('footer')

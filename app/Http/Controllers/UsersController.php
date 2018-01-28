@@ -17,8 +17,8 @@ class UsersController extends Controller
    	    //return "okay"; 
 
    		$users = \DB::table('users')
-			->leftJoin('positions', 'users.positionId', '=', 'positions.id')
-            ->leftJoin('grades', 'users.gradeId', '=', 'grades.id')
+			->Join('positions', 'positions.id', '=','users.positionId' )
+            ->Join('grades', 'grades.id', '=', 'users.gradeId')
 			->select(
 				\DB::raw(
 					"

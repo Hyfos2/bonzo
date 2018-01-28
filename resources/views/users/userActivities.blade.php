@@ -145,7 +145,7 @@
                 {data: 'position', name: 'position'},
                 {data: 'gradeName', name: 'gradeName'}
                 ]
-});
+             });
 });
 </script>
 @endpush

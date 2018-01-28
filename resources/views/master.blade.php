@@ -25,6 +25,12 @@
 
    <link href="{{ asset('css/toggles.css') }}" rel="stylesheet">
    <link href="{{ asset('css/yajra/jquery.dataTables.min.css') }}" rel="stylesheet">
+
+
+    <link href="{{ asset('css/jquery.timepicker.css') }}" rel="stylesheet">
+
+    {{--<link href="{{ asset('css/yajra/jquery.dataTables.min.css') }}" rel="stylesheet">--}}
+
     <!-- <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet"> -->
 
   <!--  <link href="{{ asset('/css/perfect-scrollbar.css') }}" rel="stylesheet">
@@ -39,7 +45,7 @@
   <link href="{{ asset('css/token-input.css') }}" rel="stylesheet">-->
 
   <style>
-    
+
    /* .eerross{
         background-image: url("{{ asset('public/img/01_fix_background.png') }}");
 
@@ -85,6 +91,19 @@
       table.dataTable.no-footer {
           border-bottom: 0.5px solid #5c788f;
       }
+   input[type=search] {
+       /* -webkit-appearance: none; */
+       background-color: inherit;
+       border-color: white;
+       border-radius: 0.5px;
+   }
+   .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+       cursor: default;
+       color: #fff!important;
+       border: 1px solid transparent;
+       background: transparent;
+       box-shadow: black;
+   }
 
   </style>
 
@@ -128,8 +147,8 @@
             </a>
             <ul class="dropdown-menu profile-menu">
               {{--<li><a href="{{ url('all-messages') }}">Messages</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>--}}
-              <li><a href="{{ url('user-profile') }}">Profile</a> <i class="icon left">
-                  &#61903;</i><i class="icon right">&#61815;</i></li>
+              {{--<li><a href="{{ url('user-profile') }}">Profile</a> <i class="icon left">--}}
+                  {{--&#61903;</i><i class="icon right">&#61815;</i></li>--}}
               <li>
 
                  
@@ -185,8 +204,11 @@
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <!--   <script src="{{ asset('js/calendar.min.js') }}"></script> -->
+
    <script src="{{asset('css/yajra/jquery-1.10.2.min.js')}}"></script>
    <script src="{{asset('css/yajra/jquery.dataTables.min.js')}}"></script>
+
+   <script src="{{asset('js/jquery.timepicker.min.js')}}"></script>
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
 
     @stack('scripts')

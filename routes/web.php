@@ -25,8 +25,9 @@ Route::view('/createTimeSheet','timeSheets.createTimeSheet');
 Route::view('/timeSheets','timeSheets.timeSheets');
 Route::view('/departments','departments.departmentsList');
 Route::view('/positions','positions.positionsList');
-
+/*LeaveDays*/
 Route::view('/leave','staff.employeeLeaveList');
+Route::get('getLeaveDays','LeaveController@getLeavedays');
 
 //Route::view('/employmentTypes','employmentTypes.employmentTypesList');
 
@@ -34,7 +35,7 @@ Route::view('/leave','staff.employeeLeaveList');
 Route::post('/addLeave','StaffController@addLeave');
 
 Route::get('/registerStaff','StaffController@registerStaff');
-Route::get('/users','UsersController@index');
+Route::get('/users','UsersController@index')->name('users');
 Route::post('/addUser','Auth\RegisterController@register');
 Route::post('/addStaff','StaffController@addStaff');
 Route::post('/addTimeSheet','StaffController@addTimeSheet');
@@ -55,6 +56,9 @@ Route::post('/allocate','ShiftController@allocate');
 Route::get('/employmentGroup','EmploymentTypeController@index');
 Route::post('/addEmploymentType','EmploymentTypeController@add');
 Route::get('/getTypes','EmploymentTypeController@getTypes');
+
+/*Department*/
+Route::post('addDepartment','DepartmentController@addDepartment');
 
 
 

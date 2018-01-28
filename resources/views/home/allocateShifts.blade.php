@@ -1,8 +1,39 @@
 @extends('master')
 
 @section('content')
+
+    <script>
+        $(document).ready(function(){
+            $('#startTime').timepicker({
+                template: 'modal'
+            });
+
+        });
+
+        $('#timepicker1').timepicker({
+            template: 'modal'
+
+        });
+        $(document).ready(function(){
+            $('#endTime').timepicker({
+                template: 'modal'
+            });
+        });
+
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 60,
+            minTime: '10',
+            maxTime: '6:00pm',
+            defaultTime: '11',
+            startTime: '10:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+    </script>
     <ol class="breadcrumb hidden-xs">
-        <li><a href="#">Home</a></li>       
+        <li><a href="{{url('/welcome')}}">Home</a></li>
         <li><a href="{{ url('workingHours') }}">Staff on Shift</a></li>
         <li class="active">Shift Allocation Form</li>
     </ol>
@@ -66,36 +97,6 @@
 @section('footer')
 
 
-    <script>
-        $(document).ready(function(){
-            $('#startTime').timepicker({
-                template: 'modal'
-            });
-
-        });
-
-        $('#timepicker1').timepicker({
-            template: 'modal'
-
-        });
-        $(document).ready(function(){
-            $('#endTime').timepicker({
-                template: 'modal'
-            });
-        });
-
-        $('.timepicker').timepicker({
-            timeFormat: 'h:mm p',
-            interval: 60,
-            minTime: '10',
-            maxTime: '6:00pm',
-            defaultTime: '11',
-            startTime: '10:00',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
-    </script>
     <script>
         $(document).ready(function() {
             $("#province").change(function(){
