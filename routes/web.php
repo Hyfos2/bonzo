@@ -16,7 +16,11 @@ Route::post('/site/login',
 ]);
 
 Route::get('/welcome','HomeController@welcome')->middleware('auth');
-Route::view('/register','users.register');
+/*User*/
+
+Route::get('/register','UsersController@registernewUser');
+
+
 Route::view('/usersList','users.userActivities');
 Route::view('/staffList','staff.staffList');
 
@@ -33,14 +37,17 @@ Route::get('getLeaveDays','LeaveController@getLeavedays');
 
 /*Staff*/
 Route::post('/addLeave','StaffController@addLeave');
+Route::post('/addStaff','StaffController@addStaff');
+Route::get('/getstaff','StaffController@staff');
 
 Route::get('/registerStaff','StaffController@registerStaff');
 Route::get('/users','UsersController@index')->name('users');
 Route::post('/addUser','Auth\RegisterController@register');
-Route::post('/addStaff','StaffController@addStaff');
+
 Route::post('/addTimeSheet','StaffController@addTimeSheet');
-Route::get('/getstaff','StaffController@staff');
+
 Route::post('/addPosition','PositionsController@create');
+Route::get('/getStaffDetails','StaffController@getStaffDetails');;
 
 /*Grades*/
 Route::get('/getGrades','GradesController@getGrades');
@@ -59,7 +66,13 @@ Route::get('/getTypes','EmploymentTypeController@getTypes');
 
 /*Department*/
 Route::post('addDepartment','DepartmentController@addDepartment');
+Route::get('getDepartment','DepartmentController@getDepartment');
 
+/*Positions*/
+Route::get('getPositions','PositionsController@getPositions');
+
+/*Shifts*/
+Route::get('/ getShifts','ShiftController@getShifts')->name('getShifts');
 
 
 

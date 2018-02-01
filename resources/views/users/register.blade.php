@@ -1,8 +1,6 @@
 @extends('master')
-
 @section('content')
 
-<!-- Breadcrumb -->
 <ol class="breadcrumb hidden-xs">
     <li><a href="#">Home</a></li>
     <li><a href="{{ url('usersList') }}">Users List</a></li>
@@ -23,7 +21,7 @@
             <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
+                  {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
                   @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                 </div>
             </div>
@@ -31,7 +29,7 @@
             <div class="form-group">
                 {!! Form::label('Surname', 'Surname', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname']) !!}
+                  {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname','autocomplete'=>'off']) !!}
                   @if ($errors->has('surname')) <p class="help-block red">*{{ $errors->first('surname') }}</p> @endif
                 </div>
             </div>
@@ -39,7 +37,7 @@
                <div class="form-group">
                 {!! Form::label('Email', 'Email', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('email',NULL,['class' => 'form-control input-sm','email' ,'placeholder'=> '  infor@yahoo.net']) !!}
+                  {!! Form::text('email',NULL,['class' => 'form-control input-sm','email' ,'placeholder'=> '  infor@howbmc.co.zw','autocomplete'=>'off']) !!}
                   @if ($errors->has('email')) <p class="help-block red">* {{ $errors->first('email') }}</p> @endif
               </div>
             </div>
@@ -50,7 +48,15 @@
             <div class="form-group">
                 {!! Form::label('Position', 'Position', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('positionId',NULL,['class' => 'form-control input-sm','id' => 'positionId'  ]) !!}
+
+                   <select  name="positionId"  class="form-control" >
+                        <option  selected disabled >Select Position</option>
+                                @foreach($pos as $type)
+                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
+                            </select>
+
+                 
                   @if ($errors->has('id_number')) <p class="help-block red">* {{ $errors->first('id_number') }}</p> @endif
                 </div>
             </div>
@@ -58,7 +64,14 @@
              <div class="form-group">
                 {!! Form::label('Grade', 'Grade', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('gradeId',NULL,['class' => 'form-control input-sm','id' => 'gradeId'  ]) !!}
+
+                   <select  name="gradeId"  class="form-control" >
+                        <option  selected disabled >Select Grade</option>
+                                @foreach($grade as $type)
+                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
+                            </select>
+          
                   @if ($errors->has('gradeId')) <p class="help-block red">* {{ $errors->first('gradeId') }}</p> @endif
                 </div>
             </div>

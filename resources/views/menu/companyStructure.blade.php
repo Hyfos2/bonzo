@@ -1,4 +1,4 @@
-
+ @if (Auth::user())
            @if(Auth::user()->positionId==1)
             <li class="dropdown">
                 <a class="sa-side-company_chart" href="#">
@@ -23,7 +23,7 @@
 
                 </ul>
             </li>
-            @elseif(Auth::user()->positionId ==2)
+            @elseif(Auth::user()->positionId == 2)
             <li class="dropdown">
                 <a class="sa-side-company_chart" href="#">
                     <span class="menu-item">COMPANY STRUCTURE </span>
@@ -72,4 +72,6 @@
                 </ul>
             </li>
              @endif
+
+            @endif
             

@@ -2,12 +2,15 @@
 
 @section('content')
 
-    <!-- Breadcrumb -->
+   @if (Auth::user())
+           @if(Auth::user()->positionId!=1 || Auth::user()->positionId!=2|| Auth::user()->positionId!=3 )
     <ol class="breadcrumb hidden-xs">
-        <li><a href="#">Home</a></li>
+        <li><a href="{{ url('welcome') }}">Home</a></li>
         <li><a href="{{ url('timeSheets') }}">Time Sheets</a></li>
         <li class="active">New Time Sheet</li>
     </ol>
+    @endif
+    @endif
 
     <h4 class="page-title">STAFF</h4>
 

@@ -1,3 +1,4 @@
+ @if (Auth::user())
 @if(Auth::user()->positionId==2)
         
           <li class="dropdown">
@@ -58,11 +59,9 @@
             </ul>
           </li>
 
-          @elseif(Auth::user()->positionId==1)
+@elseif(Auth::user()->positionId==1)
           <li class="dropdown">
             <a class="sa-side-users" href="#">
-
-              <span class="menu-item  hidden">USERS </span>
                <span class="menu-item">STAFF </span>
             </a>
             <ul class="list-unstyled menu-item">
@@ -117,4 +116,5 @@
             </ul>
           </li>
 
+          @endif
           @endif

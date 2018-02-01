@@ -2,43 +2,18 @@
 
 @section('content')
 
-    <script>
-        $(document).ready(function(){
-            $('#startTime').timepicker({
-                template: 'modal'
-            });
 
-        });
-
-        $('#timepicker1').timepicker({
-            template: 'modal'
-
-        });
-        $(document).ready(function(){
-            $('#endTime').timepicker({
-                template: 'modal'
-            });
-        });
-
-        $('.timepicker').timepicker({
-            timeFormat: 'h:mm p',
-            interval: 60,
-            minTime: '10',
-            maxTime: '6:00pm',
-            defaultTime: '11',
-            startTime: '10:00',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-        });
-    </script>
+    @if(Auth::user())
+    @if(Auth::user()->positionId != 1 || Auth::user()->positionId!=3)
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{url('/welcome')}}">Home</a></li>
         <li><a href="{{ url('workingHours') }}">Staff on Shift</a></li>
         <li class="active">Shift Allocation Form</li>
     </ol>
+    @endif
+    @endif
 
-    <h4 class="page-title">FOrm</h4>
+    <h4 class="page-title">Shift Allocation</h4>
 
     <div class="block-area" id="basic">
         <h3 class="block-title">Shift Allocation Form</h3>
@@ -94,55 +69,4 @@
 
 @endsection
 
-@section('footer')
 
-
-    <script>
-        $(document).ready(function() {
-            $("#province").change(function(){
-
-                $.get("{{ url('/api/dropdown/districts/province')}}",
-                    { option: $(this).val()},
-                    function(data) {
-                        $('#district').empty();
-                        $('#municipality').empty();
-                        $('#ward').empty();
-                        $('#district').removeAttr('disabled');
-                        $('#district').append("<option value='0'>Select one</option>");
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#district').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-
-            });
-            $("#district").change(function(){
-                $.get("{{ url('/api/dropdown/municipalities/district')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#municipality').empty();
-                        $('#municipality').removeAttr('disabled');
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#municipality').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-            $("#municipality").change(function(){
-                $.get("{{ url('/api/dropdown/wards/municipality')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#ward').empty();
-                        $('#ward').removeAttr('disabled');
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#ward').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-
-        })
-
-    </script>
-@endsection

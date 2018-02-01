@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EmploymentType;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class EmploymentTypeController extends Controller
 {
@@ -14,11 +15,24 @@ class EmploymentTypeController extends Controller
     public function add(Request $request)
     {
         $newType = EmploymentType::create($request->all());
-        return $newType;
+        $notification = array(
+            'message'=>'new employment type was added',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
     }
 
     public function getTypes()
     {
-        return "okay";
+
+        $types = \DB::table('employment_types')
+            ->get();
+
+        return Datatables::of($types)
+            ->addColumn('action', function ($types) {
+                return '<a href="#edit-'.$types->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
+            ->make(true);
     }
 }

@@ -1,4 +1,5 @@
-@if(Auth::user()->positionId==2)
+ @if (\Auth::user())
+@if(\Auth::user()->positionId == 2)
             <li class="dropdown">
                 <a class="sa-side-timesheet" href="#">
                     <span class="menu-item">TIME SHEET</span>
@@ -12,7 +13,7 @@
 
                 </ul>
             </li>
-            @elseif(Auth::user()->positionId==3)
+            @elseif(\Auth::user()->positionId == 3)
             <li class="dropdown">
                 <a class="sa-side-timesheet" href="#">
                     <span class="menu-item">TIME SHEET</span>
@@ -31,7 +32,7 @@
 
                 </ul>
             </li>
-            @elseif(Auth::user()->positionId==1)
+            @elseif(\Auth::user()->positionId==1)
              <li class="dropdown">
                 <a class="sa-side-timesheet" href="#">
                     <span class="menu-item">TIME SHEET</span>
@@ -51,4 +52,5 @@
                 </ul>
             </li>
 
+         @endif
          @endif

@@ -17,17 +17,16 @@
      
 
    <link href="{{ asset('css/generics.css') }}" rel="stylesheet">
-   <!--   <link href="{{ asset('css/form-builder.css') }}" rel="stylesheet"> -->
    <link href="{{ asset('css/form.css') }}" rel="stylesheet">
-
    <link href="{{ asset('css/awesome.css') }}" rel="stylesheet">
    <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
-
-   <link href="{{ asset('css/toggles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toggles.css') }}" rel="stylesheet">
    <link href="{{ asset('css/yajra/jquery.dataTables.min.css') }}" rel="stylesheet">
 
 
-    <link href="{{ asset('css/jquery.timepicker.css') }}" rel="stylesheet">
+    
+     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
+   
 
     {{--<link href="{{ asset('css/yajra/jquery.dataTables.min.css') }}" rel="stylesheet">--}}
 
@@ -106,7 +105,7 @@
    }
 
   </style>
-
+  
 </head>
 
 <body>
@@ -166,13 +165,13 @@
 
           </li>
             </ul>
-           
+            @if (\Auth::user())
               <h4 class="m-0">
-               {{Auth::user()->name}}  {{Auth::user()->surname}}
+               {{\Auth::user()->name}}  {{\Auth::user()->surname}}
               </h4>
 
-               {{Auth::user()->email}}<br/>
-            
+               {{\Auth::user()->email}}<br/>
+            @endif
           </div>
           <div class="s-widget m-b-25">
             <div id="sidebar-calendar"></div>
@@ -208,7 +207,21 @@
    <script src="{{asset('css/yajra/jquery-1.10.2.min.js')}}"></script>
    <script src="{{asset('css/yajra/jquery.dataTables.min.js')}}"></script>
 
-   <script src="{{asset('js/jquery.timepicker.min.js')}}"></script>
+   <script src ="{{asset('js/toastr.min.js')}}"></script>
+
+
+  <script>
+        @if(Session::has('message'))
+        var type ="{{session::get('alert-type','info')}}";
+        switch(type)
+        {
+            case 'success':
+            toastr.success("{{session::get('message')}}");
+            break;
+        }
+        @endif
+    </script>
+   
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
 
     @stack('scripts')

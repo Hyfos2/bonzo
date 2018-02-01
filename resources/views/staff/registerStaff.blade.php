@@ -1,45 +1,43 @@
 @extends('master')
-
 @section('content')
- <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
-<script src="{{{asset('js/jquery-1.12.4.js')}}}"></script>
-    <script src="{{asset('js/jquery-ui.js')}}"></script>
-    <script>
-        function increment()
-        {
-            count +=1;
-        }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function(){
+      $j("#datepicker-Todate").datepicker({
+       maxDate: new Date(2000, 2 - 1, 1),
+           dateFormat:"yy-mm-dd",
+            changeYear: true,
+            changeMonth: true
 
-        $(document).ready(function(){
-            $("#datepicker-Fromdate").datepicker({
-                maxDate :-0,
-                dateFormat: 'yy-mm-dd'
-            });
-            $("#datepicker-Todate").datepicker({
-                maxDate :-0,
-                dateFormat: 'yy-mm-dd'
-            });
         });
-
-        $(function()
-        {
-            $( "#datepicker-Fromdate" ).datepicker({
-                prevText:"click for previous months",
-                nextText:"click for next months",
-                showOtherMonths:true,
-                selectOtherMonths: false
-
-            });
-            $( "#datepicker-Todate" ).datepicker({
-                prevText:"click for previous months",
-                nextText:"click for next months",
-                showOtherMonths:true,
-                selectOtherMonths: true
-
-            });
+        $j("#datepicker-Fromdate").datepicker({
+          maxDate :-0,
+           dateFormat:"yy-mm-dd"
         });
-    </script>
+    });
+  var $y = jQuery.noConflict();
+    $y(function() 
+    {
+            $y( "#datepicker-Todate" ).datepicker({
+               prevText:"click for previous months",
+               nextText:"click for next months",
+               showOtherMonths:true,
+               selectOtherMonths: true
+            });
+            $y( "#datepicker-Fromdate" ).datepicker({
+               prevText:"click for previous months",
+               nextText:"click for next months",
+               showOtherMonths:true,
+               selectOtherMonths: true
+            });
+    });
+  </script>
 
+   
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('welcome') }}">Home</a></li>       
         <li><a href="{{ url('staffList') }}">Staff List</a></li>
@@ -60,7 +58,7 @@
             <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
+                    {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
                     @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                 </div>
             </div>
@@ -68,7 +66,7 @@
             <div class="form-group">
                 {!! Form::label('Surname', 'Surname', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname']) !!}
+                    {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname','autocomplete'=>'off']) !!}
                     @if ($errors->has('surname')) <p class="help-block red">*{{ $errors->first('surname') }}</p> @endif
                 </div>
             </div>
@@ -76,7 +74,7 @@
              <div class="form-group">
                 {!! Form::label('Date Of Birth', 'Date Of Birth', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    <p><input type = "text"   value="{{ old('dob') }}"   name="dob" placeholder ="Pick Date" id = "datepicker-Todate" class="form-control input-sm"></p>
+                    <p><input type = "text"   value="{{ old('dob') }}"   name="dob" placeholder ="Pick  A Date" id = "datepicker-Todate" class="form-control input-sm"></p>
                     @if ($errors->has('dob')) <p class="help-block red">* {{ $errors->first('dob') }}</p> @endif
                 </div>
             </div>
@@ -119,7 +117,7 @@
               <div class="form-group">
                 {!! Form::label('Staff Number', 'Staff Number', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('employeeNumber',NULL,['class' => 'form-control input-sm','id' => 'employeeNumber' , 'required']) !!}
+                    {!! Form::text('employeeNumber',NULL,['class' => 'form-control input-sm','id' => 'employeeNumber','autocomplete'=>'off']) !!}
 
                 </div>
             </div>
@@ -186,55 +184,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('footer')
-    <script>
-        $(document).ready(function() {
-            $("#province").change(function(){
-
-                $.get("{{ url('/api/dropdown/districts/province')}}",
-                    { option: $(this).val()},
-                    function(data) {
-                        $('#district').empty();
-                        $('#municipality').empty();
-                        $('#ward').empty();
-                        $('#district').removeAttr('disabled');
-                        $('#district').append("<option value='0'>Select one</option>");
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#district').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-
-            });
-            $("#district").change(function(){
-                $.get("{{ url('/api/dropdown/municipalities/district')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#municipality').empty();
-                        $('#municipality').removeAttr('disabled');
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#municipality').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-            $("#municipality").change(function(){
-                $.get("{{ url('/api/dropdown/wards/municipality')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#ward').empty();
-                        $('#ward').removeAttr('disabled');
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#ward').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-
-        })
-
-    </script>
 @endsection

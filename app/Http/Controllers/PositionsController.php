@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use App\Position;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\Positions;
 
 
 class PositionsController extends Controller
@@ -13,13 +13,27 @@ class PositionsController extends Controller
 
     protected function create(Request $request)
     {
-    	// $position         = new Position();
-    	// $position->name   = $request['name'];
-    	// $position->save();
+    	
+    $position  =Position::create($request->all());
+  	 $notification = array(
+            'message'=>'new position was added',
+            'alert-type'=>'success'
+                    );
 
-    	$position  =Position::create($request->all());
+        return back()->with($notification);
 
-    	return $position;
+    }
 
+    public function getPositions()
+    {
+
+        $positions = \DB::table('positions')
+            ->get();
+
+        return Datatables::of($positions)
+            ->addColumn('action', function ($positions) {
+                return '<a href="#edit-'.$positions->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
+            ->make(true);
     }
 }

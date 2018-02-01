@@ -2,16 +2,17 @@
 
 @section('content')
     <!-- Breadcrumb -->
-
+    @if (\Auth::user())
     <ol class="breadcrumb hidden-xs">
         <li><a href="#">Home</a></li>
-        @if(Auth::user()->positionId== 1 || Auth::user()->positionId==2)
+        @if(\Auth::user()->positionId== 1 ||  \Auth::user()->positionId==2)
         <li><a href="{{ url('registerStaff') }}">Register Staff</a></li>
         <li class="active">Staff List</li>
-        @elseif(Auth::user()->positionId==3)
+        @elseif(\Auth::user()->positionId==3)
         <li class="active">Staff List</li>
         @endif
     </ol>
+    @endif
 
     <h4 class="page-title">LIST</h4>
     <!-- Alternative -->
@@ -23,23 +24,19 @@
 
     <!-- Responsive Table -->
     <div class="block-area" id="responsiveTable">
-        @if(Session::has('success'))
-            <div class="alert alert-success alert-icon">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ Session::get('success') }}
-                <i class="icon">&#61845;</i>
-            </div>
-        @endif
-
+    
         <div class="table-responsive overflow">
-            <table class="table tile table-striped" id="departmentsTable">
+            <table class="table tile table-striped" id="staffTable">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Created At</th>
-                    <th>Name</th>
-                    <th>Acronym</th>
-                    <th>Actions</th>
+                    <th>name</th>
+                    <th>surname</th>
+                    <th>employment Number</th>
+                    <th>department</th>
+                      <th>position</th>
+                         <th>action</th>
+
                 </tr>
                 </thead>
             </table>
@@ -49,77 +46,40 @@
     {{--@include('departments.add')--}}
 @endsection
 
-@section('footer')
+@push('scripts')
+<script>
+    $(function() {
+    $('#staffTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! '/getstaff/' !!}',
+        columns: [
+            { data: 'id' },
+             { data: 'name' },
+              { data: 'surname' }, 
+              { data: 'employeeNumber' },
+            { data: 'departmentId'},
+            { data: 'positionId'},
+            {data: 'action', name: 'action', orderable: false, searchable: false}
+        ],
 
-    <script>
-        $(document).ready(function() {
-
-            var oTable     = $('#departmentsTable').DataTable({
-                "processing": true,
-
-                "dom": 'T<"clear">lfrtip',
-                "order" :[[0,"desc"]],
-                        {{--"ajax": "{!! url('/getstaff/') !!}",--}}
-                "columns": [
-                    {data: 'id', name: 'id'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: function(d)
-                        {
-                            return "<a href='{!! url('list-categories/" + d.id + "') !!}' class='btn btn-sm'>" + d.name + "</a>";
-
-                        },"name" : 'name'},
-                    {data: 'acronym', name: 'acronym'},
-                    {data: 'actions',  name: 'actions'},
-                ],
-
-                "aoColumnDefs": [
-                    { "bSearchable": false, "aTargets": [ 1] },
-                    { "bSortable": false, "aTargets": [ 1 ] }
-                ]
-
-            });
-
-            $("#idCompany").on("change", function(ev) {
-                idCompany = $(ev.currentTarget).val();
-                console.log("#idCompany.change(ev) idCompany - ",idCompany,", ev - ",ev);
-                console.log("  oTable - ",oTable.columns("acronym"));
-                oTable.column("company:name").search(idCompany).draw();
-            });
-
-        });
-
-        function launchUpdateDepartmentModal(id)
-        {
-
-            $(".modal-body #deptID").val(id);
-            $.ajax({
-                type    :"GET",
-                dataType:"json",
-                {{--url     :"{!! url('/departments/"+ id + "')!!}",--}}
-                success :function(data) {
-
-                    if(data[0] !== null)
-                    {
-
-                        $("#modalEditDepartment #name").val(data[0].name);
-                        $("#modalEditDepartment #acronym").val(data[0].acronym);
-                    }
-                    else {
-                        $("#modalEditDepartment #name").val('');
-                        $("#modalEditDepartment #acronym").val('');
-                    }
-
+        initComplete: function () {
+            this.api().columns().every(function () {
+                var column = this;
+                if(column[0][0] == 5){
+                    // intentionally empty, we want to exclude column 5 from searching
+                } else {
+                    var input = document.createElement("input");
+                    $(input).appendTo($(column.footer()).empty())
+                        .on('keypress', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
                 }
             });
-
         }
 
-        @if (count($errors) > 0)
 
-        $('#modalEditDepartment').modal('show');
-
-        @endif
-
-
-    </script>
-@endsection
+    });
+});
+</script>
+@endpush

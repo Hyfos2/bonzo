@@ -12,8 +12,13 @@ class GradesController extends Controller
    {
    	
        $newGrade     = Grade::create($request->all());
-       return $newGrade;
-   }
+       
+        $notification = array(
+            'message'=>'new grade was added',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);   }
 
    public function getGrades()
    {
@@ -21,8 +26,8 @@ class GradesController extends Controller
             ->get();
 
 		return Datatables::of($grades)
-            ->addColumn('action', function ($user) {
-                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            ->addColumn('action', function ($grades) {
+                return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
             ->make(true);
 

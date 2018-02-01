@@ -17,6 +17,8 @@ class CreateShiftHoursTable extends Migration
         {
             $table->increments('id');
             $table->time('timeIn');
+            $table->string('name')->unique();
+            $table->integer('workingHours');
             $table->time('timeOut');
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');

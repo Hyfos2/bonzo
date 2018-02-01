@@ -11,7 +11,7 @@
                 <div class="form-group">
                     {!! Form::label('Name', 'Name', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
+                        {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
                         @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                     </div>
                 </div>

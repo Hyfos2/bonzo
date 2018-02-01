@@ -1,4 +1,50 @@
+<link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<style>
+[class*="timepicker-"] {
+     font-size: 12px; 
+}
+</style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
 
+
+    <script>
+        var $a = jQuery.noConflict();
+        $a(document).ready(function(){
+            $a('#startTime').timepicker({
+                template: 'modal',
+                 timeFormat: 'H:mm',
+                 interval: 30,
+                minTime: '08:00:00',
+                 maxTime:'00:00:00'
+            });
+
+        });
+
+        var $b = jQuery.noConflict();
+        $b(document).ready(function(){
+            $b('#endTime').timepicker({
+                template: 'modal',
+                timeFormat: 'H:mm',
+                interval: 30,
+                  minTime: '08:00:00',
+                maxTime:'00:00:00'
+            });
+        });
+
+        // $b('.timepicker').timepicker({
+        //     timeFormat: 'h:mm p',
+        //     interval: 60,
+        //     minTime: '10',
+        //     maxTime: '6:00pm',
+        //     defaultTime: '11',
+        //     startTime: '10:00',
+        //     dynamic: false,
+        //     dropdown: true,
+        //     scrollbar: true
+        // });
+    </script>
 
 <div class="modal fade modalAddShiftHours" id="modalAddShiftHours" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -15,12 +61,12 @@
                     <div class="col-md-10">
                        {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
                     
-                        @if ($errors->has('acronym')) <p class="help-block red">*{{ $errors->first('acronym') }}</p> @endif
+                        @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('Start I', 'Start Date', array('class' => 'col-md-2 control-label')) !!}
+                    {!! Form::label('Start Time', 'Start Time', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
                     
                         <p><input type = "text"   value="{{ old('timeIn') }}"   name="timeIn" placeholder ="Choose start time" id = "startTime" class="form-control input-sm"></p>

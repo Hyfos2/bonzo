@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+
 class RegisterController extends Controller
 {
    
@@ -54,6 +55,16 @@ class RegisterController extends Controller
                 $pass[] = $alphabet[$n];
             }
             return implode($pass);
+
+    }
+    public function goBack()
+    {
+        $notification = array(
+            'message'=>' a new user was added.',
+            'alert-type'=>'success'
+        );
+
+        return  back()->with($notification);
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Position;
+use App\Grade;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,5 +65,12 @@ class UsersController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function registernewUser()
+    {
+        $pos     =Position::all();
+        $grade   =Grade::all();
+        return view('users.register',compact('pos','grade'));
     }
 }
