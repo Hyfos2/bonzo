@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ShiftHour;
+use App\workingStaff;
 use Yajra\Datatables\Datatables;
 
 class ShiftController extends Controller
@@ -28,10 +29,9 @@ class ShiftController extends Controller
          $newShift->timeOut       =$request->timeOut; 
          $newShift->workingHours  =$convertIntoHours; 
           $newShift->created_by    =\Auth::user()->id; 
-
          $newShift->save();
 
-   	  return $newShift;
+   	    return $this->successNotification();
    }
    public function allocateShifts()
    {
@@ -52,4 +52,51 @@ class ShiftController extends Controller
          
 
    }
+
+   public function getShiftDetails(Request $request)
+   {
+       // $searchString = \Input::get('q');
+       $searchString = $request->q;
+        $shifts        = \DB::table('shift_hours') ->whereRaw(
+                "CONCAT(`shift_hours`.`name`) LIKE '%{$searchString}%'")
+            ->select(
+                array
+                (
+                    'shift_hours.id as id',
+                    'shift_hours.name as name',
+                    'shift_hours.timeOut as timeOut',
+                    'shift_hours.timeIN as timeIN'
+                )
+            )
+            ->get();
+        $data = array();
+        foreach ($shifts as $shift) {
+            $data[] = array(
+                "name" => "{$shift->name}",
+                "id"   => "{$shift->id}",
+            );
+        }
+
+        return $data;
+   }
+
+   public function allocate(Request $request)
+   {
+            $new   = WorkingStaff::create($request->all());
+
+            return $this->successNotification();
+        
+   }
+
+   public function successNotification()
+   {
+      $notification = array(
+            'message'=>'A record was saved',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
+   }
+
+
 }

@@ -9,8 +9,7 @@ class LeaveController extends Controller
 {
     public function getLeavedays()
     {
-        $leaveDays = \DB::table('staff')
-            ->where('onLeave',1)
+        $leaveDays = \DB::table('leave_days')
             ->get();
 
         return Datatables::of($leaveDays)

@@ -10,6 +10,9 @@ use App\EmploymentType;
 use App\Staff;
 use App\LeaveDay;
 use Auth;
+use Input;
+use Carbon\Carbon;
+
 use Yajra\Datatables\Datatables;
 
 class StaffController extends Controller
@@ -74,52 +77,69 @@ class StaffController extends Controller
    public function addLeave(Request $request)
    {
 
+     $getDetails           =Staff::where('id',$request->staffId)->first();  
+     $calculateOffdays     = abs(strtotime($request->endDate) - strtotime($request->startDate)
+ ); 
+            $convertSecToDays    =$calculateOffdays *1/86400;
 
-     $getDetails           =Staff::where('id',$request->staffId)->first();          $remaininAnnualDays   =$getDetails->annualLeaveDays - $request->offDays;
+            if($convertSecToDays > $getDetails->annualLeaveDays)
+            {
+                $name=$getDetails->name;
+                $surname=$getDetails->surname;
+            return  $this->displayDangerNotification($name,$surname);
+            }
+
+            $remaininAnnualDays   =$getDetails->annualLeaveDays - $convertSecToDays;
+
+            $currentDate  =Carbon::now()->format('Y-m-d');
+            if($currentDate != $request->startDate)
+            {
+
+            $leaveDays              =new LeaveDay();
+            $leaveDays->staffId     =$request->staffId;
+            $leaveDays->DaysTaken   =$convertSecToDays;
+            $leaveDays->startDate   =$request->startDate;
+            $leaveDays->endDate     =$request->endDate;
+            $leaveDays->created_by  =Auth::user()->id;
+            $leaveDays->save();
+
+            
+            return  $this->displaySuccessNotification();
+
+            }
 
             $updateStaff =Staff::where('id',$request->staffId)
-
-
-                         ->update([
-                                        'offDays'=>$request->offDays,        'approvedBy'=>\Auth::user()->id,
-                                                'startDate'=>$request->startDate,
-                                                'endDate'=>$request->endDate,
-                                                  'onLeave'=>1      ,
-                                                  'annualLeaveDays'=>$remaininAnnualDays
+             ->update([ 'onLeave'=>1 ,
+                          'annualLeaveDays'=>$remaininAnnualDays
                                                          ]);
 
+            $leaveDays              =new LeaveDay();
+            $leaveDays->staffId     =$request->staffId;
+            $leaveDays->DaysTaken   =$convertSecToDays;
+            $leaveDays->startDate   =$request->startDate;
+            $leaveDays->endDate     =$request->endDate;
+            $leaveDays->created_by  =Auth::user()->id;
+            $leaveDays->save();
 
-            // $leaveDays              =new LeaveDay();
-            // $leaveDays->staffId     =$request->staffId;
-            // $leaveDays->offDays     =$request->offDays;
-            // $leaveDays->  =;
-            // $leaveDays->startDate   =;
-            // $leaveDays->     =;
-            // $leaveDays->save();
-
-
-
-       $notification = array(
-            'message'=>'new leave form was added',
-            'alert-type'=>'success'
-                    );
-
-        return back()->with($notification);
+        return    $this->displaySuccessNotification();
+    
+          
    }
 
-   public function getStaffDetails()
+   public function getStaffDetails(Request $request)
    {
 
-    $searchString = \Input::get('q');
+    // $searchString = \Input::get('q');
+       $searchString = $request->q;
         $staff        = \DB::table('staff') ->whereRaw(
-                "CONCAT(`staff`.`name`, ' ', `staff`.`surname`,'','staff.employeeNumber') LIKE '%{$searchString}%'")
+                "CONCAT(`staff`.`name`, ' ', `staff`.`surname`) LIKE '%{$searchString}%'")
             ->select(
                 array
                 (
                     'staff.id as id',
                     'staff.name as name',
                     'staff.surname as surname',
-                    'staff.employeeNumber '
+                    'staff.employeeNumber as employeeNumber'
                 )
             )
             ->get();
@@ -127,10 +147,33 @@ class StaffController extends Controller
         foreach ($staff as $user) {
             $data[] = array(
                 "name" => "{$user->name} > {$user->surname}",
-                "employeeNumber"   => "{$user->employeeNumber}",
+                "id"   => "{$user->id}",
             );
         }
 
         return $data;
+   }
+
+   public function displaySuccessNotification()
+   {
+
+      $notification = array(
+            'message'=>'new leave form was added',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
+
+   }
+
+   public function displayDangerNotification($name,$surname)
+   {
+     $notification = array(
+            'message'=>'Request days are more than the available leave days for'." ".$name." ".$surname,
+            'alert-type'=>'error'
+                    );
+
+                return back()->with($notification);
+
    }
 }

@@ -73,6 +73,7 @@ Route::get('getPositions','PositionsController@getPositions');
 
 /*Shifts*/
 Route::get('/ getShifts','ShiftController@getShifts')->name('getShifts');
+Route::get('/ getShiftDetails','ShiftController@getShiftDetails')->name('getShiftDetails');
 
 
 

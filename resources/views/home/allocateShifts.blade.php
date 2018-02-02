@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-
+ <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
 
     @if(Auth::user())
     @if(Auth::user()->positionId != 1 || Auth::user()->positionId!=3)
@@ -26,27 +26,27 @@
             <div class="form-group">
                 {!! Form::label('Staff Name', 'Staff Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
-                    @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
+                    {!! Form::text('staffId',NULL,['class' => 'form-control input-sm','id' => 'staffId']) !!}
+                    @if ($errors->has('staffId')) <p class="help-block red">*{{ $errors->first('staffId') }}</p> @endif
                 </div>
             </div>
 
             <div class="form-group">
                 {!! Form::label('Shift Name', 'Shift Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('shiftHoursId',NULL,['class' => 'form-control input-sm','id' => 'shiftHoursId']) !!}
+                    {!! Form::text('shiftHoursId',null,['class' => 'form-control input-sm','id' => 'shiftHoursId']) !!}
                     @if ($errors->has('shiftHoursId')) <p class="help-block red">*{{ $errors->first('shiftHoursId') }}</p> @endif
                 </div>
             </div>
 
 
-              <div class="form-group">
+             <!--  <div class="form-group">
                 {!! Form::label('Hours', 'Hours', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
                      {!! Form::text('hours',NULL,['class' => 'form-control input-sm','id' => 'hours'  ]) !!}
                     @if ($errors->has('hours')) <p class="help-block red">*{{ $errors->first('hours') }}</p> @endif
                 </div>
-            </div>
+            </div> -->
 
            
             <div class="form-group">
@@ -66,6 +66,13 @@
             {!! Form::close() !!}
         </div>
     </div>
+
+@endsection
+@section('footer')
+<script>
+    // var $t = jQuery.noConflict();
+     $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
+    </script>
 
 @endsection
 

@@ -1,11 +1,13 @@
-<link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
+<!-- <link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css"> -->
+<link href="{{asset('css/jquery.timepicker.css')}}" rel="stylesheet"/>
+<link href="{{asset('css/jquery.timepicker.min.css')}}" rel="stylesheet"/>
 <style>
 [class*="timepicker-"] {
      font-size: 12px; 
 }
 </style>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script> -->
 <script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
 
 
@@ -14,7 +16,7 @@
         $a(document).ready(function(){
             $a('#startTime').timepicker({
                 template: 'modal',
-                 timeFormat: 'H:mm',
+                 timeFormat: 'H:i',
                  interval: 30,
                 minTime: '08:00:00',
                  maxTime:'00:00:00'
@@ -26,7 +28,7 @@
         $b(document).ready(function(){
             $b('#endTime').timepicker({
                 template: 'modal',
-                timeFormat: 'H:mm',
+                timeFormat: 'H:i',
                 interval: 30,
                   minTime: '08:00:00',
                 maxTime:'00:00:00'

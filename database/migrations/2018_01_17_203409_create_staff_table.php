@@ -15,16 +15,14 @@ class CreateStaffTable extends Migration
             $table->string('surname');
             $table->string('employeeNumber')->unique();
             $table->date('dob');
-            $table->date('startDate')->nullable();
-            $table->date('endDate')->nullable();
-            $table->integer('offDays')->nullable();
             $table->integer('onLeave')->default(0);
             $table->date('dateOfEmployment');
             $table->integer('annualLeaveDays')->default(30);
             $table->integer('employmentTypeId')->unsigned();
             $table->integer('positionId')->unsigned();
             $table->string('loyalty');
-            $table->integer('approvedBy')->nullable();
+            $table->string('gender');
+            $table->string('salary');
             $table->integer('departmentId')->unsigned();
             $table->integer('gradeId')->unsigned();
             $table->foreign('employmentTypeId')->references('id')->on('employment_types');

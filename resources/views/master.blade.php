@@ -209,18 +209,38 @@
 
    <script src ="{{asset('js/toastr.min.js')}}"></script>
 
-
+<script src="{{ asset('js/jquery.tokeninput.js') }}"></script>
   <script>
+       
         @if(Session::has('message'))
-        var type ="{{session::get('alert-type','info')}}";
-        switch(type)
-        {
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
             case 'success':
-            toastr.success("{{session::get('message')}}");
-            break;
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
         }
-        @endif
+    @endif
     </script>
+    <script>
+  
+    // var $t = jQuery.noConflict();
+     $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
+</script>
+<script>
+     $("#shiftHoursId").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});
+</script>
    
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
 

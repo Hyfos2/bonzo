@@ -1,4 +1,4 @@
-<!-- Modal Default -->
+
 <div class="modal fade modalAddLeave" id="modalAddLeave" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -13,19 +13,12 @@
                 <div class="form-group">
                     {!! Form::label('Staff Name', 'Staff Name', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::text('staffId',null,['class' => 'form-control input-sm','id' => 'staffId']) !!}
+                        {!! Form::text('staffId','staffId',['class' => 'form-control input-sm','id' => 'staffId']) !!}
                         @if ($errors->has('staffId')) <p class="help-block red">*{{ $errors->first('staffId') }}</p> @endif
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('Off Days', 'Off Days', array('class' => 'col-md-2 control-label')) !!}
-                    <div class="col-md-10">
-                        {!! Form::text('offDays',NULL,['class' => 'form-control input-sm','id' => 'offDays']) !!}
-                        @if ($errors->has('offDays')) <p class="help-block red">*{{ $errors->first('offDays') }}</p> @endif
-                    </div>
-                </div>
-
+    
                 <div class="form-group">
                     {!! Form::label('Start Date', 'Start Date', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">

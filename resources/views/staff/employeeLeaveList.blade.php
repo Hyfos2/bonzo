@@ -4,12 +4,12 @@
      <link href="{{ asset('css/token-input.css') }}" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      <script src="{{ asset('js/jquery.tokeninput.js') }}"></script>
+     
   <script>
     var $j = jQuery.noConflict();
     $j(document).ready(function(){
       $j("#datepicker-Todate").datepicker({
-         minDate :-0,
+         minDate :+1,
            changeMonth: true,
            dateFormat:"yy-mm-dd"
 
@@ -36,16 +36,17 @@
                selectOtherMonths: true
             });
     });
-     var $t = jQuery.noConflict();
-     $t("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
+   
   </script>
 
-
+@if(Auth::user())
+@if(Auth::user()->positionId !=1 || Auth::user()->positionId !=2)
     <ol class="breadcrumb hidden-xs">
-        <li><a href="{{ url('/welcome') }}"></a>Home</li>
+        <li><a href="{{ url('/welcome') }}">Home</a></li>
         <li class="active">Staff on Leave List</li>
     </ol>
-
+@endif
+@endif
     <h4 class="page-title">Not working Staff</h4>
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Staff  on Leave List</h3>
@@ -85,9 +86,9 @@
             ajax: '{!!url('/getLeaveDays/')!!}',
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'approvedBy', name: 'approvedBy'},
-                {data: 'offDays', name: 'offDays'},
+                {data: 'staffId', name: 'staffId'},
+                {data: 'created_by', name: 'created_by'},
+                {data: 'daysTaken', name: 'daysTaken'},
                 {data: 'startDate', name: 'startDate'},
                 {data: 'endDate', name: 'endDate'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
@@ -96,3 +97,7 @@
     });
 </script>
 @endpush
+@section('footer')
+
+
+@endsection
