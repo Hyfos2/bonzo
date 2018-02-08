@@ -4,21 +4,16 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Position;
+use App\Grade;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
-    
     protected $fillable = [
         'name', 'email', 'password','surname','positionId','gradeId','userName'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -36,5 +31,10 @@ class User extends Authenticatable
     public function position()
     {
         return $this->belongsTo(Position::class,'positionId','id');
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class,'gradeId','id');
     }
 }

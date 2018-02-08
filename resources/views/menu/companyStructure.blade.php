@@ -17,7 +17,7 @@
                     </li>
                     <li>
                         <a class="" href="{{ url('employmentGroup') }}">
-                            <span class="">Employment Groups</span>
+                            <span class="">Employment Types</span>
                         </a>
                     </li>
 
@@ -41,7 +41,7 @@
                     </li>
                     <li>
                         <a class="" href="{{ url('employmentGroup') }}">
-                            <span class="">Employment Groups</span>
+                            <span class="">Employment Types</span>
                         </a>
                     </li>
 
@@ -65,7 +65,7 @@
                     </li>
                     <li>
                         <a class="" href="{{ url('employmentGroup') }}">
-                            <span class="">Employment Groups</span>
+                            <span class="">Employment Types</span>
                         </a>
                     </li>
 

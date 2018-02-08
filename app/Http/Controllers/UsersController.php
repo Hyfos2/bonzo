@@ -6,46 +6,28 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Position;
 use App\Grade;
-use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
    use RegistersUsers;
    public function index()
   {
-   	    //return "okay"; 
 
-   		$users = \DB::table('users')
-			->Join('positions', 'positions.id', '=','users.positionId' )
-            ->Join('grades', 'grades.id', '=', 'users.gradeId')
-			->select(
-				\DB::raw(
-					"
-                                         users.id,
-                                         users.created_at,
-                                         users.name,
-                                         users.surname,
-                                         users.email,
-                                         grades.name as gradeName,
-                                         positions.name as position
-                                        "
-				)
-			);
-
-		return Datatables::of($users)
-			->addColumn('actions', '<a class="btn btn-xs btn-alt" data-toggle="modal" onClick="launchUpdateUserModal({{$id}});" data-target=".modalEditUser" >Edit</a>
-
-
-                                        '
-			)->make(true);
-
+      $users = User::with('grade','position')->get();
+      return Datatables::of($users)
+           ->addColumn('action', function ($users) {
+               return '<a href="editUser/'.$users->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+           })
+           ->make(true);
    }
 
 
-    public function addUser(Request $request)
+    public function usersList()
     {
+      return view ('users.usersList');
 
     }
 
@@ -72,5 +54,10 @@ class UsersController extends Controller
         $pos     =Position::all();
         $grade   =Grade::all();
         return view('users.register',compact('pos','grade'));
+    }
+    public  function editUser($id)
+    {
+        $userDetails  = User::with('position','grade')->find($id);
+        return  view('users.userProfile',compact('userDetails'));
     }
 }

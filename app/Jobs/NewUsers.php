@@ -26,6 +26,6 @@ class NewUsers implements ShouldQueue
 
     public function handle(Request $request,$user)
     {
-        Mail::to($request->email)->send(new registeredNewUsers($user));
+       
     }
 }

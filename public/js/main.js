@@ -1,11 +1,20 @@
 const ERRORS = {
 
-    pwdField:'Fill in the password',
-    minLengthField: 'The length should be minimum 8 characters.',
-    passwordMisMatchField: 'Provided passwords do not match',
-    confirmPasswordField:'Fill in the confirm password',
-    nameField:'Fill in the product name',
-    productTypeNameField:'Fill in the product type name',
+// Users
+     nameField:'The name field is required',
+    surnameField :'The surname field is required',
+    emailField: 'The email field is required',
+     positionField: 'The position field is required',
+     gradeField: 'The grade field is required',
+    
+    dobField: 'Pick your date of birth',
+    dateOfEmploymentField:'Pick a date of recruitment',
+    employmentTypeIdField:'The employment type is required',
+    employeeNumberField:'The employee number is required',
+    departmentIdField:'The department field is required',
+   genderField:'The gender field is required',
+   
+   
     typeIdField:'Fill in the product type',
     specificationField:'Fill in the product specification',
     orderedDateField:'Fill in the product ordered date',
@@ -17,25 +26,21 @@ const ERRORS = {
     productNameField:'Fill in the Product Name',
     quantityField:'Fill in the Product Quantity',
     regionField: 'Fill in the region',
-    positionField:'Fill in the position',
+   // positionField:'Fill in the position',
     physicalAddressField:'Fill in the Physical Address',
     cellphoneField:'Fill in the cellphone'
 };
 
-if (document.querySelector('#addProductsForm')) {
+if (document.querySelector('#registrationForm')) {
    new Vue({
-    el: "#addProductsForm",
+    el: "#registrationForm",
     data: {
         name: '',
-        nameFB: '',
-        productTypeId: '',
-        type_idFB: '',
-        specification: '',
-        specificationFB: '',
-        price: '',
-        priceFB: '',
-        initialQty: '',
-        unitFB: '',
+        surname: '',
+        email: '',
+        positionId: '',
+        gradeId: '',
+          isHidden: false,
         submition: false
     },
     computed: {
@@ -46,147 +51,142 @@ if (document.querySelector('#addProductsForm')) {
             }
             return false
         },
-        wrongTypeId:function() {  if(this.productTypeId === '') {
-            this.type_idFB = ERRORS.typeIdField;
+        wrongSurname:function() {  if(this.surname === '') {
+            this.surnameFB = ERRORS.surnameField;
             return true
         }
             return false },
-        wrongSpecification:function() {  if(this.specification === '') {
-            this.specificationFB = ERRORS.specificationField;
+        wrongEmail:function() {  if(this.email === '') {
+            this.emailFB = ERRORS.emailField;
             return true
         }
             return false },
-        wrongPrice:function() { if(this.price === '') {
-            this.priceFB = ERRORS.priceField;
+         wrongPositionId:function() { if(this.positionId === '') {
+            this.positionFB = ERRORS.positionField;
             return true
         }
             return false },
-        wrongUnit:function() {  if(this.initialQty === '') {
-            this.unitFB = ERRORS.unitField;
+        wrongGradeId:function() {  if(this.gradeId === '') {
+            this.gradeFB = ERRORS.gradeField;
             return true
         }
             return false }
     },
     methods: {
-        validateForm:function(event) {
+        registerUser:function(event) {
             this.submition = true;
             this.$validator.validateAll();
-            if(this.wrongName || this.wrongTypeId || this.wrongSpecification ||  this.wrongPrice || this.wrongUnit  || this.errors.any())
+            if(this.wrongName || this.wrongSurname || this.wrongEmail ||  this. wrongPositionId || this.wrongGradeId  || this.errors.any())
                 {
                     event.preventDefault();
                 } 
             else {
-                    axios.post('/createProduct')
-                        .then(function (response) {
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                   return true;
                 }
         },
-
-        updateDroneType: function (value) {
-                if (value !== '') {
-                    this.serviceTypeData = [];
-                    axios.get('/api/v1/droneSubType/' + value)
-                        .then(function (response) {
-                            $.each(response.data, function (key, value) {
-                                this.serviceTypeData.push(value);
-                            }.bind(this));
-                            return this.serviceTypeData;
-                        }.bind(this))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+    watch:
+            {
+                email:function()
+                {
+                    let str = this.email;
+                    
+                    if(str.length > 0)
+                        return    this.isHidden = true;
+                  
                 }
-            }
 
+            }
     }
 })
 }
 
-if (document.querySelector('#recipientForm')) {
+if (document.querySelector('#staffRegistrationForm')) {
 new Vue({
-    el: "#recipientForm",
+    el: "#staffRegistrationForm",
        data: {
-        name: '',
-        nameFB: '',
-        product_name: '',
-        product_nameFB: '',
-        quantity: '',
-        quantityFB: '',
-        submition: false,
-        isSearching:false,
-        query:'',
-        users:[]
+         name: '',
+        surname: '',
+        dob: '',
+        gender: '',
+        dateOfEmployment: '',
+        employmentTypeId:'',
+        employeeNumber: '',
+        departmentId: '',
+        positionId: '',
+        gradeId: '',
+        submition: false
     },
     computed: {
-        wrongRname:function() {
-            if(this.query === '') {
-            this.nameFB = ERRORS.recipeintNameField;
+        wrongName:function() {
+            if(this.name === '') {
+            this.nameFB = ERRORS.nameField;
             return true
             }
             return false
         },
-        wrongPname:function() {  if(this.product_name === '') {
-            this.product_nameFB = ERRORS.productNameField;
+        wrongSurname:function() {  if(this.surname === '') {
+            this.surnameFB = ERRORS.surnameField;
             return true
         }
             return false },
-        wrongPquantity:function() {  if(this.quantity === '') {
-            this.quantityFB = ERRORS.quantityField;
+        wrongDob:function() {  if(this.dob === '') {
+            this.dobFB = ERRORS.dobField;
             return true
         }
-            return false }
+            return false },
+            wrongGender:function() {  if(this.gender === '') {
+            this.gFB = ERRORS.genderField;
+            return true
+        }
+            return false },
+               wrongdateOfEmploment:function() {  if(this.dateOfEmployment === '') {
+            this.doeFB = ERRORS.dateOfEmploymentField;
+            return true
+        }
+            return false },
+               wrongEmploymentTypeId:function() {  if(this.employmentTypeId === '') {
+            this.etiFB = ERRORS.employmentTypeIdField;
+            return true
+        }
+            return false },
+               wrongEmployeeNumber:function() {  if(this.employeeNumber === '') {
+            this.enumFB = ERRORS.employeeNumberField;
+            return true
+        }
+            return false },
+               wrongDpt:function() {  if(this.departmentId === '') {
+            this.dptFB = ERRORS.departmentIdField;
+            return true
+        }
+            return false },
+
+               wrongPstn:function() {  if(this.positionId === '') {
+            this.pstnFB = ERRORS.positionField;
+            return true
+        }
+            return false },
+
+               wrongGrade:function() {  if(this.gradeId === '') {
+            this.gradeFB = ERRORS.gradeField;
+            return true
+        }
+            return false },
 
 
     },
-     // render: {
-     //    require: false,
-     //    type: Function,
-     //    default: function (users) {
-     //      return users
-     //    }
-     //  },
     methods: {
-        recipientValidateForm:function(event) {
+        validStaffForm:function(event) {
             this.submition = true;
-            if(this.wrongRname || this.wrongPname || this.wrongPquantity)
-                event.preventDefault()
+              this.$validator.validateAll();
+
+            if(this.wrongName || this.wrongSurname || this.wrongDob  || this.wrongdateOfEmploment  || this.wrongEmploymentTypeId  || this.wrongEmployeeNumber  || this.wrongDpt || this.wrongPstn || this.wrongGrade ||   this.errors.any());
+               
+                {
+                     event.preventDefault()
+
+                }
         }
 
-    },
-    watch:
-    {
-        query: function(query)
-        {
-           this.isSearching = true;
-           var vm = this;
-
-           if(this.query ==='')
-           {
-               vm.isSearching = false;
-               console.log(vm.users=[]);
-               return vm.users = [];
-
-               }
-           else{
-               setTimeout(function()
-               {
-                   axios.get('/recipientList/'+query)
-                       .then(response=>{
-                       vm.users = [];
-                   response.data.forEach((user) =>{
-                       vm.users.push(user);
-                     vm.isSearching = false;
-
-               });
-               });
-
-
-               } ,1000);
-               }
-           }
 
     }
 

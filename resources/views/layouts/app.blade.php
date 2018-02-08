@@ -32,7 +32,8 @@
 
                 emailField:'Provide the email',
                 passwordField:'Provide the password',
-                wrongEmailFormatField:'Wrong email format provided'
+                wrongEmailFormatField:'Wrong email format provided',
+                passwordConField :'Provide the confirm password'
 
             };
 
@@ -45,6 +46,9 @@
             emailFB: '',
             password: '',
             passwordFB: '',
+            password_confirmation:'',
+            confirmPwdB:'',
+            isHidden: false,
             submition: false
               },
               
@@ -61,13 +65,19 @@
                     return true
                 }
                     return false },
+                wrongConfirmPassword:function() {  if(this.password_confirmation === '') {
+                    this.confirmPwdB = ERRORS.passwordConField;
+                    return true
+                }
+                    return false }
                
             },
 
              methods: {
                     loginForm:function(event) {
                         this.submition = true;
-                        if(this.wrongEmail ||  this.wrongPassword)
+                        this.$validator.validateAll();
+                        if(this.wrongEmail ||  this.wrongPassword  || this.errors.any())
                             event.preventDefault();
                         else {
                            
@@ -77,16 +87,62 @@
 
                     logIn :function() {
                       
-                    this.loginForm()
+                    this.loginForm();
                     return this.message = '<span>Logging in..</span>';
 
                 },
-                emailFomat:function()
+
+                sendResetLink:function(event) {
+                        this.submition = true;
+                    this.$validator.validateAll();
+                        if(this.wrongEmail || this.errors.any())
+                            event.preventDefault();
+                        else {
+                           
+                            return true
+                        }
+                    },
+                 resetPassword:function(event) {
+                     this.submition = true;
+                     this.$validator.validateAll();
+                     if(this.wrongEmail ||  this.wrongPassword || this.wrongConfirmPassword  || this.errors.any())
+                         event.preventDefault();
+                     else {
+                         console.log('am called');
+                         return true
+                     }
+                 }
+
+                },
+
+                watch:
+            {
+                email:function()
                 {
+                    var str = this.email;
                     
-                }
+                    if(str.length > 0 )
+                        return    this.isHidden = true;
+                  
+                },
+                password:function()
+                {
+                    var str = this.password;
+
+                    if(str.length > 0 )
+                        return    this.isHidden = true;
+
+                },
+                password_confirmation:function()
+                {
+                    var str = this.password_confirmation;
+
+                    if(str.length > 0 )
+                        return    this.isHidden = true;
 
                 }
+
+            }
 
         });
     </script>

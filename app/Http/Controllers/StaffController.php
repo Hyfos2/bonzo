@@ -20,7 +20,7 @@ class StaffController extends Controller
     
     public function addStaff(Request $request)
     {
-            //return $request->all();
+
 
 
         $gradesDetails    =Grade::where('id',$request->gradeId)->first();
@@ -31,7 +31,7 @@ class StaffController extends Controller
         $newStaff->dob =$request->dob;
         $newStaff->gender  =$request->gender;
         $newStaff->dateOfEmployment =$request->dateOfEmployment;
-        $newStaff->employmentTypeId= $request->employementTypeId;
+        $newStaff->employmentTypeId = $request->employementTypeId;
         $newStaff->employeeNumber =$request->employeeNumber;
         $newStaff->departmentId =$request->departmentId;
         $newStaff->positionId=$request->positionId;
@@ -62,13 +62,11 @@ class StaffController extends Controller
 
     public function staff()
     {
-        $staff = \DB::table('staff')
-                    ->where('onLeave',0)
-                    ->get();
+        $staff = Staff::with(['department','position','grade','employment'])->get();
 
 		return Datatables::of($staff)
             ->addColumn('action', function ($staff) {
-                return '<a href="#edit-'.$staff->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="getStaffDetail/'.$staff->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
             ->make(true);
     }
@@ -176,4 +174,12 @@ class StaffController extends Controller
                 return back()->with($notification);
 
    }
+   public function getStaffDetail($id)
+   {
+       $getDetails   =Staff::with(['department','position','grade','employment'])->find($id);
+       $staffLeaveRecords  =LeaveDay::with('staff')->where('staffId',$id)->get();
+
+       return view('staff.getStaffDetails',compact('getDetails','staffLeaveRecords'));
+   }
+
 }

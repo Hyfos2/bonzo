@@ -3,7 +3,7 @@
         
           <li class="dropdown">
             <a class="sa-side-users" href="#">
-               <span class="menu-item">STAFF </span>
+               <span class="menu-item">STAFF / USERS </span>
             </a>
             <ul class="list-unstyled menu-item">
 
@@ -62,7 +62,7 @@
 @elseif(Auth::user()->positionId==1)
           <li class="dropdown">
             <a class="sa-side-users" href="#">
-               <span class="menu-item">STAFF </span>
+               <span class="menu-item">STAFF / USERS</span>
             </a>
             <ul class="list-unstyled menu-item">
              

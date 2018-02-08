@@ -15,49 +15,52 @@
 
       <hr class="whiter m-t-20">
             <hr class="whiter m-b-20">
-             <form class="form-horizontal" method="POST" href="{{'addUser'}}">
+             <form class="form-horizontal" method="POST" href="{{'addUser'}}" id="registrationForm" v-on:submit="registerUser" >
                         {{ csrf_field() }}
            
             <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
-                  @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
+                  {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name', 'v-validate' =>"'alpha_spaces'",'autocomplete'=>'off','v-model'=>'name']) !!}
+                    <span class="help-block"  v-cloak v-if="submition && wrongName" style="color:red;">@{{nameFB}}</span>
+                    <span style="color: red;"  v-cloak v-show="errors.has('name')" class="help is-danger">@{{errors.first('name') }}</span>
                 </div>
             </div>
 
             <div class="form-group">
                 {!! Form::label('Surname', 'Surname', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname','autocomplete'=>'off']) !!}
-                  @if ($errors->has('surname')) <p class="help-block red">*{{ $errors->first('surname') }}</p> @endif
+                  {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname', 'v-validate' =>"'alpha_spaces'",'autocomplete'=>'off','v-model'=>'surname']) !!}
+                
+                    <span class="help-block"  v-cloak v-if="submition && wrongSurname" style="color:red;">@{{surnameFB}}</span>
+                    <span style="color: red;"  v-cloak v-show="errors.has('surname')" class="help is-danger">@{{errors.first('surname') }}</span>
                 </div>
             </div>
 
                <div class="form-group">
                 {!! Form::label('Email', 'Email', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('email',NULL,['class' => 'form-control input-sm','email' ,'placeholder'=> '  infor@howbmc.co.zw','autocomplete'=>'off']) !!}
-                  @if ($errors->has('email')) <p class="help-block red">* {{ $errors->first('email') }}</p> @endif
+                  
+<input name="email" v-validate="'email'" class="form-control" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" autocomplete="off" v-model="email" placeholder="infor@howbmc.co.zw">
+
+                  @if ($errors->has('email')) <p v-bind:class="{hidden :isHidden}"  class="help-block red">* {{ $errors->first('email') }}</p> @endif
+                   <span v-show="errors.has('email')" v-cloak class="help is-danger" style="color:red;">@{{errors.first('email') }}</span>
+                    <span class="help-block"  v-cloak v-if="submition && wrongEmail" style="color:red;">@{{emailFB}}</span>
               </div>
             </div>
-
-
-
 
             <div class="form-group">
                 {!! Form::label('Position', 'Position', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
 
-                   <select  name="positionId"  class="form-control" >
-                        <option  selected disabled >Select Position</option>
+               <select  name="positionId"  v-cloak class="form-control" v-model ="positionId">
+        
                                 @foreach($pos as $type)
                                     <option  value="{{$type->id}}">{{$type->name}}</option>
                                 @endforeach
                             </select>
 
-                 
-                  @if ($errors->has('id_number')) <p class="help-block red">* {{ $errors->first('id_number') }}</p> @endif
+                    <span class="help-block"  v-cloak v-if="submition && wrongPositionId" style="color:red;">@{{positionFB}}</span>
                 </div>
             </div>
 
@@ -65,14 +68,13 @@
                 {!! Form::label('Grade', 'Grade', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
 
-                   <select  name="gradeId"  class="form-control" >
-                        <option  selected disabled >Select Grade</option>
+                   <select  name="gradeId" v-cloak class="form-control" v-model ="gradeId" >
                                 @foreach($grade as $type)
-                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                                    <option    value="{{$type->id}}">{{$type->name}}</option>
                                 @endforeach
                             </select>
           
-                  @if ($errors->has('gradeId')) <p class="help-block red">* {{ $errors->first('gradeId') }}</p> @endif
+                   <span class="help-block"  v-cloak v-if="submition && wrongGradeId" style="color:red;">@{{gradeFB}}</span>
                 </div>
             </div>
 
@@ -98,56 +100,3 @@
 
 @endsection
 
-@section('footer')
-<script>
-   $(document).ready(function() {
-
-      $("#province").change(function(){
-
-        $.get("{{ url('/api/dropdown/districts/province')}}",
-        { option: $(this).val()},
-        function(data) {
-        $('#district').empty();
-        $('#municipality').empty();
-        $('#ward').empty();
-        $('#district').removeAttr('disabled');
-        $('#district').append("<option value='0'>Select one</option>");
-        $('#municipality').append("<option value='0'>Select one</option>");
-        $('#ward').append("<option value='0'>Select one</option>");
-        $.each(data, function(key, element) {
-        $('#district').append("<option value="+ key +">" + element + "</option>");
-        });
-        });
-
-   })
-
-    $("#district").change(function(){
-        $.get("{{ url('/api/dropdown/municipalities/district')}}",
-        { option: $(this).val() },
-        function(data) {
-        $('#municipality').empty();
-        $('#municipality').removeAttr('disabled');
-        $('#municipality').append("<option value='0'>Select one</option>");
-        $.each(data, function(key, element) {
-        $('#municipality').append("<option value="+ key +">" + element + "</option>");
-        });
-        });
-    });
-
-    $("#municipality").change(function(){
-        $.get("{{ url('/api/dropdown/wards/municipality')}}",
-        { option: $(this).val() },
-        function(data) {
-        $('#ward').empty();
-        $('#ward').removeAttr('disabled');
-        $('#ward').append("<option value='0'>Select one</option>");
-        $.each(data, function(key, element) {
-        $('#ward').append("<option value="+ key +">" + element + "</option>");
-        });
-        });
-    });
-
-  })
-
-</script>
-@endsection

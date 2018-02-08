@@ -14,9 +14,12 @@ class ShiftController extends Controller
    {
 
    	 return view('home.workingStaff');
+   	 }
 
-   }
-
+   	 public function workingTeam()
+     {
+         return view('home.workingTeam');
+     }
    public function addShift(Request $request)
    {
 
@@ -50,6 +53,18 @@ class ShiftController extends Controller
             })
             ->make(true);
          
+
+   }
+   public function getShiftTeam()
+   {
+
+       $teamOnshifts = WorkingStaff::with(['staff','hour'])->get();
+
+       return Datatables::of($teamOnshifts)
+           ->addColumn('action', function ($teamOnshifts) {
+               return '<a href="#edit-'.$teamOnshifts->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+           })
+           ->make(true);
 
    }
 

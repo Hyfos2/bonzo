@@ -12,8 +12,11 @@ class Position extends Model
 	];
     
     public function user()
-    {
-    	return $this->hasMany(User::class);
-
-	 }
+        {
+            return $this->hasMany(User::class);
+            }
+    public function staff()
+        {
+            return $this->hasMany(Staff::class);
+        }
 }

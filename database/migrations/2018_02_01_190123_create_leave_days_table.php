@@ -15,7 +15,8 @@ class CreateLeaveDaysTable extends Migration
             $table->integer('daysTaken');
             $table->date('startDate');
             $table->date('endDate');
-            $table->integer('created_by');
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('user');
             $table->foreign('staffId')->references('id')->on('staff');
             $table->timestamps();
         });

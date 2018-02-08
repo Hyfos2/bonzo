@@ -11,7 +11,7 @@
                         LOGIN
                       </div>
 
-                              <div class="card-body">
+        <div class="card-body">
                                 <br/>
                                  <form class="form-horizontal" method="POST" action="{{ route('app.login') }}" id="Login"  v-on:submit="loginForm" >
                                    {{ csrf_field() }}
@@ -28,7 +28,7 @@
 
                                         <div class="bar"></div>
                   @if ($errors->has('email'))
-                  <span class="help-block" style="color:red;">
+                  <span class="help-block"  v-bind:class="{hidden :isHidden}" style="color:red;">
                                   {{ $errors->first('email') }}
                     </span>
                                         @endif

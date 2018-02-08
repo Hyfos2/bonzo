@@ -5,7 +5,8 @@ Hi <strong> {{ucfirst($name)}} {{ucfirst($surname)}} </strong> your account has 
             - email :   {{$email}}<br>
             - password: <strong> {{$password}}</strong><br>
 
-@component('mail::button', ['url' => ''])
+Click on the button below, to log in
+@component('mail::button', ['url' => env('APP_URL')])
 log in
 @endcomponent
 

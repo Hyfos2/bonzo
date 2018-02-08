@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\LeaveDay;
 
 class LeaveController extends Controller
 {
     public function getLeavedays()
     {
-        $leaveDays = \DB::table('leave_days')
+        $leaveDays = LeaveDay::with('staff')
             ->get();
 
         return Datatables::of($leaveDays)

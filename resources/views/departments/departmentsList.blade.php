@@ -7,7 +7,7 @@
         <li class="active">Departments List</li>
     </ol>
 
-    <h4 class="page-title">LIST</h4>
+    <h4 class="page-title">Department List</h4>
     <!-- Alternative -->
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Departments List</h3>
@@ -34,19 +34,20 @@
     @include('departments.new')
 @endsection
 @push('scripts')
-<script>
-    $(function() {
-        $('#departmentsTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!!url('/getDepartment/')!!}',
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
+    <script>
+        $(function() {
+            $('#departmentsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!!url('/getDepartment/')!!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush
+
 

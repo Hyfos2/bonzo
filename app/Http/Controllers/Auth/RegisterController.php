@@ -57,16 +57,7 @@ class RegisterController extends Controller
             return implode($pass);
 
     }
-    public function goBack()
-    {
-        $notification = array(
-            'message'=>' a new user was added.',
-            'alert-type'=>'success'
-        );
-
-        return  back()->with($notification);
-
-    }
+    
 
 
 }

@@ -6,11 +6,16 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "consoletvs/charts": "5.*",
+        "eduardokum/laravel-mail-auto-embed": "^1.0",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "yajra/laravel-datatables-oracle": "^8.3"
+        "maatwebsite/excel": "~2.1.0",
+        "phpoffice/phpspreadsheet": "^1.1",
+        "yajra/laravel-datatables": "^1.0",
+        "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

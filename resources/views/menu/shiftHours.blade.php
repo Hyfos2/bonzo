@@ -14,10 +14,15 @@
 
                       <li>
                         <a class="" href="{{ url('workingHours') }}">
+                            <span class="">Working Hours</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="{{ url('workingTeam') }}">
                             <span class="">Staff on Shift</span>
                         </a>
-                    </li>        
-        
+                    </li>
+
                 </ul>
             </li>
              @elseif(Auth::user()->positionId ==3)
@@ -28,7 +33,7 @@
                 <ul class="list-unstyled menu-item">
                     <li>
                         <a class="" href="{{ url('workingHours') }}">
-                            <span class="">Staff on Shift</span>
+                            <span class="">Working Hours</span>
                         </a>
                     </li> 
                 </ul>
@@ -42,7 +47,7 @@
                 <ul class="list-unstyled menu-item">
                     <li>
                         <a class="" href="{{ url('workingHours') }}">
-                            <span class="">Staff on Shift</span>
+                            <span class="">Working Hours</span>
                         </a>
                     </li> 
                 </ul>

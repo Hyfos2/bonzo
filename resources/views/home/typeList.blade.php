@@ -5,7 +5,7 @@
         <li class="active">Employment Types</li>
     </ol>
 
-    <h4 class="page-title">Type</h4>
+    <h4 class="page-title">Employment Type</h4>
 
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Employment Type List</h3>
@@ -32,20 +32,21 @@
 
 @endsection
 @push('scripts')
-<script>
-    $(function() {
-        $('#typeListTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!!url('/getTypes/')!!}',
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
+    <script>
+        $(function() {
+            $('#typeListTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!!url('/getTypes/')!!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush
+
 
 

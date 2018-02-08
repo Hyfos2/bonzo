@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('content')
+    <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
 
    @if (Auth::user())
            @if(Auth::user()->positionId!=1 || Auth::user()->positionId!=2|| Auth::user()->positionId!=3 )
@@ -12,7 +13,7 @@
     @endif
     @endif
 
-    <h4 class="page-title">STAFF</h4>
+    <h4 class="page-title">New Time Sheet</h4>
 
     <!-- Basic with panel-->
     <div class="block-area" id="basic">
@@ -28,48 +29,30 @@
             <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
+                    {!! Form::text('timeSheetName',NULL,['class' => 'form-control input-sm','id' => 'timeSheetName']) !!}
                     @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                 </div>
             </div>
 
-            <div class="form-group">
-                {!! Form::label('Surname', 'Surname', array('class' => 'col-md-3 control-label')) !!}
-                <div class="col-md-6">
-                    {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname']) !!}
-                    @if ($errors->has('surname')) <p class="help-block red">*{{ $errors->first('surname') }}</p> @endif
-                </div>
-            </div>
-
-
-
-
-            <div class="form-group">
-                {!! Form::label('Employee Number', 'Employee Number', array('class' => 'col-md-3 control-label')) !!}
-                <div class="col-md-6">
-                    {!! Form::text('employeeNumber',NULL,['class' => 'form-control input-sm','id' => 'employeeNumber'  ]) !!}
-                    @if ($errors->has('employeeNumber')) <p class="help-block red">* {{ $errors->first('employeeNumber') }}</p> @endif
-                </div>
-            </div>
-            <hr class="whiter m-t-20">
-            <hr class="whiter m-b-20">
-
-
-            <div class="form-group">
-                {!! Form::label('Date', 'Date', array('class' => 'col-md-3 control-label')) !!}
-                <div class="col-md-6">
-                    {!! Form::text('date',NULL,['class' => 'form-control input-sm','date' ]) !!}
-                    @if ($errors->has('date')) <p class="help-block red">* {{ $errors->first('date') }}</p> @endif
-                </div>
-            </div>
 
             <div class="form-group">
                 {!! Form::label('Job Number','Job Number' , array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('jobNumber',NULL,['class' => 'form-control input-sm','id'=>'jobNumber']) !!}
+                    <select  name="jobNumber"   class="form-control">
+                        <option selected disabled>Select Department</option>
+                        @foreach($dprtments as $type)
+                            <option  value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
+                    </select>
+                    {{--{!! Form::text('jobNumber',NULL,['class' => 'form-control input-sm','id'=>'jobNumber']) !!}--}}
+
                     @if ($errors->has('jobNumber')) <p class="help-block red">* {{ $errors->first('jobNumber') }}</p> @endif
                 </div>
             </div>
+
+            <hr class="whiter m-t-20">
+            <hr class="whiter m-b-20">
+
 
 
             <div class="form-group">
@@ -139,8 +122,8 @@
 
 
              <div class="form-group">
-                <div class="col-md-offset-2 col-md-6">
-                    <button type="submit" id='submitMemberForm' class="btn btn-info btn-sm m-t-10">SUBMIT FORM</button>
+                <div class="col-md-offset-3 col-md-6">
+                    <button type="submit" id='submitMemberForm' class="btn btn-info btn-sm m-t-10">Create Time Sheet</button>
                 </div>
             </div>
             <hr class="whiter m-t-20">
@@ -158,6 +141,8 @@
 
 @section('footer')
     <script>
+
+
         $(document).ready(function() {
             $("#province").change(function(){
 

@@ -18,8 +18,8 @@
                 template: 'modal',
                  timeFormat: 'H:i',
                  interval: 30,
-                minTime: '08:00:00',
-                 maxTime:'00:00:00'
+                minTime: '00:00:00',
+                 maxTime:'23:00:00'
             });
 
         });
@@ -30,22 +30,11 @@
                 template: 'modal',
                 timeFormat: 'H:i',
                 interval: 30,
-                  minTime: '08:00:00',
-                maxTime:'00:00:00'
+                  minTime: '00:00:00',
+                maxTime:'23:00:00'
             });
         });
 
-        // $b('.timepicker').timepicker({
-        //     timeFormat: 'h:mm p',
-        //     interval: 60,
-        //     minTime: '10',
-        //     maxTime: '6:00pm',
-        //     defaultTime: '11',
-        //     startTime: '10:00',
-        //     dynamic: false,
-        //     dropdown: true,
-        //     scrollbar: true
-        // });
     </script>
 
 <div class="modal fade modalAddShiftHours" id="modalAddShiftHours" tabindex="-1" role="dialog" aria-hidden="true">
@@ -61,7 +50,7 @@
                  <div class="form-group">
                     {!! Form::label('Shift Name', 'Shift Name', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                       {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name']) !!}
+                       {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name' ,'autocomplete' =>'off']) !!}
                     
                         @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                     </div>

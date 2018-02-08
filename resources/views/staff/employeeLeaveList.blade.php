@@ -65,7 +65,7 @@
                     <th>Id</th>
                     <th>name</th>
                     <th>Approved by</th>
-                    <th>off days</th>
+                    <th>Leave days</th>
                     <th>start date</th>
                     <th>end date</th>
                     <th>Actions</th>
@@ -78,26 +78,27 @@
     @include('staff.newLeave')
 @endsection
 @push('scripts')
-<script>
-    $(function() {
-        $('#leaveTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!!url('/getLeaveDays/')!!}',
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'staffId', name: 'staffId'},
-                {data: 'created_by', name: 'created_by'},
-                {data: 'daysTaken', name: 'daysTaken'},
-                {data: 'startDate', name: 'startDate'},
-                {data: 'endDate', name: 'endDate'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
+    <script>
+       {{--// var name ="{{\Auth::user()->name}}"+" "+ "{{\Auth::user()->surname}}";--}}
+        $(function() {
+            $('#leaveTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!!url('/getLeaveDays/')!!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data : function(d)
+                        {
+                            return d.staff.name +" "+d.staff.surname;
+                        },name:'staffId'},
+                    // {data: 'staffId', name: 'staffId'},
+                    {data: 'created_by',name:'created_by'},
+                         {data: 'daysTaken', name: 'daysTaken'},
+                    {data: 'startDate', name: 'startDate'},
+                    {data: 'endDate', name: 'endDate'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush
-@section('footer')
-
-
-@endsection
