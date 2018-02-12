@@ -47,7 +47,8 @@ Route::get('/users','UsersController@index')->name('users');
 Route::post('/addUser','Auth\RegisterController@register');
 Route::post('/addPosition','PositionsController@create');
 Route::get('/getStaffDetail/{id}','StaffController@getStaffDetail');
-Route::get('/getStaffDetails/','StaffController@getStaffDetail');
+Route::get('/getStaffDetails/','StaffController@getStaffDetails');
+Route::get('/getStaff/','StaffController@getStaff');
 Route::get('workingTeam','ShiftController@workingTeam');
 Route::get('getShiftTeam','ShiftController@getShiftTeam');
 

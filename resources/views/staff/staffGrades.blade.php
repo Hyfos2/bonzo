@@ -20,7 +20,7 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
+                    {{--<th>Name</th>--}}
                     <th>Grade</th>
                     <th>Salary</th>
                     <th>Actions</th>
@@ -41,7 +41,7 @@
                 ajax: '{!!url('/getGrades/')!!}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
+                    // {data: 'name', name: 'name'},
                     {data: 'grade', name: 'grade'},
                     {data: 'salary', name: 'salary'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

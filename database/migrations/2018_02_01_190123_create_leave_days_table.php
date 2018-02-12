@@ -14,9 +14,13 @@ class CreateLeaveDaysTable extends Migration
             $table->integer('staffId')->unsigned();
             $table->integer('daysTaken');
             $table->date('startDate');
+            $table->string('reasonForRequest');
+            $table->string('approved')->nullable();
             $table->date('endDate');
             $table->integer('created_by')->unsigned();
-            $table->foreign('created_by')->references('id')->on('user');
+//          $table->integer('approvedBy')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users');
+//          $table->foreign('approvedBy')->references('id')->on('user');
             $table->foreign('staffId')->references('id')->on('staff');
             $table->timestamps();
         });

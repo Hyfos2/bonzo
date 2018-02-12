@@ -1163,7 +1163,8 @@ hr {
 
 .modal-content, .dark {
     /*background: rgba(0, 0, 0, 0.68);*/
-    background-color: #607d8b;
+    /*background-color: #607d8b;*/
+    background: rgba(0,0,0,0.5);
     border: 0;
     color: #fff;
 

@@ -64,9 +64,11 @@
 
     <label for="inputTitle" style="text-align: left;" class="col-md-2 control-label">Leave Status</label>
     <div class="col-md-10">
-
-        <input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->onLeave}}" disabled>
-
+        @if($getDetails->onLeave==1)
+        <input class="form-control input-sm" type="text"  name="title" value="Yes" disabled>
+           @else($getDetails->onLeave)
+            <input class="form-control input-sm" type="text"  name="title" value="No" disabled>
+        @endif
     </div>
 </div>
 <div class="form-group">

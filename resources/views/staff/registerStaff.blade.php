@@ -58,7 +58,8 @@
            <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
+                  {!! Form::text('name',old('name'),['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
+                    @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
 
                 </div>
             </div>
@@ -66,7 +67,8 @@
             <div class="form-group">
                 {!! Form::label('Surname', 'Surname', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                  {!! Form::text('surname',NULL,['class' => 'form-control input-sm','id' => 'surname','autocomplete'=>'off']) !!}
+                  {!! Form::text('surname',old('surname'),['class' => 'form-control input-sm','id' => 'surname','autocomplete'=>'off']) !!}
+                    @if ($errors->has('surname')) <p class="help-block red">*{{ $errors->first('surname') }}</p> @endif
                 
                                     </div>
             </div>
@@ -74,7 +76,8 @@
              <div class="form-group">
                 {!! Form::label('Date Of Birth', 'Date Of Birth', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    <p><input type = "text"   value="{{ old('dob') }}"   name="dob" placeholder ="Pick  A Date" id = "datepicker-Todate" class="form-control input-sm" ></p>
+                    <p><input type = "text"   value="{{ old('dateOfBirth') }}"   name="dateOfBirth" placeholder ="Pick  A Date" id = "datepicker-Todate" class="form-control input-sm" ></p>
+                    @if ($errors->has('dateOfBirth')) <p class="help-block red">*{{ $errors->first('dateOfBirth') }}</p> @endif
                                   </div>
             </div>
 
@@ -82,7 +85,8 @@
               <div class="form-group">
                 {!! Form::label('Gender', 'Gender', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::select('gender',['0'=>'Select Gender','Male' => 'Male','Female' => 'Female'],0,['class' => 'form-control' ,'id' => 'gender']) !!}
+                    {!! Form::select('gender',[''=>'Select Gender','Male' => 'Male','Female' => 'Female'],0,['class' => 'form-control' ,'id' => 'gender']) !!}
+                    @if ($errors->has('gender')) <p class="help-block red">*{{ $errors->first('gender') }}</p> @endif
 
                 </div>
             </div>
@@ -94,6 +98,7 @@
                 {!! Form::label('Recruitment Date', 'Recruitment Date', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
                         <input type = "text"   value="{{ old('dateOfEmployment') }}"   name="dateOfEmployment" placeholder ="Pick A Date" id = "datepicker-Fromdate" class="form-control input-sm" >
+                    @if ($errors->has('dateOfEmployment')) <p class="help-block red">*{{ $errors->first('dateOfEmployment') }}</p> @endif
 
                 </div>
             </div>
@@ -101,12 +106,13 @@
              <div class="form-group">
                 {!! Form::label('Employment Type', 'Employment Type', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    <select  name="employmentTypeId" class="form-control" >
-                        <option selected disabled>Select Department</option>
+                    <select  name="employmentType" class="form-control" >
+                        <option selected disabled>Select Employment Type</option>
                         @foreach($employmentTypes as $type)
-                            <option  value="{{$type->id}}">{{$type->name}}</option>
+                            <option  value="{{$type->id}}" @if(old('employmentType') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('employmentType')) <p class="help-block red">*{{ $errors->first('employmentType') }}</p> @endif
 
 
                 </div>
@@ -116,7 +122,8 @@
               <div class="form-group">
                 {!! Form::label('Staff Number', 'Staff Number', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('employeeNumber',NULL,['class' => 'form-control input-sm','id' => 'employeeNumber','autocomplete'=>'off']) !!}
+                    {!! Form::text('employeeNumber',old('employeeNumber'),['class' => 'form-control input-sm','id' => 'employeeNumber','autocomplete'=>'off']) !!}
+                    @if ($errors->has('employeeNumber')) <p class="help-block red">*{{ $errors->first('employeeNumber') }}</p> @endif
 
 
                 </div>
@@ -126,12 +133,13 @@
                 {!! Form::label('Department', 'Department', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
 
-                    <select  name="departmentId" class="form-control" >
+                    <select  name="department" class="form-control" >
                         <option selected disabled>Select Department</option>
                                 @foreach($dprtments as $type)
-                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                            <option  value="{{$type->id}}" @if(old('department') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                                 @endforeach
                             </select>
+                    @if ($errors->has('department')) <p class="help-block red">*{{ $errors->first('department') }}</p> @endif
 
 
                 </div>
@@ -141,12 +149,13 @@
                 {!! Form::label('Position', 'Position', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
                    
-                     <select name="positionId" class="form-control"  >
+                     <select name="position" class="form-control"  >
                          <option selected disabled>Select Position</option>
                                 @foreach($positions as $type)
-                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                             <option  value="{{$type->id}}" @if(old('position') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                                 @endforeach
                             </select>
+                    @if ($errors->has('position')) <p class="help-block red">*{{ $errors->first('position') }}</p> @endif
 
                 </div>
             </div>
@@ -155,12 +164,13 @@
              <div class="form-group">
                 {!! Form::label('Grade', 'Grade', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    <select   name="gradeId" class="form-control"  >
+                    <select   name="grade" class="form-control"  >
                         <option selected disabled>Select Grade</option>
                                 @foreach($grades as $type)
-                                    <option  value="{{$type->id}}">{{$type->name}}</option>
+                            <option  value="{{$type->id}}" @if(old('grade') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                                 @endforeach
                             </select>
+                    @if ($errors->has('grade')) <p class="help-block red">*{{ $errors->first('grade') }}</p> @endif
 
                 </div>
             </div>

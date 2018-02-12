@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (\Schema::hasTable('grades'))
         {
-            $grades          = Grade::orderBy('name','ASC')
+            $grades          = Grade::orderBy('grade','ASC')
                                                  ->get();
             $selectGrades    = array();
             $selectGrades[0] = "Select Grade";

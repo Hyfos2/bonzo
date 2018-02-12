@@ -50,6 +50,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Eduardokum\LaravelMailAutoEmbed\ServiceProvider::class,
+        'Barryvdh\Debugbar\ServiceProvider',
+        DevMarketer\LaraFlash\LaraFlashServiceProvider::class,
 
     ],
 
@@ -93,6 +95,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'LaraFlash' => DevMarketer\LaraFlash\LaraFlashFacade::class,
 
     ],
 

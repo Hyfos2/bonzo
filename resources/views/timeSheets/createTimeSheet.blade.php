@@ -53,12 +53,11 @@
             <hr class="whiter m-t-20">
             <hr class="whiter m-b-20">
 
-
-
             <div class="form-group">
                 {!! Form::label('Leave', 'Leave', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('leave',NULL,['class' => 'leave form-control input-sm','id' => 'leave' , 'required']) !!}
+                    {{--{!! Form::text('leave',NULL,['class' => 'leave form-control input-sm','id' => 'leave' , 'required']) !!}--}}
+                    {!! Form::select('leave',['0'=>'Select Leave','Yes' => 'Yes','No' => 'No'],0,['class' => 'form-control' ,'id' => 'leave']) !!}
 
                 </div>
             </div>
@@ -90,7 +89,7 @@
             <div class="form-group">
                 {!! Form::label('Postal Code', 'Postal Code', array('class' => 'col-md-3 control-label' , 'required' )) !!}
                 <div class="col-md-6">
-                    {!! Form::text('postal_code',NULL,['class' => 'postal_code form-control input-sm','id' => 'postal_code' , 'required']) !!}
+                    {!! Form::text('postalCode',NULL,['class' => 'postal_code form-control input-sm','id' => 'postalCode' , 'required']) !!}
 
                 </div>
             </div>
@@ -98,7 +97,7 @@
             <div class="form-group">
                 {!! Form::label('Standby', 'Standby', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('Standby',NULL,['class' => 'Standby form-control input-sm','id' => 'Standby' , 'required']) !!}
+                    {!! Form::text('standBy',NULL,['class' => 'Standby form-control input-sm','id' => 'standBy' , 'required']) !!}
 
                 </div>
             </div>

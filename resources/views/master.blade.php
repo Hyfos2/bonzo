@@ -185,11 +185,11 @@
    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
    <script src="{{ asset('js/vue.js') }}"></script>
-    {{--<script src="{{asset('js/vee-validate.js')}}"></script>--}}
-    {{--<script src="{{asset('js/vee-validate2.js')}}"></script>--}}
-    {{--<script>--}}
-        {{--Vue.use(VeeValidate);--}}
-    {{--</script>--}}
+    <script src="{{asset('js/vee-validate.js')}}"></script>
+    <script src="{{asset('js/vee-validate2.js')}}"></script>
+    <script>
+        Vue.use(VeeValidate);
+    </script>
 
    <script src="{{ asset('js/main.js') }}"></script>
   <script>
@@ -218,7 +218,7 @@
   
     // var $t = jQuery.noConflict();
      $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
-     $("#timeSheetName").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
+     $("#timeSheetName").tokenInput("{!! url('/getStaff')!!}",{tokenLimit:1});
 </script>
 <script>
      $("#shiftHoursId").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});

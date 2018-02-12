@@ -6,13 +6,15 @@ const ERRORS = {
     emailField: 'The email field is required',
      positionField: 'The position field is required',
      gradeField: 'The grade field is required',
+     gdeNmbeField:'The grade field is required',
+     salaryField:'The salary field is required',
     
     dobField: 'Pick your date of birth',
     dateOfEmploymentField:'Pick a date of recruitment',
     employmentTypeIdField:'The employment type is required',
     employeeNumberField:'The employee number is required',
     departmentIdField:'The department field is required',
-   genderField:'The gender field is required',
+    genderField:'The gender field is required',
    
    
     typeIdField:'Fill in the product type',
@@ -193,66 +195,58 @@ new Vue({
 });
 }
 
-if (document.querySelector('#userPreferenceForm')) {
+if (document.querySelector('#gradeForm')) {
    new Vue({
-    el: "#userPreferenceForm",
+    el: "#gradeForm",
     data: {
-        password: '',
-        passwordFB: '',
-        passwordVerificationFB: '',
-        confirm_password: '',
+        grade: '',
+        salary: '',
+        isHidden: false,
         submition: false
     },
     computed: {
-        wrongPassword:function() {  if(this.password === '') {
-            this.passwordFB = ERRORS.pwdField;
-            return true
-        }
-            return false },
-        wrongPwdVerification:function() {  if(this.confirm_password === '') {
-            this.passwordVerificationFB = ERRORS.confirmPasswordField;
-            return true
-        }
+        wrongGrade:function()
+        {  if(this.grade === '')
+                    {
+                        this.gradeFB = ERRORS.gdeNmbeField;
+                        return true
+                    }
             return false },
 
-            passwordMisMatch:function() {  if(this.confirm_password !== this.password) {
-            this.passwordMisMatchFB = ERRORS.passwordMisMatchField;
-            return true
-        }
+        wrongSalary:function() {  if(this.salary === '')
+                    {
+                        this.salaryFB = ERRORS.salaryField;
+                        return true
+                    }
             return false }
+
+
     },
     methods: {
-        preferenceForm:function(event) {
+        addGrade:function(event) {
             this.submition = true;
-            if(this.wrongPassword || this.wrongPwdVerification || this.passwordMisMatch)
+            this.$validator.validateAll();
+            if(this.wrongGrade || this.wrongSalary ||this.errors.any())
                 event.preventDefault();
             else {
-                    axios.post('/preference')
-                        .then(function (response) {
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    return true;
                 }
-        },
+        }
 
-        updateDroneType: function (value) {
-                if (value !== '') {
-                    this.serviceTypeData = [];
-                    axios.get('/api/v1/droneSubType/' + value)
-                        .then(function (response) {
-                            $.each(response.data, function (key, value) {
-                                this.serviceTypeData.push(value);
-                            }.bind(this));
-                            return this.serviceTypeData;
-                        }.bind(this))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            }
 
-    }
+    },
+       watch:
+           {
+               grade:function()
+               {
+                   let str = this.grade;
+
+                   if(str.length > 0)
+                       return    this.isHidden = true;
+
+               }
+
+           }
 })
 }
 

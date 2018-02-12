@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Grade;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Validator;
 
 class GradesController extends Controller
 {
    public  function addGrade(Request $request)
    {
-   	
+
+       $this->validator($request->all())->validate();
+
        $newGrade     = Grade::create($request->all());
        
         $notification = array(
@@ -18,12 +21,13 @@ class GradesController extends Controller
             'alert-type'=>'success'
                     );
 
-        return back()->with($notification);   }
+        return back()->with($notification);
+   }
 
    public function getGrades()
    {
    	$grades = \DB::table('grades')
-            ->get();
+        ->get();
 
 		return Datatables::of($grades)
             ->addColumn('action', function ($grades) {
@@ -32,5 +36,12 @@ class GradesController extends Controller
             ->make(true);
 
    }
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'grade' => 'unique:grades,grade'
+        ]);
+
+    }
 }
 //->addColumn('actions', '<a class="btn btn-xs btn-alt" data-toggle="modal" onClick="launchUpdateUserModal({{$id}});" data-target=".modalEditUser" >Edit</a>
