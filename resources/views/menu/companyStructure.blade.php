@@ -5,9 +5,15 @@
                     <span class="menu-item">COMPANY STRUCTURE </span>
                 </a>
                 <ul class="list-unstyled menu-item">
+                   
                     <li>
                         <a class="" href="{{ url('departments') }}">
                             <span class=""> Departments </span>
+                        </a>
+                    </li>
+                     <li>
+                        <a class="" href="{{ url('categories') }}">
+                            <span class=""> Categories </span>
                         </a>
                     </li>
                     <li>
@@ -35,6 +41,11 @@
                         </a>
                     </li>
                     <li>
+                        <a class="" href="{{ url('categories') }}">
+                            <span class=""> Categories </span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="" href="{{ url('positions') }}">
                             <span class="">Positions</span>
                         </a>
@@ -56,6 +67,11 @@
                     <li>
                         <a class="" href="{{ url('departments') }}">
                             <span class=""> Departments </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="{{ url('categories') }}">
+                            <span class=""> Categories </span>
                         </a>
                     </li>
                     <li>

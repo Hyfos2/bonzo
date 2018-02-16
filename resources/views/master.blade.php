@@ -154,7 +154,7 @@
         <ul class="list-unstyled side-menu">
       
             <li {{ (Request::is('reports') ? "class=active" : '') }}>
-              <a class="sa-side-home" href="{{ url('home') }}">
+              <a class="sa-side-home" href="{{ url('welcome') }}">
                 <span class="menu-item">HOME</span>
               </a>
             </li>
@@ -218,7 +218,7 @@
   
     // var $t = jQuery.noConflict();
      $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
-     $("#timeSheetName").tokenInput("{!! url('/getStaff')!!}",{tokenLimit:1});
+     $("#staffName").tokenInput("{!! url('/getStaff')!!}",{tokenLimit:1});
 </script>
 <script>
      $("#shiftHoursId").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});

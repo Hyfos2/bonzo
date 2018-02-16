@@ -56,7 +56,7 @@
                         {data: 'surname', name: 'surname'},
                         {data: 'email', name: 'email'},
                         {data: 'position.name', name: 'position.name'},
-                        {data: 'grade.name', name: 'grade.name'},
+                        {data: 'grade.grade', name: 'grade.grade'},
                         {data: 'created_at', name: 'created_at'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
 

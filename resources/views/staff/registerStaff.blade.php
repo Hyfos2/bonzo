@@ -167,7 +167,7 @@
                     <select   name="grade" class="form-control"  >
                         <option selected disabled>Select Grade</option>
                                 @foreach($grades as $type)
-                            <option  value="{{$type->id}}" @if(old('grade') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
+                            <option  value="{{$type->id}}" @if(old('grade') == $type->id) {{ 'selected' }} @endif>{{$type->grade}}</option>
                                 @endforeach
                             </select>
                     @if ($errors->has('grade')) <p class="help-block red">*{{ $errors->first('grade') }}</p> @endif

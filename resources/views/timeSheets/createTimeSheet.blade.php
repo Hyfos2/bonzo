@@ -25,12 +25,13 @@
 
 
             {!! Form::open(['url' => 'addTimeSheet', 'method' => 'post', 'class' => 'form-horizontal', 'id'=>"addTimeSheetForm" ]) !!}
+            <input type="hidden" name="Dates"  id="dates">
 
             <div class="form-group">
                 {!! Form::label('First Name', 'First Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('timeSheetName',NULL,['class' => 'form-control input-sm','id' => 'timeSheetName']) !!}
-                    @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
+                    {!! Form::text('staffName',old('staffName'),['class' => 'form-control input-sm','id' => 'staffName']) !!}
+                    @if ($errors->has('staffName')) <p class="help-block red">*{{ $errors->first('staffName') }}</p> @endif
                 </div>
             </div>
 
@@ -57,7 +58,8 @@
                 {!! Form::label('Leave', 'Leave', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
                     {{--{!! Form::text('leave',NULL,['class' => 'leave form-control input-sm','id' => 'leave' , 'required']) !!}--}}
-                    {!! Form::select('leave',['0'=>'Select Leave','Yes' => 'Yes','No' => 'No'],0,['class' => 'form-control' ,'id' => 'leave']) !!}
+                    {!! Form::select('leave',[''=>'Select','Yes' => 'Yes','No' => 'No'],0,['class' => 'form-control' ,'id' => 'leave']) !!}
+                     @if ($errors->has('leave')) <p class="help-block red">* {{ $errors->first('leave') }}</p> @endif
 
                 </div>
             </div>
@@ -65,7 +67,8 @@
             <div class="form-group">
                 {!! Form::label('Surface Ordinary Time', 'Surface Ordinary Time', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('surfaceOfOrdinary',NULL,['class' => 'route form-control input-sm','id' => 'surfaceOfOrdinary' , 'required']) !!}
+                    {!! Form::text('surfaceOfOrdinary',old('surfaceOfOrdinary'),['class' => 'route form-control input-sm','id' => 'surfaceOfOrdinary']) !!}
+                    @if ($errors->has('surfaceOfOrdinary')) <p class="help-block red">* {{ $errors->first('surfaceOfOrdinary') }}</p> @endif
 
                 </div>
             </div>
@@ -73,7 +76,9 @@
             <div class="form-group">
                 {!! Form::label('Normal Overtime', 'Normal Overtime', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('normalOvertime',NULL,['class' => 'locality form-control input-sm','id' => 'normalOvertime' , 'required']) !!}
+                    {!! Form::text('normalOvertime',old('normalOvertime'),['class' => 'locality form-control input-sm','id' => 'normalOvertime']) !!}
+                     @if ($errors->has('normalOvertime')) <p class="help-block red">* {{ $errors->first('normalOvertime') }}</p> @endif
+
 
                 </div>
             </div>
@@ -81,23 +86,26 @@
             <div class="form-group">
                 {!! Form::label('Double Overtime', 'Double Overtime', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('doubleOverTime',NULL,['class' => 'administrative_area_level_1 form-control input-sm','id' => 'doubleOverTime', 'required']) !!}
+                    {!! Form::text('doubleOverTime',old('doubleOverTime'),['class' => 'administrative_area_level_1 form-control input-sm','id' => 'doubleOverTime']) !!}
+                      @if ($errors->has('doubleOverTime')) <p class="help-block red">* {{ $errors->first('doubleOverTime') }}</p> @endif
+
 
                 </div>
             </div>
-
+<!-- 
             <div class="form-group">
                 {!! Form::label('Postal Code', 'Postal Code', array('class' => 'col-md-3 control-label' , 'required' )) !!}
                 <div class="col-md-6">
-                    {!! Form::text('postalCode',NULL,['class' => 'postal_code form-control input-sm','id' => 'postalCode' , 'required']) !!}
+                    {!! Form::text('postalCode',old(''),['class' => 'postal_code form-control input-sm','id' => 'postalCode' , 'required']) !!}
 
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 {!! Form::label('Standby', 'Standby', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('standBy',NULL,['class' => 'Standby form-control input-sm','id' => 'standBy' , 'required']) !!}
+                    {!! Form::text('standBy',old('Standby'),['class' => 'Standby form-control input-sm','id' => 'standBy']) !!}
+                      @if ($errors->has('standBy')) <p class="help-block red">* {{ $errors->first('standBy') }}</p> @endif
 
                 </div>
             </div>
@@ -105,7 +113,9 @@
             <div class="form-group">
                 {!! Form::label('Night Allowance', 'Night Allowance', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('nightAllowance',NULL,['class' => 'nightAllowance form-control input-sm','id' => 'nightAllowance' , 'required']) !!}
+                    {!! Form::text('nightAllowance',old('nightAllowance'),['class' => 'nightAllowance form-control input-sm','id' => 'nightAllowance']) !!}
+                     @if ($errors->has('nightAllowance')) <p class="help-block red">* {{ $errors->first('nightAllowance') }}</p> @endif
+
 
                 </div>
             </div>
@@ -113,7 +123,9 @@
             <div class="form-group">
                 {!! Form::label('1/2 Shift', '1/2 Shift', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('halfShift',NULL,['class' => 'halfShift form-control input-sm','id' => 'halfShift' , 'required']) !!}
+                    {!! Form::text('halfShift',old('halfShift'),['class' => 'halfShift form-control input-sm','id' => 'halfShift']) !!}
+                     @if ($errors->has('halfShift')) <p class="help-block red">* {{ $errors->first('halfShift') }}</p> @endif
+
 
                 </div>
             </div>
@@ -140,6 +152,12 @@
 
 @section('footer')
     <script>
+        function currentDate()
+        {
+             var today = new Date();
+             return today;
+        }
+        document.getElementById("dates").innerHTML = currentDate();
 
 
         $(document).ready(function() {

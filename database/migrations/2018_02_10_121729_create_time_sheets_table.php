@@ -15,7 +15,7 @@ class CreateTimeSheetsTable extends Migration
     {
         Schema::create('time_sheets', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('timeSheetName')->unsigned();
+            $table->integer('staffName')->unsigned();
             $table->integer('jobNumber')->unsigned();
             $table->string('leave');
             $table->string('surfaceOfOrdinary');
@@ -26,7 +26,7 @@ class CreateTimeSheetsTable extends Migration
             $table->string('postalCode');
             $table->string('halfShift');
             $table->date('currentDate');
-            $table->foreign('timeSheetName')->references('id')->on('staff');
+            $table->foreign('staffName')->references('id')->on('staff');
             $table->foreign('jobNumber')->references('id')->on('departments');
             $table->timestamps();
         });

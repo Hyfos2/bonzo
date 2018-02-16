@@ -21,6 +21,8 @@ class StaffController extends Controller
     
     public function addStaff(Request $request)
     {
+
+
         $this->staffValidator($request->all())->validate();
 
         $gradesDetails    =Grade::where('id',$request->grade)->first();
@@ -56,7 +58,7 @@ class StaffController extends Controller
     {
     	$positions  =Position::all();
     	$dprtments  =Department::all();
-    	$grades		=Grade::all();
+    	$grades		=Grade::select('grade','id')->orderBy('id')->get();
     	$employmentTypes =EmploymentType::all();
     	return view('staff.registerStaff', compact('positions','dprtments','grades','employmentTypes'));
     }

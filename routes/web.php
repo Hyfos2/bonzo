@@ -24,6 +24,7 @@ Route::post('/addTimeSheet','TimeSheetController@addTimeSheet');
 Route::get('/register','UsersController@registernewUser');
 Route::get('/usersList','UsersController@usersList');
 Route::get('/editUser/{id}','UsersController@editUser');
+Route::get('/users','UsersController@index')->name('users');
 
 Route::view('/staffList','staff.staffList');
 Route::view('/staffGrades','staff.staffGrades');
@@ -43,7 +44,7 @@ Route::post('/addLeave','StaffController@addLeave');
 Route::post('/addStaff','StaffController@addStaff');
 Route::get('/getstaff','StaffController@staff');
 Route::get('/registerStaff','StaffController@registerStaff');
-Route::get('/users','UsersController@index')->name('users');
+
 Route::post('/addUser','Auth\RegisterController@register');
 Route::post('/addPosition','PositionsController@create');
 Route::get('/getStaffDetail/{id}','StaffController@getStaffDetail');
@@ -81,10 +82,9 @@ Route::get('/spreadSheet','TimeSheetController@index');
 
 Route::view('emailTemplate','mails.templateDesign');;
 
-
-
-
-
+// /*Categories*/
+// Route::get('/Categories','Cate')
+Route::resource('categories','CategoryController');
 
 
 

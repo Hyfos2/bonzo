@@ -30,7 +30,7 @@
                 <div class="form-group">
                     {!! Form::label('Grade', 'Grade', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::text('grade',NULL,['class' => 'form-control input-sm','id' => 'grade','autocomplete'=>'off','v-model'=>'grade','v-validate' =>"'numeric'"]) !!}
+                        {!! Form::text('grade',old('grade'),['class' => 'form-control input-sm','id' => 'grade','autocomplete'=>'off','v-model'=>'grade','v-validate' =>"'numeric'"]) !!}
                         <span class="help-block"  v-cloak v-if="submition && wrongGrade" style="color:red;">@{{gradeFB}}</span>
                         <span style="color: red;"  v-cloak v-show="errors.has('grade')" class="help is-danger">@{{errors.first('grade') }}</span>
                         @if ($errors->has('grade')) <p  v-bind:class="{hidden :isHidden}"  class="help-block red">*{{ $errors->first('grade') }}</p> @endif
@@ -40,7 +40,7 @@
                  <div class="form-group">
                     {!! Form::label('salary', 'Salary', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::text('salary',NULL,['class' => 'form-control input-sm','id' => 'salary','autocomplete'=>'off','v-model'=>'salary','v-validate' =>"'decimal'"]) !!}
+                        {!! Form::text('salary',old('salary'),['class' => 'form-control input-sm','id' => 'salary','autocomplete'=>'off','v-model'=>'salary','v-validate' =>"'decimal'"]) !!}
                         <span class="help-block"  v-cloak v-if="submition && wrongSalary" style="color:red;">@{{salaryFB}}</span>
                         <span style="color: red;"  v-cloak v-show="errors.has('salary')" class="help is-danger">@{{errors.first('salary') }}</span>
                         @if ($errors->has('salary')) <p class="help-block red">*{{ $errors->first('salary') }}</p> @endif
