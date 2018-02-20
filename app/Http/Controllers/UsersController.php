@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Position;
 use App\Grade;
+use App\Department;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Yajra\Datatables\Datatables;
@@ -53,7 +54,8 @@ class UsersController extends Controller
     {
         $pos     =Position::all();
         $grade   =Grade::all();
-        return view('users.register',compact('pos','grade'));
+        $departments  = Department::all();
+        return view('users.register',compact('pos','grade','departments'));
     }
     public  function editUser($id)
     {

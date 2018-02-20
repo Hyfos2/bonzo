@@ -5,22 +5,22 @@
         @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
             <ol class="breadcrumb hidden-xs">
                 <li><a href="{{url('welcome')}}">Home</a></li>
-                <li class="active">Shift Hours List</li>
+                <li class="active">Working Team List</li>
             </ol>
         @endif
 
-        <h4 class="page-title">Working Hours List</h4>
+        <h4 class="page-title">Working Team List</h4>
         <!-- Alternative -->
         <div class="block-area" id="alternative-buttons">
-            <h3 class="block-title">Shift Hours List</h3>
+            <h3 class="block-title">Working Team List</h3>
 
             @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
-                <a class="btn btn-sm" data-toggle="modal" data-target=".modalAddShiftHours">New
+                <a class="btn btn-sm"  href="{{url('allocateShifts')}}" >Allocate Shift
                 </a>
             @endif
             @endif
 
-            <a class="btn btn-sm" href ="{{url('workingTeam')}}">View Staff Shift
+            <a class="btn btn-sm" href ="{{url('workingHours')}}">View Working Hours
             </a>
         </div>
 

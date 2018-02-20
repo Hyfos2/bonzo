@@ -89,10 +89,11 @@
 
             <div class="col-md-3" style="margin-top:45px;">
 
+                    <h3  style="margin-left:1px;" class="block-title">STAFF LEAVE RECORDS</h3>
 
 
                 <div class="tile">
-                    <h2 class="tile-title">STAFF LEAVE RECORDS</h2>
+                    
 
                     @include('staff.leaveRecords')
                 </div>

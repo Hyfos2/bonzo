@@ -27,6 +27,11 @@
                         <span class="">Staff Leave</span>
                     </a>
                 </li>
+                  <li>
+                    <a class="" href="{{ url('requestListing') }}">
+                        <span class="">Leave Request</span>
+                    </a>
+                </li>
 
             </ul>
           </li>

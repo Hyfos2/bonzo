@@ -36,6 +36,10 @@ Route::view('/positions','positions.positionsList');
 /*LeaveDays*/
 Route::view('/leave','staff.employeeLeaveList');
 Route::get('getLeaveDays','LeaveController@getLeavedays');
+Route::get('/getRequest','LeaveController@getRequests');
+Route::get('requestListing','LeaveController@requestListing');
+Route::get('requestProfile/{id}','LeaveController@requestProfile');
+Route::post('requestProfile/acceptRequest/{id}','LeaveController@acceptRequest');
 
 //Route::view('/employmentTypes','employmentTypes.employmentTypesList');
 

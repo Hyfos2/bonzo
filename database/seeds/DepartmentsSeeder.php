@@ -20,7 +20,7 @@ class DepartmentsSeeder extends Seeder
             ]);
         Department::create([
                 'id' => 3,
-                'name' => 'Mining and Security'
+                'name' => 'Mining'
 
             ]);
         Department::create([
@@ -28,5 +28,12 @@ class DepartmentsSeeder extends Seeder
                 'name' => 'Technical Services'
 
             ]);
+
+          Department::create([
+                'id' => 5,
+                'name' => 'Security'
+
+            ]);
+        
     }
 }

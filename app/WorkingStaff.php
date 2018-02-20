@@ -10,11 +10,11 @@ class WorkingStaff extends Model
 
    public function staff()
    {
-       return $this->belongsTo(Staff::class,'staffId','id');
+       return $this->belongsTo(Staff::class,'staffname','id');
    }
 
     public function hour()
     {
-        return $this->belongsTo(ShiftHour::class,'shiftHoursId','id');
+        return $this->belongsTo(ShiftHour::class,'shiftHours','id');
     }
 }

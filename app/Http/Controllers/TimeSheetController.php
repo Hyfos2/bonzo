@@ -25,7 +25,7 @@ class TimeSheetController extends Controller
 
        $formData  = $request->all(['Dates','jobNumber','leave','surfaceOfOrdinary','doubleOverTime','normalOvertime','standBy','nightAllowance','halfShift']);
 
-         $this->validateInput($request->all())->validate();
+          $this->validateInput($request->all())->validate();
         
             $newTimeSheetRecord                      = new TimeSheet();
             $newTimeSheetRecord->staffName       =$request->staffName;
@@ -35,20 +35,15 @@ class TimeSheetController extends Controller
             $newTimeSheetRecord->doubleOverTime     =$request->doubleOverTime;
             $newTimeSheetRecord->normalOvertime     =$request->normalOvertime;
             $newTimeSheetRecord->standBy            =$request->standBy;
-            $newTimeSheetRecord->postalCode          =$request->postalCode;
+            $newTimeSheetRecord->postalCode          =0;
             $newTimeSheetRecord->nightAllowance     =$request->nightAllowance;
             $newTimeSheetRecord->halfShift     =$request->halfShift;
             $newTimeSheetRecord->currentDate      =\Carbon\Carbon::now();
             $newTimeSheetRecord->save();
 
-          $this->createTimeSheetFile($request->timeSheetName,$formData);
+        return  $this->createTimeSheetFile($request->staffName,$formData);
 
 
-   }
-   public function getDepartmentName($request)
-   {
-       $getDepartmentName   = Department::find($request->jobNumber);
-       return $getDepartmentName;
    }
 
    public function createTimeSheetFile($userId,$data)
@@ -61,14 +56,18 @@ class TimeSheetController extends Controller
        $user              =User::with('position')->find(Auth::user()->id);
        $totalMonthDays    =$this->getTheTotalNumberPerCurrentMonth($month,$year)+1;
 
+         $getDepartmentName   = Department::find($data['jobNumber']);
 
-       // return $data['jobNumber'] =1;
-       // die;
+        if(array_search($data['jobNumber'],$data))
+        {
+          $data['jobNumber'] = $getDepartmentName->name;
+          array_pad($data,-1,$data['jobNumber']);
 
+        }
       
 
          $dataValues     = array_keys($data);
-         $cellValues     = array_values($data);
+        $cellValues     = array_values($data);
 
         $dayPosition  =$this->positionOfToday()+1;
         $currentDy    =$this->now();
@@ -157,18 +156,13 @@ class TimeSheetController extends Controller
                           $cell->setValue($cMonthDates[30]) ;
                         if($i==33)
                           $cell->setValue($cMonthDates[31]) ;
-                        
                   });
-               
                }
-               
-
                $excel->setTitle("How Mine - Grade"." ".$staff->gradeId."  "."Time Sheet");
            });
        })->download('xlsx');
 
-      
-        return $this->goBack();
+return $this->goBack();
 
    }
    public function viewCreateTimeSheet()

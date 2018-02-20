@@ -81,7 +81,9 @@
         background: transparent;
         box-shadow: black;
     }
+
   </style>
+   <link href="{{ asset('css/notifications.css') }}" rel="stylesheet">
   
 </head>
 
@@ -190,6 +192,9 @@
     <script>
         Vue.use(VeeValidate);
     </script>
+  <!--   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios@0.17.0/index.min.js"></script> -->
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 
    <script src="{{ asset('js/main.js') }}"></script>
   <script>
@@ -218,10 +223,11 @@
   
     // var $t = jQuery.noConflict();
      $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
+     $("#staffname").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
      $("#staffName").tokenInput("{!! url('/getStaff')!!}",{tokenLimit:1});
 </script>
 <script>
-     $("#shiftHoursId").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});
+     $("#shiftHours").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});
 </script>
    
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->

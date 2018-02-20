@@ -41,6 +41,7 @@ if (document.querySelector('#registrationForm')) {
         surname: '',
         email: '',
         positionId: '',
+          departmentId: '',
         gradeId: '',
           isHidden: false,
         submition: false
@@ -63,6 +64,11 @@ if (document.querySelector('#registrationForm')) {
             return true
         }
             return false },
+              wrongDpt:function() {  if(this.departmentId === '') {
+            this.dptFB = ERRORS.departmentIdField;
+            return true
+        }
+            return false },
          wrongPositionId:function() { if(this.positionId === '') {
             this.positionFB = ERRORS.positionField;
             return true
@@ -78,7 +84,7 @@ if (document.querySelector('#registrationForm')) {
         registerUser:function(event) {
             this.submition = true;
             this.$validator.validateAll();
-            if(this.wrongName || this.wrongSurname || this.wrongEmail ||  this. wrongPositionId || this.wrongGradeId  || this.errors.any())
+            if(this.wrongName || this.wrongSurname || this.wrongEmail ||  this. wrongPositionId || this.wrongGradeId || this.wrongDpt  || this.errors.any())
                 {
                     event.preventDefault();
                 } 
@@ -321,6 +327,57 @@ if (document.querySelector('#updateForm')) {
             else {
                 return  true;
                 }
+        }
+
+    }
+})
+}
+
+if (document.querySelector('#hodAction')) {
+    var recordId = document.getElementById('recordId').value;
+    var x = document.getElementById("snackbar");
+    var y = document.getElementById("successBar");
+    var z = document.getElementById("error");
+    var count =0;
+   new Vue({
+    el: "#hodAction",
+    methods: {
+        acceptRequest:function() 
+        {
+           
+                x.className = "show";
+                         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+
+            axios.post('acceptRequest/'+recordId)
+                        .then(function (response) {
+
+                         if(response.status ==200 && response.statusText =="OK")
+                         {
+
+                             y.className = "show";
+                         setTimeout(function(){ y.className = y.className.replace("show", ""); }, 3000);
+
+                         }
+
+                            console.log(response);
+                            })
+
+                        .catch(function (error) {
+                            
+                                            });
+
+             //   localStorage.setItem("accepted",count);
+             // }
+             // else{
+
+             //        z.className = "show";
+             //        setTimeout(function(){ z.className = z.className.replace("show", ""); }, 3000);
+
+             // }
+             
+          
+           
         }
 
     }

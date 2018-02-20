@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ShiftHour;
 use App\workingStaff;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Validator;
 
 class ShiftController extends Controller
 {
@@ -97,6 +98,9 @@ class ShiftController extends Controller
 
    public function allocate(Request $request)
    {
+
+            $this->validateInput($request->all())->validate();
+
             $new   = WorkingStaff::create($request->all());
 
             return $this->successNotification();
@@ -112,6 +116,16 @@ class ShiftController extends Controller
 
         return back()->with($notification);
    }
+      protected function validateInput(array $data)
+    {
+        return Validator::make($data, [
+  
+          'staffname' => 'required|unique:working_staffs',
+            'shiftHours' => 'required ',
+        ]);
+
+    }
+   
 
 
 }

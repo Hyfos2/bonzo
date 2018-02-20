@@ -7,7 +7,7 @@
     @if(Auth::user()->positionId != 1 || Auth::user()->positionId!=3)
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{url('/welcome')}}">Home</a></li>
-        <li><a href="{{ url('workingHours') }}">Staff on Shift</a></li>
+        <li><a href="{{ url('workingHours') }}">Working Hours</a></li>
         <li class="active">Shift Allocation Form</li>
     </ol>
     @endif
@@ -26,16 +26,16 @@
             <div class="form-group">
                 {!! Form::label('Staff Name', 'Staff Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('staffId',NULL,['class' => 'form-control input-sm','id' => 'staffId']) !!}
-                    @if ($errors->has('staffId')) <p class="help-block red">*{{ $errors->first('staffId') }}</p> @endif
+                    {!! Form::text('staffname',NULL,['class' => 'form-control input-sm','id' => 'staffname']) !!}
+                    @if ($errors->has('staffname')) <p class="help-block red">*{{ $errors->first('staffname') }}</p> @endif
                 </div>
             </div>
 
             <div class="form-group">
                 {!! Form::label('Shift Name', 'Shift Name', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('shiftHoursId',null,['class' => 'form-control input-sm','id' => 'shiftHoursId']) !!}
-                    @if ($errors->has('shiftHoursId')) <p class="help-block red">*{{ $errors->first('shiftHoursId') }}</p> @endif
+                    {!! Form::text('shiftHours',null,['class' => 'form-control input-sm','id' => 'shiftHours']) !!}
+                    @if ($errors->has('shiftHours')) <p class="help-block red">*{{ $errors->first('shiftHours') }}</p> @endif
                 </div>
             </div>
 
@@ -68,12 +68,6 @@
     </div>
 
 @endsection
-@section('footer')
-<script>
-    // var $t = jQuery.noConflict();
-     $("#staffId").tokenInput("{!! url('/getStaffDetails')!!}",{tokenLimit:1});
-    </script>
 
-@endsection
 
 

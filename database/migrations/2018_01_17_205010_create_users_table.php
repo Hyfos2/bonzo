@@ -19,9 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->integer('gradeId')->unsigned();
-             $table->integer('positionId')->unsigned();
+            $table->integer('positionId')->unsigned();
+            $table->integer('departmentId')->unsigned();
+
             $table->foreign('gradeId')->references('id')->on('grades');
-             $table->foreign('positionId')->references('id')->on('positions');
+            $table->foreign('positionId')->references('id')->on('positions');
+            $table->foreign('departmentId')->references('id')->on('departments');
             $table->string('password');
             $table->string('userName');
             $table->rememberToken();

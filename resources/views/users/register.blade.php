@@ -253,6 +253,21 @@
                     </div>
                 </div>
 
+                 <div class="form-group">
+                    {!! Form::label('Department', 'Department', array('class' => 'col-md-3 control-label')) !!}
+                    <div class="col-md-6">
+
+                        <select  name="departmentId"  v-cloak class="form-control" v-model ="departmentId">
+
+                            @foreach($departments as $type)
+                                <option  value="{{$type->id}}" @if(old('departmentId') == $type->id) {{ 'selected' }} @endif> {{$type->name}}</option>
+                            @endforeach
+                        </select>
+
+                        <span class="help-block"  v-cloak v-if="submition && wrongDpt" style="color:red;">@{{dptFB}}</span>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('Position', 'Position', array('class' => 'col-md-3 control-label')) !!}
                     <div class="col-md-6">
@@ -260,7 +275,7 @@
                         <select  name="positionId"  v-cloak class="form-control" v-model ="positionId">
 
                             @foreach($pos as $type)
-                                <option  value="{{$type->id}}">{{$type->name}}</option>
+                                <option  value="{{$type->id}}" @if(old('positionId') == $type->id) {{ 'selected' }} @endif> {{$type->name}}</option>
                             @endforeach
                         </select>
 
@@ -274,7 +289,7 @@
 
                         <select  name="gradeId" v-cloak class="form-control" v-model ="gradeId" >
                             @foreach($grade as $type)
-                                <option    value="{{$type->id}}">{{$type->name}}</option>
+                                <option   value="{{$type->id}}" @if(old('gradeId') == $type->id) {{ 'selected' }} @endif>{{$type->grade}}</option>
                             @endforeach
                         </select>
 

@@ -42,7 +42,7 @@ class PositionsSeeder extends Seeder
             ]);
     Position::create([
             'id' => 8,
-            'name' => 'Chief Security Manager'
+            'name' => 'Chief Security Officer'
 
         ]);
     Position::create([
