@@ -1,6 +1,7 @@
-{!! Form::open(['url' => 'tasks/updateTask', 'method' => 'post', 'class' => 'form-horizontal' ]) !!}
+{!! Form::open(['url' => 'staffList', 'method' => 'get', 'class' => 'form-horizontal' ]) !!}
 
 {!! Form::hidden('recordId',$getDetails->id) !!}
+{{csrf_field()}}
 
 <div class="form-group">
 
@@ -75,20 +76,13 @@
     <label for="inputTitle" style="text-align: left;" class="col-md-2 control-label">Employee Type</label>
     <div class="col-md-10">
 
-        {{--<input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->employment_type->name}}">--}}
+        <input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->employment->name}}" disabled>
 
     </div>
 </div>
 
 <hr class="whiter m-t-10" /><br>
-<div class="form-group">
-    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Employee Type</label>
-    <div class="col-md-10">
 
-        {{--<input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->employment_type->name}}">--}}
-
-    </div>
-</div>
 <div class="form-group">
     <label for="inputTitle" style="text-align: left;"  class="col-md-2 control-label">Department</label>
     <div class="col-md-10">
@@ -98,10 +92,10 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Sub Category</label>
+    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Sub Departments</label>
     <div class="col-md-10">
 
-        {{--<input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->employment_type->name}}">--}}
+        <input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->category->name}}" disabled>
 
     </div>
 </div>
@@ -118,7 +112,7 @@
     <label for="inputTitle" style="text-align: left;" class="col-md-2 control-label">Grade</label>
     <div class="col-md-10">
 
-        <input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->grade->name}}" disabled>
+        <input class="form-control input-sm" type="text"  name="title" value="{{$getDetails->grade->grade}}" disabled>
 
     </div>
 </div>
@@ -144,7 +138,7 @@
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <button type="submit" class="btn btn-info btn-sm m-t-10">SAVE CHANGES</button>
+        <button type="submit" class="btn btn-info btn-sm m-t-10">Go Back</button>
     </div>
 </div>
 {!! Form::close() !!}

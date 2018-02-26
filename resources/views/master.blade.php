@@ -27,8 +27,11 @@
   <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/token-input.css') }}" rel="stylesheet">-->
-    <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-       <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
+  <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    {{--<link href="{{asset('css/jquery.dataTables.min.css')}}">--}}
+    <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
+
 <style>
 
     /*label {*/
@@ -80,6 +83,9 @@
         border: 1px solid transparent;
         background: transparent;
         box-shadow: black;
+    }
+    .control-label{
+
     }
 
   </style>
@@ -186,6 +192,8 @@
    {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>--}}
    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+   {{--<script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>--}}
+
    <script src="{{ asset('js/vue.js') }}"></script>
     <script src="{{asset('js/vee-validate.js')}}"></script>
     <script src="{{asset('js/vee-validate2.js')}}"></script>
@@ -231,7 +239,7 @@
 </script>
    
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
-   @stack('scripts')
+  @stack('scripts')
 
 </body>
   </html>

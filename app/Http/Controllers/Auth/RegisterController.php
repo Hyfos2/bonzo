@@ -39,7 +39,9 @@ class RegisterController extends Controller
             'surname' => $data['surname'],
             'positionId' => $data['positionId'],
              'departmentId' => $data['departmentId'],
+            'subDepartmentId' => $data['subDepartmentId'],
             'gradeId' => $data['gradeId'],
+            'roleId' => $data['roleId'],
             'userName' => $generateUserPassword,
             'password' => bcrypt($generateUserPassword)
         ]);

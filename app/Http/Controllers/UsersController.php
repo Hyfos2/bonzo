@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\User;
 use App\Position;
@@ -16,11 +17,10 @@ class UsersController extends Controller
    use RegistersUsers;
    public function index()
   {
-
       $users = User::with('grade','position')->get();
       return Datatables::of($users)
            ->addColumn('action', function ($users) {
-               return '<a href="editUser/'.$users->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+               return '<a href="editUser/'.$users->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i> view</a>';
            })
            ->make(true);
    }
@@ -59,7 +59,17 @@ class UsersController extends Controller
     }
     public  function editUser($id)
     {
-        $userDetails  = User::with('position','grade')->find($id);
+        $userDetails  = User::with('category','role','position','grade','department')->find($id);
+
+        //return $userDetails;
+
         return  view('users.userProfile',compact('userDetails'));
+    }
+
+    public function getSubDepartments($id=null)
+    {
+
+        $subDepartment   =Category::where('departmentId',$id)->get();
+        return $subDepartment;
     }
 }

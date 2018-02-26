@@ -3,15 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
-use App\Staff;
 
-class Category extends Model
+class Role extends Model
 {
-    public function staff()
-    {
-    	return $this->hasMany(Staff::class);
-    }
     public function user()
     {
     	return $this->hasMany(User::class);

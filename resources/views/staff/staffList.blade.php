@@ -35,7 +35,6 @@
                     <th>Id</th>
                     <th>name</th>
                     <th>surname</th>
-                    <th>employment Number</th>
                     <th>department</th>
                     <th>position</th>
                     <th>action</th>
@@ -59,7 +58,6 @@
                     { data: 'id' },
                     { data: 'name' },
                     { data: 'surname' },
-                    { data: 'employeeNumber' },
                     { data: 'department.name'},
                     { data: 'position.name'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

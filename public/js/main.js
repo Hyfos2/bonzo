@@ -1,3 +1,4 @@
+Vue.config.devtools = true;
 const ERRORS = {
 
 // Users
@@ -14,6 +15,8 @@ const ERRORS = {
     employmentTypeIdField:'The employment type is required',
     employeeNumberField:'The employee number is required',
     departmentIdField:'The department field is required',
+    subDepartmentField:'The sub department field is required',
+      roleField:'The role field is required',
     genderField:'The gender field is required',
    
    
@@ -34,7 +37,7 @@ const ERRORS = {
 };
 
 if (document.querySelector('#registrationForm')) {
-   new Vue({
+ var vm =  new Vue({
     el: "#registrationForm",
     data: {
         name: '',
@@ -42,10 +45,18 @@ if (document.querySelector('#registrationForm')) {
         email: '',
         positionId: '',
           departmentId: '',
+           roleId: '',
+        subDepartmentId: '',
+        categories:[],
         gradeId: '',
           isHidden: false,
         submition: false
     },
+       // mounted: function(){
+       //  var vm = this;
+       //  $(this.$el)
+       // .on('change', function() {})
+       // },
     computed: {
         wrongName:function() {
             if(this.name === '') {
@@ -69,6 +80,11 @@ if (document.querySelector('#registrationForm')) {
             return true
         }
             return false },
+        wrongSubDpt:function() {  if(this.subDepartmentId === '') {
+            this.subDptFB = ERRORS.subDepartmentField;
+            return true
+        }
+            return false },
          wrongPositionId:function() { if(this.positionId === '') {
             this.positionFB = ERRORS.positionField;
             return true
@@ -78,19 +94,51 @@ if (document.querySelector('#registrationForm')) {
             this.gradeFB = ERRORS.gradeField;
             return true
         }
+            return false },
+            ,
+        wrongRoleId:function() {  if(this.roleId === '') {
+            this.roleFB = ERRORS.roleField;
+            return true
+        }
             return false }
     },
     methods: {
         registerUser:function(event) {
             this.submition = true;
             this.$validator.validateAll();
-            if(this.wrongName || this.wrongSurname || this.wrongEmail ||  this. wrongPositionId || this.wrongGradeId || this.wrongDpt  || this.errors.any())
+            if(this.wrongName || this.wrongSurname || this.wrongEmail ||  this. wrongPositionId || this.wrongGradeId || this.wrongDpt || this.wrongRoleId  || this.errors.any())
                 {
                     event.preventDefault();
                 } 
             else {
                    return true;
                 }
+        },
+        getSubDepartments:function()
+        {
+            var id = this.departmentId;
+            var cat   =[];
+            axios.get('getSubDepartments/'+id)
+                .then(function (response){
+                    response.data.forEach(function (value, key) {
+
+                        $('#sub_drone_type_id').append("<option  value=" + value.id + ">" + value.name + "</option>");
+                      cat.push(value);
+                       console.log(cat) ;
+                    });
+
+                    // response.data.map(function(value, key) {
+                    //
+                    // });
+
+                    // $$.each(response, function (key, value) {
+                    //     $('#sub_drone_type_id').append("<option  value=" + value.id + ">" + value.name + "</option>");
+                    // });
+
+                })
+                .catch(function(error){
+
+               });
         },
     watch:
             {
@@ -334,10 +382,10 @@ if (document.querySelector('#updateForm')) {
 }
 
 if (document.querySelector('#hodAction')) {
-    var recordId = document.getElementById('recordId').value;
-    var x = document.getElementById("snackbar");
-    var y = document.getElementById("successBar");
-    var z = document.getElementById("error");
+    var recordID = document.getElementById('recordId').value;
+    var a = document.getElementById("snackbar");
+    var b = document.getElementById("successBar");
+    var c = document.getElementById("error");
     var count =0;
    new Vue({
     el: "#hodAction",
@@ -345,18 +393,20 @@ if (document.querySelector('#hodAction')) {
         acceptRequest:function() 
         {
            
-                x.className = "show";
-                         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            a.className = "show";
+                         setTimeout(function(){ a.className = a.className.replace("show", ""); }, 3000);
+                         ///console.time(y)
 
-
-            axios.post('acceptRequest/'+recordId)
+            axios.post('acceptRequest/'+recordID)
                         .then(function (response) {
 
-                         if(response.status ==200 && response.statusText =="OK")
+                        if(response.status ===200 && response.statusText ==="OK")
                          {
 
-                             y.className = "show";
-                         setTimeout(function(){ y.className = y.className.replace("show", ""); }, 3000);
+                             b.className = "show";
+                         setTimeout(function(){ b.className = b.className.replace("show", ""); }, 4000);
+
+                        // console.timeEnd(y);
 
                          }
 
@@ -378,6 +428,68 @@ if (document.querySelector('#hodAction')) {
              
           
            
+        },
+        rejectReason:function()
+        {
+
+             axios.post('rejectReason/'+recordId)
+                        .then(function (response) {
+
+                        if( response.status ==200 && response.statusText =="OK")
+                         {
+
+                         //     y.className = "show";
+                         // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
+                        // console.timeEnd(y);
+
+                         }
+
+                            console.log(response);
+                        })
+
+                        .catch(function (error) {
+                            
+                                            });
+
+
+        }
+
+    }
+})
+}
+
+
+if (document.querySelector('#rejectReasonForm')) {
+    var recordId = document.getElementById('recordId').value;
+    var x = document.getElementById("snackbar");
+    var y = document.getElementById("successBar");
+    var z = document.getElementById("error");
+    var count =0;
+   new Vue({
+    el: "#rejectReasonForm",
+    methods: {
+        rejectReason:function()
+        {
+             axios.post('rejectReason/'+recordId)
+                        .then(function (response) {
+
+                        if( response.status ==200 && response.statusText =="OK")
+                         {
+
+                         //     y.className = "show";
+                         // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
+                        // console.timeEnd(y);
+
+                         }
+
+                            console.log(response);
+                        })
+
+                        .catch(function (error) {
+                            
+                                            });
+
+
         }
 
     }

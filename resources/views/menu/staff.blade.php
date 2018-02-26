@@ -29,7 +29,7 @@
                 </li>
                   <li>
                     <a class="" href="{{ url('requestListing') }}">
-                        <span class="">Leave Request</span>
+                        <span class="">Leave Requests</span>
                     </a>
                 </li>
 

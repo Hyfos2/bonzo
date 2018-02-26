@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Category;
 
 class Staff extends Model
 {
@@ -31,6 +32,11 @@ class Staff extends Model
     public function workingStaff()
     {
         return $this->hasMany(WorkingStaff::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'subDepartmentId','id');
     }
 
 }

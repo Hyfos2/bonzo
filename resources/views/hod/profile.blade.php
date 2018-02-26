@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+@include('hod.rejectReasons')
     @if (\Auth::user())
         <ol class="breadcrumb hidden-xs">
             <li><a href="{{url('welcome')}}">Home</a></li>
@@ -31,13 +32,19 @@
                                      
                                   
                                    <input type="hidden" id="recordId" value="{{$leaveRequestProfile->id}}">
+                                    @if($leaveRequestProfile->pending!=0)
+                                    <button id="accept" v-on:click.onces="acceptRequest" class="btn btn-primary hidden" style="margin-left:5px; ">Accept</button>
 
-                                    <button id="accept" v-on:click.onces="acceptRequest" class="btn btn-primary" style="margin-left:5px;">Accept</button>
+
+                                      <button id="reject" class="btn btn-primary hidden"  data-toggle="modal" data-target=".modalRejectReason" style="margin-left:5px;">Reject</button>
+                                      @else
+                                      <button id="accept" v-on:click.onces="acceptRequest" class="btn btn-primary" style="margin-left:5px; ">Accept</button>
 
 
-                                        <button id="reject" class="btn btn-primary" style="margin-left:5px;">Reject</button>
+                                      <button id="reject" class="btn btn-primary"  data-toggle="modal" data-target=".modalRejectReason" style="margin-left:5px;">Reject</button>
+                                        @endif
 
-                                   
+          
                                                                        
                                       
                                 </div>
@@ -72,7 +79,7 @@
 
             <div class="col-md-3" style="margin-top:75px;">
 
-                 <h3  style="margin-left:1px;" class="block-title">LEAVE REQUEST DETAILS</h3>
+                 <h3  style="margin-left:1px;" class="block-title">LEAVE HISTORY DETAILS</h3>
 
 
                 <div class="tile">

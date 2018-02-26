@@ -13,7 +13,7 @@ class User extends Authenticatable
     use Notifiable;
     
     protected $fillable = [
-        'name', 'email', 'password','surname','departmentId','positionId','gradeId','userName'
+        'name', 'email', 'password','surname','departmentId','positionId','gradeId','userName','roleId','subDepartmentId'
     ];
 
 
@@ -48,4 +48,13 @@ class User extends Authenticatable
     {
             return $this->belongsTo(Department::class,'departmentId','id');
     }
+      public function role()
+    {
+            return $this->belongsTo(Role::class,'roleId','id');
+    }
+      public function category()
+    {
+            return $this->belongsTo(Category::class,'subDepartmentId','id');
+    }
+
 }

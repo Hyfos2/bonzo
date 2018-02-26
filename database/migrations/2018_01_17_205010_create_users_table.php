@@ -21,16 +21,20 @@ class CreateUsersTable extends Migration
             $table->integer('gradeId')->unsigned();
             $table->integer('positionId')->unsigned();
             $table->integer('departmentId')->unsigned();
-
+            $table->integer('subDepartmentId')->unsigned();
+            $table->integer('roleId')->unsigned();
+            $table->foreign('roleId')->references('id')->on('roles');
             $table->foreign('gradeId')->references('id')->on('grades');
             $table->foreign('positionId')->references('id')->on('positions');
             $table->foreign('departmentId')->references('id')->on('departments');
+            $table->foreign('subDepartmentId')->references('id')->on('categories');
             $table->string('password');
             $table->string('userName');
             $table->rememberToken();
             $table->timestamps();
         });
     }
+
     
 
     /**

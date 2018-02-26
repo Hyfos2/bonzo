@@ -47,6 +47,7 @@ class StaffController extends Controller
         $newStaff->employmentTypeId = $request->employmentType;
         $newStaff->employeeNumber =$request->employeeNumber;
         $newStaff->departmentId =$request->department;
+        $newStaff->subDepartmentId =$request->subDepartment;
         $newStaff->positionId=$request->position;
         $newStaff->gradeId  =$request->grade;
 
@@ -77,7 +78,7 @@ class StaffController extends Controller
 
 		return Datatables::of($staff)
             ->addColumn('action', function ($staff) {
-                return '<a href="getStaffDetail/'.$staff->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="getStaffDetail/'.$staff->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>view</a>';
             })
             ->make(true);
     }
@@ -341,8 +342,9 @@ class StaffController extends Controller
     }
     public function getStaffDetail($id)
    {
-       $getDetails   =Staff::with(['department','position','grade','employment'])->find($id);
+       $getDetails   =Staff::with(['department','position','grade','employment','category'])->find($id);
        $staffLeaveRecords  =LeaveDay::with('staff')->where('staffId',$id)->get();
+       //return $getDetails;
 
        return view('staff.getStaffDetails',compact('getDetails','staffLeaveRecords'));
    }
@@ -362,12 +364,13 @@ class StaffController extends Controller
         return Validator::make($data, [
             'name' => 'required ',
             'surname' => 'required ',
-            'employeeNumber' => 'required ',
+            'employeeNumber' => 'required  |alpha_numeric',
             'dateOfBirth' => 'required ',
             'dateOfEmployment' => 'required ',
             'employmentType' => 'required ',
             'position' => 'required ' ,
             'department' => 'required ',
+            'subDepartment' => 'required ',
             'gender' => 'required ',
             'grade' => 'required '
 

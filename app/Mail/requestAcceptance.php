@@ -31,6 +31,7 @@ class requestAcceptance extends Mailable
         ->with([
                         'name'=>$this->requester->user->name,
                         'surname'=>$this->requester->user->surname,
+                        'email'=>$this->requester->user->email,
                         'hodName'=>$this->HodDetails->name,
                         'staffName'=>$this->requester->staff->name,
                         'staffSurname'=>$this->requester->staff->surname,

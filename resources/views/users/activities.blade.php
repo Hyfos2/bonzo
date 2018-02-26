@@ -17,15 +17,7 @@
                 </thead>
 
                 <tbody>
-                @foreach($staffLeaveRecords as $staffLeaveRecord)
-                    <tr>
 
-
-                        <td>{{$staffLeaveRecord->startDate}}</td>
-                        <td>{{$staffLeaveRecord->endDate }}</td>
-                        <td>{{ $staffLeaveRecord->daysTaken}} </td>
-                    </tr>
-                @endforeach
                 </tbody>
             </table>
 

@@ -81,9 +81,18 @@
 </div>
 
 <div class="form-group">
+    <label for="inputTitle" style="text-align: left;"  class="col-md-2 control-label">Department</label>
+    <div class="col-md-10">
+
+        <input class="form-control input-sm" type="text"  name="title" value="{{ucfirst($leaveRequestProfile->user->department->name)}}" disabled>
+
+    </div>
+</div>
+
+<div class="form-group">
     <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Requested </label>
     <div class="col-md-10">
-    <input class="form-control input-sm" type="text"  name="title" value="{{$leaveRequestProfile->created_at}}" disabled>
+    <input class="form-control input-sm" type="text"  name="title" value="{{$leaveRequestProfile->created_at->diffForHumans()}}" disabled>
 
     </div>
 </div>

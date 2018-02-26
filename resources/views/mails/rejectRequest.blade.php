@@ -115,7 +115,7 @@
 
                             <tr>
                                 <td width="100%" style="font-size: 14px; text-align: left; color:#2E363F; line-height: 24px; " height="20">
-                                    <strong>{{ucfirst($staffName)}} {{ucfirst($staffSurname)}}</strong> from  <strong>{{ucfirst($department)}} department</strong> has approved  a leave request for <strong>{{ucfirst($staffName)}} {{ucfirst($staffSurname)}} </strong> from {{$startDate}} to {{$endDate}}.Click the below button to view more about this.
+                                    <strong> {{ucfirst($staffName)}} {{ucfirst($staffSurname)}}</strong> from  <strong>{{ucfirst($department)}} department</strong> has rejected   a leave request for <strong>{{ucfirst($staffName)}} {{ucfirst($staffSurname)}}</strong> from {{$startDate}} to {{$endDate}} ,based on {{$reason}}.Click the below button to view more about this.
 
     
                                 </td>

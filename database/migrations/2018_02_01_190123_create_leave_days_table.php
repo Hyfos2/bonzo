@@ -15,13 +15,14 @@ class CreateLeaveDaysTable extends Migration
             $table->integer('daysTaken');
             $table->date('startDate');
             $table->string('reasonForRequest');
+            $table->string('rejectionReason')->nullable();
             $table->string('approved')->nullable();
-            $table->string('pending')->nullable();
+            $table->integer('pending')->unsigned();
             $table->date('endDate');
             $table->integer('created_by')->unsigned();
             $table->integer('approvedBy')->unsigned()->nullable();
-            $table->foreign('created_by')->references('id')->on('users');
-//          $table->foreign('approvedBy')->references('id')->on('user');
+            $table->foreign('pending')->references('id')->on('leave_request_statuses');
+            $table->foreign('approvedBy')->references('id')->on('users');
             $table->foreign('staffId')->references('id')->on('staff');
             $table->timestamps();
         });

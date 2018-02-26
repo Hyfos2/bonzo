@@ -9,7 +9,7 @@
     $j(document).ready(function(){
       $j("#datepicker-Todate").datepicker({
        maxDate: new Date(2000, 2 - 1, 1),
-           dateFormat:"yy-mm-dd",
+           dateFormat:"yy-mm-dd", 
             changeYear: true,
             changeMonth: true
 
@@ -122,7 +122,7 @@
               <div class="form-group">
                 {!! Form::label('Staff Number', 'Staff Number', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('employeeNumber',old('employeeNumber'),['class' => 'form-control input-sm','id' => 'employeeNumber','autocomplete'=>'off']) !!}
+                    {!! Form::text('employeeNumber',old('employeeNumber'),['class' => 'form-control input-sm','id' => 'employeeNumber','autocomplete'=>'off','placeholder'=>'ecd23456']) !!}
                     @if ($errors->has('employeeNumber')) <p class="help-block red">*{{ $errors->first('employeeNumber') }}</p> @endif
 
 
@@ -133,13 +133,27 @@
                 {!! Form::label('Department', 'Department', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
 
-                    <select  name="department" class="form-control" >
+                     <!--   {!! Form::select('department',$selectDept,"",['class' => 'form-control' ,'id' => 'department' ,'placeholder'=>'Select Department']) !!}
+ -->
+                    <select  name="department" class="form-control"  id="department">
                         <option selected disabled>Select Department</option>
                                 @foreach($dprtments as $type)
                             <option  value="{{$type->id}}" @if(old('department') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                                 @endforeach
                             </select>
                     @if ($errors->has('department')) <p class="help-block red">*{{ $errors->first('department') }}</p> @endif
+
+
+                </div>
+            </div>
+
+             <div class="form-group">
+                {!! Form::label('Sub department', 'Sub department', array('class' => 'col-md-3 control-label')) !!}
+                <div class="col-md-6">
+
+                    <select  name="subDepartment" class="form-control" id="subDepartment" >
+                        <option selected disabled>Select sub department</option></select>
+                    @if ($errors->has('subDepartment')) <p class="help-block red">*{{ $errors->first('subDepartment') }}</p> @endif
 
 
                 </div>
@@ -195,3 +209,18 @@
     </div>
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+        $('#department').on('change', function () {
+            var id = this.value;
+            console.log(id);
+            $('#subDepartment').empty();
+            $.get('getSubDepartments/' + id, function (response) {
+                $('#subDepartment').append("<option  selected disabled>Select Sub Department</option>");
+                $.each(response, function (key, value) {
+                    $('#subDepartment').append("<option  value=" + value.id + ">" + value.name + "</option>");
+                });
+            });
+        });
+</script>
+@endpush

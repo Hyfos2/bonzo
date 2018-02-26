@@ -25,6 +25,7 @@ Route::get('/register','UsersController@registernewUser');
 Route::get('/usersList','UsersController@usersList');
 Route::get('/editUser/{id}','UsersController@editUser');
 Route::get('/users','UsersController@index')->name('users');
+Route::get('getSubDepartments/{id}','UsersController@getSubDepartments');
 
 Route::view('/staffList','staff.staffList');
 Route::view('/staffGrades','staff.staffGrades');
@@ -36,10 +37,14 @@ Route::view('/positions','positions.positionsList');
 /*LeaveDays*/
 Route::view('/leave','staff.employeeLeaveList');
 Route::get('getLeaveDays','LeaveController@getLeavedays');
-Route::get('/getRequest','LeaveController@getRequests');
+Route::get('/getRequest','LeaveController@getRequests')->name('getRequest');
 Route::get('requestListing','LeaveController@requestListing');
 Route::get('requestProfile/{id}','LeaveController@requestProfile');
 Route::post('requestProfile/acceptRequest/{id}','LeaveController@acceptRequest');
+Route::post('rejectReason/{id}','LeaveController@rejectReason');
+Route::get('staffOnLeave','LeaveController@staffOnLeave');
+Route::get('getStaffNotWorking','LeaveController@getStaffNotWorking');
+Route::get('leaveProfile/{id}','LeaveController@requestProfile');
 
 //Route::view('/employmentTypes','employmentTypes.employmentTypesList');
 
@@ -91,6 +96,6 @@ Route::view('emailTemplate','mails.templateDesign');;
 Route::resource('categories','CategoryController');
 
 
-
+Route::view('email','mails.requestAcceptance');
 
 

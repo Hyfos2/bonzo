@@ -1,4 +1,4 @@
-<?php
+php<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +19,7 @@ class CreateStaffTable extends Migration
             $table->date('dateOfEmployment');
             $table->integer('annualLeaveDays')->default(30);
             $table->integer('employmentTypeId')->unsigned();
+            $table->integer('subDepartmentId')->unsigned();
             $table->integer('positionId')->unsigned();
             $table->string('loyalty');
             $table->string('gender');
@@ -29,6 +30,7 @@ class CreateStaffTable extends Migration
             $table->foreign('gradeId')->references('id')->on('grades');
             $table->foreign('positionId')->references('id')->on('positions');
             $table->foreign('departmentId')->references('id')->on('departments');
+            $table->foreign('subDepartmentId')->references('id')->on('categories');
             $table->timestamps();
         });
     }

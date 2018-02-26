@@ -17,13 +17,13 @@
                 </thead>
 
                 <tbody>
-                @foreach($staffLeaveRecords as $staffLeaveRecord)
+                @foreach($userDetails as $userDetail)
                     <tr>
 
 
-                        <td>{{$staffLeaveRecord->startDate}}</td>
-                        <td>{{$staffLeaveRecord->endDate }}</td>
-                        <td>{{ $staffLeaveRecord->daysTaken}} </td>
+                        {{--<td>{{$userDetail->startDate}}</td>--}}
+                        {{--<td>{{$userDetail->endDate }}</td>--}}
+                        {{--<td>{{ $userDetail->daysTaken}} </td>--}}
                     </tr>
                 @endforeach
                 </tbody>
