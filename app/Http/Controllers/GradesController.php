@@ -31,7 +31,7 @@ class GradesController extends Controller
 
 		return Datatables::of($grades)
             ->addColumn('action', function ($grades) {
-                return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
             })
             ->make(true);
 

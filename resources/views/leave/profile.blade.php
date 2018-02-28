@@ -6,7 +6,7 @@
             <li><a href="{{url('welcome')}}">Home</a></li>
             @if(\Auth::user()->positionId== 1 ||  \Auth::user()->positionId==2)
                 
-                <li><a href="{{ url('leave') }}">Requests List</a></li>
+                <li><a href="{{ url('requestListing') }}">Requests List</a></li>
                 <li class="active">Request Details</li>
             @elseif(\Auth::user()->positionId==3)
                 <li class="active">Request Details</li>
@@ -28,12 +28,24 @@
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="taskprofile">
-                                
+                                <div id="hodAction">
+                                     
+                                  
+                                   <input type="hidden" id="recordId" value="{{$leaveRequestProfile->id}}">
+                                  
+                                    <button id="accept" v-on:click.onces="acceptRequest" class="btn btn-primary" style="margin-left:5px; ">Accept</button>
+
+
+                                      <button id="reject" class="btn btn-primary"  data-toggle="modal" data-target=".modalRejectReason" style="margin-left:5px;">Reject</button>
+          
+                                                                       
+                                      
+                                </div>
                                 <div class="block-area" id="horizontal">
 
                                     <h3  style="margin-left:-10px;" class="block-title">LEAVE REQUEST DETAILS</h3>
 
-                                    @include('hod.edit')
+                                    @include('leave.profileBody')
 
 
                                 </div>
@@ -123,6 +135,12 @@
         </div>
 
     </div>
+    <div id="snackbar">Accepting the Request..</div>
+    <div id="successBar">Successfully accepted.An email was send to the requester.</div>
+        <div id="error">Leave request was accepted already.</div>
+
+    
+
 
 @endsection
 

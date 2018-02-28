@@ -95,7 +95,6 @@ if (document.querySelector('#registrationForm')) {
             return true
         }
             return false },
-            ,
         wrongRoleId:function() {  if(this.roleId === '') {
             this.roleFB = ERRORS.roleField;
             return true

@@ -44,14 +44,14 @@
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('/welcome') }}">Home</a></li>
          <li><a href="{{ url('/pendingRequests') }}">Pending Requests</a></li>
-          <li><a href="{{ url('/rejectedRequests') }}">Rejected Requests</a></li>
-        <li class="active">Accepted Requests</li>
+          <li><a href="{{ url('/leave') }}">Accepted Requests</a></li>
+        <li class="active">Rejected Requests</li>
     </ol>
 @endif
 @endif
-    <h4 class="page-title">Accepted Requests</h4>
+    <h4 class="page-title">Rejected Requests</h4>
     <div class="block-area" id="alternative-buttons">
-        <h3 class="block-title">Accepted Requests</h3>
+        <h3 class="block-title">Rejected Requests</h3>
         <a class="btn btn-sm" data-toggle="modal" data-target=".modalAddLeave">New Request
         </a>
     </div>
@@ -61,12 +61,12 @@
     <div class="block-area" id="responsiveTable">
      
         <div class="table-responsive overflow">
-            <table class="table tile table-striped" id="leaveTable">
+            <table class="table tile table-striped" id="rejectsTable">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>name</th>
-                    <th>Accepted by</th>
+                    <th>Rejected by</th>
                     <th>Leave days</th>
                     <th>start date</th>
                     <th>end date</th>
@@ -81,23 +81,19 @@
 @endsection
 @push('scripts')
     <script>
-       var name ="{{\Auth::user()->name}}"+" "+ "{{\Auth::user()->surname}}";
-       console.log("name --",name);
+   var name ="{!!\Auth::user()->name!!}"+" "+ "{!!\Auth::user()->surname!!}";
         $(function() {
-            $('#leaveTable').DataTable({
+            $('#rejectsTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!!url('/getLeaveDays/')!!}',
+                ajax: '{!!url('/getRejectedRequest/')!!}',
                 columns: [
                     {data: 'id', name: 'id'},
                     {data : function(d)
                         {
                             return d.staff.name +" "+d.staff.surname;
                         },name:'staffId'},
-                          {data : function(d)
-                        {
-                            return d.user.name +" "+d.user.surname;
-                        },name:'created_by'},
+                    {data: 'created_by',name:'created_by'},
                          {data: 'daysTaken', name: 'daysTaken'},
                     {data: 'startDate', name: 'startDate'},
                     {data: 'endDate', name: 'endDate'},

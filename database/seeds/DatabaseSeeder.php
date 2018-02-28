@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EmploymentTypeSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(leaverequestStatusSeeder::class);
 
     }
 }

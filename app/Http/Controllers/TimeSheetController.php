@@ -254,5 +254,10 @@ return $this->goBack();
         ]);
 
     }
+
+  public function timeSheets()
+    {
+      return view('timeSheets.timeSheets');
+    }
    
 }

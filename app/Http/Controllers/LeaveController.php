@@ -15,26 +15,25 @@ class LeaveController extends Controller
 {
     public function getLeavedays()
     {
-        $leaveDays =LeaveDay::with('staff')->where('pending',0)->where('approved',0)
+        $leaveDays =LeaveDay::with('staff','user')->where('pending',2)->where('approved',1)
             ->get();
 
         return Datatables::of($leaveDays)
             ->addColumn('action', function ($leaveDays) {
-                return '<a href="#edit-'.$leaveDays->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a href="requestProfile/'.$leaveDays->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>view</a>';
             })
             ->make(true);
     }
 
     public function getRequests()
     {
-        // return Cache::remember(function(){
+        
+        $currentUserDepartment  = User::find(Auth::user()->id)->departmentId;
+        $requests = LeaveDay::with('staff','user')->where('department',$currentUserDepartment)->where('pending',1)->where('approved',0)->get();
 
-        // })
-
-        $requests = LeaveDay::with('staff','user')->where('pending',0)->where('approved',0)->get();
          return Datatables::of($requests)
             ->addColumn('action', function ($requests) {
-                return '<a href="requestProfile/'.$requests->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>View</a>';
+                return '<a href="hodRequestProfile/'.$requests->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>View</a>';
             })
             ->make(true);
 
@@ -74,6 +73,17 @@ class LeaveController extends Controller
         return view('hod.profile',compact('leaveRequestProfile','staffLeaveRecords'));
 
     }
+     public function hodRequestProfile($id)
+    {
+
+        $leaveRequestProfile   =LeaveDay::with('staff','user')->find($id);
+        $staffLeaveRecords     =LeaveDay::where('id',$id)->where('approved',1)->get(['startDate','endDate','daysTaken']);
+
+        // return $staffLeaveRecords;
+
+        return view('leave.profile',compact('leaveRequestProfile','staffLeaveRecords'));
+
+    }
 
     public function acceptRequest($id)
     {
@@ -81,23 +91,19 @@ class LeaveController extends Controller
                  $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
 
                     
-                    if($updateTheRecord->approved ==1 || $updateTheRecord->approved ==2)
+                    if($updateTheRecord->approved ==2 || $updateTheRecord->approved ==3)
                     {
                         return "updated";
                     }
 
                 $latestChanges      =$updateTheRecord->update(['approved'=>1,
-                                                                'pending'=>1,
+                                                            'pending'=>2,
                                                              'approvedBy'=>Auth::user()->id]);
-
-
-
 
 
     $remainingDays   = $updateTheRecord->staff->annualLeaveDays - $updateTheRecord->daysTaken;
 
-
-    $staffTable   =Staff::find($updateTheRecord->staffId)
+   $staffTable   =Staff::find($updateTheRecord->staffId)
                                          ->update(['annualLeaveDays'=>$remainingDays]);
 
             $HodDetails =User::find(Auth::user()->id);
@@ -113,7 +119,7 @@ class LeaveController extends Controller
 
          $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
          $latestChanges      =$updateTheRecord->update(['approved'=>1,
-                                                        'pending'=>2,
+                                                        'pending'=>3,
                                                         'approvedBy'=>Auth::user()->id,
                                                         'rejectionReason'=>$request->rejectReason]);
 
@@ -124,6 +130,40 @@ class LeaveController extends Controller
         return "saved";
 
     }
+
+    public function pendingRequests()
+    {
+        return  view('leave.pending');
+
+    }
+    public function rejectedRequests(){
+         return  view('leave.rejected');
+    }
+    public function getPendingRequest()
+    {
+        $requests = LeaveDay::with('staff','user')->where('pending',1)->where('approved',0)->get();
+         return Datatables::of($requests)
+            ->addColumn('action', function ($requests) {
+                return '<a href="requestProfile/'.$requests->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>View</a>';
+            })
+            ->make(true);
+
+    }
+      public function getRejectedRequest()
+    {
+        $requests = LeaveDay::with('staff','user')->where('pending',3)->where('approved',1)->get();
+         return Datatables::of($requests)
+            ->addColumn('action', function ($requests) {
+                return '<a href="requestProfile/'.$requests->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>View</a>';
+            })
+            ->make(true);
+
+    }
+    public function acceptedRequests()
+    {
+        return view('staff.employeeLeaveList');
+    }
+
 
     
 

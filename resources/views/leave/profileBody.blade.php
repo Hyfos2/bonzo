@@ -1,4 +1,4 @@
-{!! Form::open(['url' => 'leave', 'method' => 'get', 'class' => 'form-horizontal' ]) !!}
+{!! Form::open(['url' => 'requestListing', 'method' => 'get', 'class' => 'form-horizontal' ]) !!}
 
 
 <div class="form-group">

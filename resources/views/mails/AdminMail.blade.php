@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -117,7 +116,7 @@
 
                             <tr>
                                 <td width="100%" style="font-size: 14px; text-align: left; color:#2E363F; line-height: 24px; " height="20">
-                                    <strong>{{ucfirst($staffName)}} {{ucfirst($staffSurname)}}</strong> from  <strong>{{ucfirst($department)}} department</strong> has approved  a leave request for <strong>{{ucfirst($staffName)}} {{ucfirst($staffSurname)}} </strong> from {{$startDate}} to {{$endDate}}.Click the below button to view more about this.
+                                    {{$message}}
 
     
                                 </td>

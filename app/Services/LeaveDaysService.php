@@ -53,5 +53,16 @@ class LeaveDaysService
             return back()->with($notification);
 
         }
+        public function displayEmailSuccessNotification()
+        {
+
+            $notification = array(
+                'message'=>'Email sent to the Admin,please wait for approval',
+                'alert-type'=>'success'
+            );
+
+            return back()->with($notification);
+
+        }
 
   }

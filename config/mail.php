@@ -9,7 +9,7 @@ return [
     'port' => env('MAIL_PORT', 587),
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hyfosbrian@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'howmines@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'How Mines Admin'),
     ],
 

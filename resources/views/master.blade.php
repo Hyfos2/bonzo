@@ -166,8 +166,9 @@
                 <span class="menu-item">HOME</span>
               </a>
             </li>
+            @if (\Auth::check())
 
-             @include('menu.staff')
+                @include('menu.staff')
              @include('menu.timeSheet')
              @include('menu.companyStructure')
              @include('menu.shiftHours')
@@ -178,10 +179,10 @@
       <section id="content" class="container">
         @yield('content')
       </section>
-
+        @endif
     </section>
 
-
+   {{--<script src="//code.jquery.com/jquery.js"></script>--}}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <!--   <script src="{{ asset('js/calendar.min.js') }}"></script> -->
@@ -240,6 +241,7 @@
    
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
   @stack('scripts')
+   @include('flashy::message')
 
 </body>
   </html>

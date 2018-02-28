@@ -17,4 +17,8 @@ class LeaveDay extends Model
     {
     	return $this->belongsTo(User::class,'created_by','id');
     }
+    public function status()
+    {
+        return $this->belongsTo(LeaveRequestStatus::class,'pending','id');
+    }
 }

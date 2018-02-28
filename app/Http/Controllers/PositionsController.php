@@ -36,4 +36,10 @@ class PositionsController extends Controller
             })
             ->make(true);
     }
+
+    public function getPositionsList()
+     {
+        return view('positions.positionsList');
+    }
 }
+

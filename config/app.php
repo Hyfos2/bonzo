@@ -5,7 +5,7 @@ return [
     'name' => env('APP_NAME', 'How Mine EMS'),
     'env' => env('APP_ENV', 'production'),
     'debug' => env('APP_DEBUG', false),
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
@@ -40,7 +40,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-    
 
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -49,9 +48,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
-        Eduardokum\LaravelMailAutoEmbed\ServiceProvider::class,
         'Barryvdh\Debugbar\ServiceProvider',
-        DevMarketer\LaraFlash\LaraFlashServiceProvider::class,
+          MercurySeries\Flashy\FlashyServiceProvider::class,
+
+       
 
     ],
 
@@ -96,7 +96,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
-        'LaraFlash' => DevMarketer\LaraFlash\LaraFlashFacade::class,
+         'Flashy' => MercurySeries\Flashy\Flashy::class,
 
     ],
 

@@ -35,4 +35,8 @@ class DepartmentController extends Controller
             ->make(true);
     
    }
+   public function departmentList()
+   {
+    return view('departments.departmentsList');
+   }
 }

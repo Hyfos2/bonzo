@@ -20,6 +20,7 @@ class CreateLeaveDaysTable extends Migration
             $table->integer('pending')->unsigned();
             $table->date('endDate');
             $table->integer('created_by')->unsigned();
+             $table->integer('department');
             $table->integer('approvedBy')->unsigned()->nullable();
             $table->foreign('pending')->references('id')->on('leave_request_statuses');
             $table->foreign('approvedBy')->references('id')->on('users');

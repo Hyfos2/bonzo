@@ -142,12 +142,3 @@
     </div>
 </div>
 {!! Form::close() !!}
-
-<script>
-    $("#note").on("blur",function(ev) {
-        console.log("Blurry: ev - ",ev);
-        console.log("  val - ",$(ev.currentTarget).val());
-        if ($.trim($(ev.currentTarget).val()) == "") $("button[type=submit]").attr("disabled", "disabled");
-        else $("button[type=submit]").removeAttr("disabled");
-    });
-</script>
