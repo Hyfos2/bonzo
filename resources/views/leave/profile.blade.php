@@ -72,7 +72,7 @@
 
             <div class="col-md-3" style="margin-top:75px;">
 
-                 <h3  style="margin-left:1px;" class="block-title">LEAVE HISTORY DETAILS</h3>
+                 <h3  style="margin-left:1px;" class="block-title">LEAVE  DETAILS</h3>
 
 
                 <div class="tile">

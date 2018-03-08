@@ -2,9 +2,9 @@
 
 
 Auth::routes();
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/site/login',

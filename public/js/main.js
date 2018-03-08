@@ -384,7 +384,7 @@ if (document.querySelector('#hodAction')) {
     var recordID = document.getElementById('recordId').value;
     var a = document.getElementById("snackbar");
     var b = document.getElementById("successBar");
-    var c = document.getElementById("error");
+    var c = document.getElementById("errorMessage");
     var count =0;
    new Vue({
     el: "#hodAction",
@@ -393,9 +393,7 @@ if (document.querySelector('#hodAction')) {
         {
            
             a.className = "show";
-                         setTimeout(function(){ a.className = a.className.replace("show", ""); }, 3000);
-                         ///console.time(y)
-
+                         setTimeout(function(){ a.className = a.className.replace("show", ""); }, 2000);
             axios.post('acceptRequest/'+recordID)
                         .then(function (response) {
 
@@ -403,9 +401,8 @@ if (document.querySelector('#hodAction')) {
                          {
 
                              b.className = "show";
-                         setTimeout(function(){ b.className = b.className.replace("show", ""); }, 4000);
+                         setTimeout(function(){ b.className = b.className.replace("show", ""); }, 3000);
 
-                        // console.timeEnd(y);
 
                          }
 
@@ -413,44 +410,17 @@ if (document.querySelector('#hodAction')) {
                             })
 
                         .catch(function (error) {
-                            
+                            if(error.status ===500)
+                         {
+
+                             c.className = "show";
+                         setTimeout(function(){ c.className = c.className.replace("show", ""); }, 3000);
+
+
+                         }                            
                                             });
 
-             //   localStorage.setItem("accepted",count);
-             // }
-             // else{
-
-             //        z.className = "show";
-             //        setTimeout(function(){ z.className = z.className.replace("show", ""); }, 3000);
-
-             // }
-             
-          
            
-        },
-        rejectReason:function()
-        {
-
-             axios.post('rejectReason/'+recordId)
-                        .then(function (response) {
-
-                        if( response.status ==200 && response.statusText =="OK")
-                         {
-
-                         //     y.className = "show";
-                         // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
-                        // console.timeEnd(y);
-
-                         }
-
-                            console.log(response);
-                        })
-
-                        .catch(function (error) {
-                            
-                                            });
-
-
         }
 
     }
@@ -458,42 +428,42 @@ if (document.querySelector('#hodAction')) {
 }
 
 
-if (document.querySelector('#rejectReasonForm')) {
-    var recordId = document.getElementById('recordId').value;
-    var x = document.getElementById("snackbar");
-    var y = document.getElementById("successBar");
-    var z = document.getElementById("error");
-    var count =0;
-   new Vue({
-    el: "#rejectReasonForm",
-    methods: {
-        rejectReason:function()
-        {
-             axios.post('rejectReason/'+recordId)
-                        .then(function (response) {
+// if (document.querySelector('#rejectReasonForm')) {
+//     // var recordId = document.getElementById('recordId').value;
+//     // var x = document.getElementById("snackbar");
+//     // var y = document.getElementById("successBar");
+//     // var z = document.getElementById("error");
+//     var count =0;
+//    new Vue({
+//     el: "#rejectReasonForm",
+//     methods: {
+//         rejectReason:function()
+//         {
+//              axios.post('rejectReason/'+recordId)
+//                         .then(function (response) {
 
-                        if( response.status ==200 && response.statusText =="OK")
-                         {
+//                         if( response.status ==200 && response.statusText =="OK")
+//                          {
 
-                         //     y.className = "show";
-                         // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
-                        // console.timeEnd(y);
+//                          //     y.className = "show";
+//                          // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
+//                         // console.timeEnd(y);
 
-                         }
+//                          }
 
-                            console.log(response);
-                        })
+//                             console.log(response);
+//                         })
 
-                        .catch(function (error) {
+//                         .catch(function (error) {
                             
-                                            });
+//                                             });
 
 
-        }
+//         }
 
-    }
-})
-}
+//     }
+// })
+// }
 
 
 

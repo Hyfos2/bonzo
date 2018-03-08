@@ -137,6 +137,11 @@ class StaffController extends Controller
                 return $this->startDateAndEndDateMustNotBeEqual($startDate, $endDate);
 
             }
+            // if($request->startDate < $currentDate)
+            // {
+            //     $startDate = $request->startDate;
+            //     return $this->invalidStartDate($startDate);
+            // }
 
 
             if ($currentDate == $request->startDate) {
@@ -175,12 +180,12 @@ class StaffController extends Controller
 
                 $adminDetails = User::where('roleId', 1)->select('email', 'name', 'surname')->first();
                 $getDepartmentdetails = Department::find($staffDepartment);
-                Mail::to($adminDetails->email)->send(new AdminMail($getDepartmentdetails, $adminDetails, $leaveDays));
+               // Mail::to($adminDetails->email)->send(new AdminMail($getDepartmentdetails, $adminDetails, $leaveDays));
 
                 return $this->leave->displayEmailSuccessNotification();
             }
 
-            Mail::to($this->getHodDetails($staffDepartment)->email)->send(new LeaveRequest($user, $getDetails, $leaveDays));
+           // Mail::to($this->getHodDetails($staffDepartment)->email)->send(new LeaveRequest($user, $getDetails, $leaveDays));
             return $this->leave->displaySuccessNotification();
 
 
@@ -294,6 +299,16 @@ class StaffController extends Controller
     {
         $notification = array(
             'message' => 'Start date' . " (" . $startDate . ") " . 'cannot be equal to End date' . " (" . $endDate . ") ",
+            'alert-type' => 'error'
+        );
+
+        return back()->with($notification);
+
+    }
+     public function invalidStartDate($startDate)
+    {
+        $notification = array(
+            'message' => 'Start date' . " (" . $startDate . ") " . 'cannot be in the past',
             'alert-type' => 'error'
         );
 

@@ -57,10 +57,24 @@
                 </div>
             </div>
 
+            @if($leaveRequestProfile->status->status =="Rejected")
 
             <div class="col-md-3" style="margin-top:75px;">
 
-                 <h3  style="margin-left:1px;" class="block-title">LEAVE HISTORY DETAILS</h3>
+                 <h3  style="margin-left:1px;" class="block-title">REJECTION  REASON</h3>
+                <div class="tile">
+                   
+                @include('hod.rejectionReason')
+                </div>
+
+            </div>
+            @endif
+
+
+
+            <div class="col-md-3" style="margin-top:75px;">
+
+                 <h3  style="margin-left:1px;" class="block-title">LEAVE  DETAILS</h3>
 
 
                 <div class="tile">
@@ -70,6 +84,8 @@
                 </div>
 
             </div>
+
+
 
 
                   <div class="col-md-3" style="margin-top:7px;">

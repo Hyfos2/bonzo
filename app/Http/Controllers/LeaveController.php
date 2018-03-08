@@ -13,6 +13,7 @@ use App\Mail\requestAcceptance;
 
 class LeaveController extends Controller
 {
+    public $error;
     public function getLeavedays()
     {
         $leaveDays =LeaveDay::with('staff','user')->where('pending',2)->where('approved',1)
@@ -64,23 +65,43 @@ class LeaveController extends Controller
 
     public function requestProfile($id)
     {
+        $now  = \Carbon\Carbon::now('Africa/Johannesburg');
 
-        $leaveRequestProfile   =LeaveDay::with('staff','user')->find($id);
-        $staffLeaveRecords     =LeaveDay::where('id',$id)->where('approved',1)->get(['startDate','endDate','daysTaken']);
+    $leaveRequestProfile   =LeaveDay::with('staff','user')->find($id);
+    $leaveRecords     =LeaveDay::where('staffId', $leaveRequestProfile->staffId)->where('approved',1)->where('pending',2)->get(['startDate','endDate','daysTaken']);
 
-        // return $staffLeaveRecords;
+            $staffLeaveRecords=[];
+        foreach($leaveRecords as $record)
+        {
+            if($record->startDate == $now || $record->startDate < $now)
+            {
 
+                array_push($staffLeaveRecords, $record);
+                //return $record;
+            }
+
+        }
         return view('hod.profile',compact('leaveRequestProfile','staffLeaveRecords'));
 
     }
      public function hodRequestProfile($id)
     {
+        $now =\Carbon\Carbon::now('Africa/Johannesburg'); 
 
         $leaveRequestProfile   =LeaveDay::with('staff','user')->find($id);
-        $staffLeaveRecords     =LeaveDay::where('id',$id)->where('approved',1)->get(['startDate','endDate','daysTaken']);
+        $leaveRecords     =LeaveDay::where('staffId', $leaveRequestProfile->staffId)->where('approved',1)->where('pending',2)->get(['startDate','endDate','daysTaken']);
 
-        // return $staffLeaveRecords;
+            $staffLeaveRecords=[];
+        foreach($leaveRecords as $record)
+        {
+            if($record->startDate == $now || $record->startDate < $now)
+            {
 
+                array_push($staffLeaveRecords, $record);
+              
+            }
+
+        }
         return view('leave.profile',compact('leaveRequestProfile','staffLeaveRecords'));
 
     }
@@ -88,13 +109,11 @@ class LeaveController extends Controller
     public function acceptRequest($id)
     {
 
-                 $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
-
-                    
-                    if($updateTheRecord->approved ==2 || $updateTheRecord->approved ==3)
-                    {
-                        return "updated";
-                    }
+        $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
+        if($updateTheRecord->pending ==2 || $updateTheRecord->pending ==3)
+    {
+       return trigger_error('the record was accepted already');
+    }
 
                 $latestChanges      =$updateTheRecord->update(['approved'=>1,
                                                             'pending'=>2,
@@ -108,26 +127,31 @@ class LeaveController extends Controller
 
             $HodDetails =User::find(Auth::user()->id);
 
-
-
-            \Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
+\Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
         return "updated successfully";
     }
 
     public function rejectReason(Request $request,$id)
     {
 
-         $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
-         $latestChanges      =$updateTheRecord->update(['approved'=>1,
+    $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
+
+     if($updateTheRecord->pending ==2 || $updateTheRecord->pending ==3)
+    {
+        $error = 1;
+        return $this->rejectionMessage($error);
+    }
+         $latestChanges    =$updateTheRecord->update(['approved'=>1,
                                                         'pending'=>3,
                                                         'approvedBy'=>Auth::user()->id,
-                                                        'rejectionReason'=>$request->rejectReason]);
+                                                        'rejectionReason'=>$request->name]);
 
 
         $HodDetails        = User::find(Auth::user()->id);
 
-        \Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
-        return "saved";
+     \Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
+
+        return $this->rejectionMessage($error=null);
 
     }
 
@@ -162,6 +186,27 @@ class LeaveController extends Controller
     public function acceptedRequests()
     {
         return view('staff.employeeLeaveList');
+    }
+      public function rejectionMessage($error)
+    {
+        if(is_null($error))
+
+        {
+       $notification = array(
+            'message' => 'Request rejected',
+            'alert-type' => 'success');
+        return back()->with($notification);
+        }
+       else{
+             $notification = array(
+            'message' => 'This request was rejected already',
+            'alert-type' => 'error');
+        return back()->with($notification);
+         
+        }
+
+
+
     }
 
 

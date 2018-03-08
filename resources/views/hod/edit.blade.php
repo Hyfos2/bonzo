@@ -56,7 +56,7 @@
 
 
 <hr class="whiter m-t-10" /><br>
- <h3  style="margin-left:-10px;" class="block-title">CREATOR DETAILS</h3>
+ <h3  style="margin-left:-10px;" class="block-title">HOD DETAILS</h3>
 <div class="form-group">
     <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Name</label>
     <div class="col-md-10">
@@ -83,14 +83,23 @@
 
     </div>
 </div>
-
+@if($leaveRequestProfile->status->status =="New")
 <div class="form-group">
-    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Requested </label>
+    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Seen </label>
     <div class="col-md-10">
-    <input class="form-control input-sm" type="text"  name="title" value="{{$leaveRequestProfile->created_at->diffForHumans()}}" disabled>
+    <input class="form-control input-sm" type="text"  name="title" value="Not Seen" disabled>
 
     </div>
 </div>
+@else
+<div class="form-group">
+    <label for="inputTitle"  style="text-align: left;" class="col-md-2 control-label">Seen </label>
+    <div class="col-md-10">
+    <input class="form-control input-sm" type="text"  name="title" value="{{$leaveRequestProfile->updated_at->diffForHumans()}}" disabled>
+
+    </div>
+</div>
+@endif
 
 
 <div class="form-group">

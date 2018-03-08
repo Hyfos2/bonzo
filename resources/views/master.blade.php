@@ -27,9 +27,9 @@
   <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/token-input.css') }}" rel="stylesheet">-->
-  <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-
-    {{--<link href="{{asset('css/jquery.dataTables.min.css')}}">--}}
+  <!-- <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+ -->
+    <link href="{{asset('css/jquery.dataTables.min.css')}}">
     <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
 
 <style>
@@ -182,18 +182,17 @@
         @endif
     </section>
 
-   {{--<script src="//code.jquery.com/jquery.js"></script>--}}
+
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <!--   <script src="{{ asset('js/calendar.min.js') }}"></script> -->
    <script src ="{{asset('js/toastr.min.js')}}"></script>
 
 <script src="{{ asset('js/jquery.tokeninput.js') }}"></script>
 
-   {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>--}}
-   <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-   {{--<script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>--}}
+   <!-- {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>--}} -->
+  <!--  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ -->
+   <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 
    <script src="{{ asset('js/vue.js') }}"></script>
     <script src="{{asset('js/vee-validate.js')}}"></script>
@@ -202,7 +201,8 @@
         Vue.use(VeeValidate);
     </script>
   <!--   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios@0.17.0/index.min.js"></script> -->
-     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+     <script type="text/javascript" src="{{asset('js/axios.min.js')}}"></script>
 
 
    <script src="{{ asset('js/main.js') }}"></script>
@@ -241,7 +241,7 @@
    
   <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
   @stack('scripts')
-   @include('flashy::message')
+  <!--  @include('flashy::message') -->
 
 </body>
   </html>

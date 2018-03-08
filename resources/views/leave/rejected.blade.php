@@ -93,7 +93,10 @@
                         {
                             return d.staff.name +" "+d.staff.surname;
                         },name:'staffId'},
-                    {data: 'created_by',name:'created_by'},
+                    {data:function(d)
+                      {
+                        return d.user.name+ " "+d.user.surname;
+                      },name:'created_by'},
                          {data: 'daysTaken', name: 'daysTaken'},
                     {data: 'startDate', name: 'startDate'},
                     {data: 'endDate', name: 'endDate'},
