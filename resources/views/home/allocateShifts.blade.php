@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
- <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
+<!--  <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/> -->
 
     @if(Auth::user())
     @if(Auth::user()->positionId != 1 || Auth::user()->positionId!=3)

@@ -22,46 +22,148 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        $leave   =Staff::where('onLeave',1)->get();
+        $leave   = Staff::where('onLeave',1)->get();
+
+        //return $leave;
+
 
         foreach($leave as $item)
         {
 
+                //return $item;
+
                 if ($item->departmentId == 1)
                 {
-                        $firstDept = Staff::where('departmentId', 1)->count();
+                        $firstDept   =Staff::where('departmentId', 1)->count();
+
+                        $accounts    =Staff::where('subDepartmentId',9)->count();
+                        $stores    =Staff::where('subDepartmentId',10)->count();
+                        $buyingOffice    =Staff::where('subDepartmentId',11)->count();
+                        $IT    =Staff::where('subDepartmentId',12)->count();
+                        $creditors    =Staff::where('subDepartmentId',13)->count();
                 }
                 if ($item->departmentId == 2)
                 {
                     $twoDept = Staff::where('departmentId', 2)->count();
+
+                        $clinic    =Staff::where('subDepartmentId',1)->count();
+                        $communityServices    =Staff::where('subDepartmentId',2)->count();
+                        $beerHall    =Staff::where('subDepartmentId',3)->count();
+                        $howMineFootBall    =Staff::where('subDepartmentId',4)->count();
+                        $howMineClub    =Staff::where('subDepartmentId',5)->count();
                 }
+                 if ($item->departmentId == 3)
+                {
+                    $third = Staff::where('departmentId', 3)->count();
+
+                     $underGround    =Staff::where('subDepartmentId',14)->count();
+                        $surface    =Staff::where('subDepartmentId',15)->count();
+                }
+                 if ($item->departmentId == 4)
+                {
+                    $forth = Staff::where('departmentId', 4)->count();
+
+                        $sheq    =Staff::where('subDepartmentId',6)->count();
+                        $geology    =Staff::where('subDepartmentId',7)->count();
+                        $survey    =Staff::where('subDepartmentId',8)->count();
+                }
+                 if ($item->departmentId == 5)
+                {
+                    $fifth = Staff::where('departmentId', 5)->count();
+                }
+
         }
         if(empty($firstDept))
         {
             $firstDept = 0;
+            $accounts =0;
+            $stores =0;
+            $buyingOffice =0;
+            $IT =0;
+            $creditors =0;
         }
         else{
             $firstDept;
+            $accounts;
+            $stores;
+            $buyingOffice;
+            $IT;
+            $creditors;
         }
 
         if(empty($twoDept))
         {
             $twoDept = 0;
+            $clinic =0;
+            $communityServices=0;
+            $beerHall =0;
+            $howMineFootBall =0;
+            $howMineClub =0;
+
         }
         else{
             $twoDept;
+            $clinic;
+            $communityServices;
+            $beerHall;
+            $howMineClub;
+            $howMineFootBall;
         }
 
-        $staffOnLeave = Charts::create('pie', 'highcharts')
-            ->title('Staff on Leave Per Department')
-            ->labels(['firstDprt', 'SecondDprt'])
-            ->values([$firstDept, $twoDept])
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(true);
+         if(empty($third))
+        {
+            $third = 0;
+            $underGround =0;
+            $surface =0;
 
-        //return view('home.home',compact('staffOnLeave','',''));
+        }
+        else{
+            $third;
+            $underGround;
+            $surface;
+        }
+         if(empty($forth))
+        {
+            $forth   = 0;
+            $sheq    =0;
+            $geology   =0;
+            $survey    =0;
+
+        }
+        else{
+            $forth;
+            $sheq ;
+            $geology;
+            $survey;
+        }
+         if(empty($fifth))
+        {
+            $fifth = 0;
+        }
+        else{
+            $fifth;
+        }
+
         return view('home.home')->with('first',json_encode($firstDept))
-                                        ->with('two',json_encode($twoDept));
+                                ->with('two',json_encode($twoDept))
+                                 ->with('third',json_encode($third))
+                                  ->with('forth',json_encode($forth))
+                                   ->with('fifth',json_encode($fifth))
+                                    ->with('sheq',json_encode($sheq))
+                                     ->with('geology',json_encode($geology))
+                                      ->with('survey',json_encode($survey))
+                                       ->with('underGround',json_encode($underGround))
+                                        ->with('clinic',json_encode($clinic))
+                                         ->with('communityServices',json_encode($communityServices))
+                                          ->with('beerHall',json_encode($beerHall))
+                                           ->with('howMineFootBall',json_encode($howMineFootBall))
+                                            ->with('howMineClub',json_encode($howMineClub))
+                                             ->with('surface',json_encode($surface))
+                                              ->with('accounts',json_encode($accounts))
+                                                ->with('buyingOffice',json_encode($buyingOffice))
+                                                  ->with('IT',json_encode($IT))
+                                                    ->with('creditors',json_encode($creditors))
+                                               ->with('stores',json_encode($stores));
+
     }
 }

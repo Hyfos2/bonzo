@@ -42,7 +42,7 @@
                     <select  name="jobNumber"   class="form-control">
                         <option selected disabled>Select Department</option>
                         @foreach($dprtments as $type)
-                            <option  value="{{$type->id}}">{{$type->name}}</option>
+                            <option  value="{{$type->id}}" @if(old('jobNumber') == $type->id) {{ 'selected' }} @endif>{{$type->name}}</option>
                         @endforeach
                     </select>
                     {{--{!! Form::text('jobNumber',NULL,['class' => 'form-control input-sm','id'=>'jobNumber']) !!}--}}
@@ -51,14 +51,12 @@
                 </div>
             </div>
 
-            <hr class="whiter m-t-20">
-            <hr class="whiter m-b-20">
 
             <div class="form-group">
                 {!! Form::label('Leave', 'Leave', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {{--{!! Form::text('leave',NULL,['class' => 'leave form-control input-sm','id' => 'leave' , 'required']) !!}--}}
-                    {!! Form::select('leave',[''=>'Select','Yes' => 'Yes','No' => 'No'],0,['class' => 'form-control' ,'id' => 'leave']) !!}
+                    {{--{!! Form::text('leave',old('leave'),['class' => 'leave form-control input-sm','id' => 'leave' , 'required']) !!}--}}
+                    {!! Form::select('leave',[''=>'Select','Yes' => 'Yes','No' => 'No'],0,['class' => 'form-control' ,'id' => 'leave','autocomplete'=>'off']) !!}
                      @if ($errors->has('leave')) <p class="help-block red">* {{ $errors->first('leave') }}</p> @endif
 
                 </div>
@@ -67,7 +65,7 @@
             <div class="form-group">
                 {!! Form::label('Surface Ordinary Time', 'Surface Ordinary Time', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('surfaceOfOrdinary',old('surfaceOfOrdinary'),['class' => 'route form-control input-sm','id' => 'surfaceOfOrdinary']) !!}
+                    {!! Form::text('surfaceOfOrdinary',old('surfaceOfOrdinary'),['class' => 'route form-control input-sm','id' => 'surfaceOfOrdinary' ,'autocomplete'=>'off']) !!}
                     @if ($errors->has('surfaceOfOrdinary')) <p class="help-block red">* {{ $errors->first('surfaceOfOrdinary') }}</p> @endif
 
                 </div>
@@ -76,7 +74,7 @@
             <div class="form-group">
                 {!! Form::label('Normal Overtime', 'Normal Overtime', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('normalOvertime',old('normalOvertime'),['class' => 'locality form-control input-sm','id' => 'normalOvertime']) !!}
+                    {!! Form::text('normalOvertime',old('normalOvertime'),['class' => 'locality form-control input-sm','id' => 'normalOvertime','autocomplete'=>'off']) !!}
                      @if ($errors->has('normalOvertime')) <p class="help-block red">* {{ $errors->first('normalOvertime') }}</p> @endif
 
 
@@ -86,7 +84,7 @@
             <div class="form-group">
                 {!! Form::label('Double Overtime', 'Double Overtime', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('doubleOverTime',old('doubleOverTime'),['class' => 'administrative_area_level_1 form-control input-sm','id' => 'doubleOverTime']) !!}
+                    {!! Form::text('doubleOverTime',old('doubleOverTime'),['class' => 'administrative_area_level_1 form-control input-sm','id' => 'doubleOverTime','autocomplete'=>'off']) !!}
                       @if ($errors->has('doubleOverTime')) <p class="help-block red">* {{ $errors->first('doubleOverTime') }}</p> @endif
 
 
@@ -104,7 +102,7 @@
             <div class="form-group">
                 {!! Form::label('Standby', 'Standby', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('standBy',old('Standby'),['class' => 'Standby form-control input-sm','id' => 'standBy']) !!}
+                    {!! Form::text('standBy',old('Standby'),['class' => 'Standby form-control input-sm','id' => 'standBy','autocomplete'=>'off']) !!}
                       @if ($errors->has('standBy')) <p class="help-block red">* {{ $errors->first('standBy') }}</p> @endif
 
                 </div>
@@ -113,7 +111,7 @@
             <div class="form-group">
                 {!! Form::label('Night Allowance', 'Night Allowance', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('nightAllowance',old('nightAllowance'),['class' => 'nightAllowance form-control input-sm','id' => 'nightAllowance']) !!}
+                    {!! Form::text('nightAllowance',old('nightAllowance'),['class' => 'nightAllowance form-control input-sm','id' => 'nightAllowance','autocomplete'=>'off']) !!}
                      @if ($errors->has('nightAllowance')) <p class="help-block red">* {{ $errors->first('nightAllowance') }}</p> @endif
 
 
@@ -123,7 +121,7 @@
             <div class="form-group">
                 {!! Form::label('1/2 Shift', '1/2 Shift', array('class' => 'col-md-3 control-label')) !!}
                 <div class="col-md-6">
-                    {!! Form::text('halfShift',old('halfShift'),['class' => 'halfShift form-control input-sm','id' => 'halfShift']) !!}
+                    {!! Form::text('halfShift',old('halfShift'),['class' => 'halfShift form-control input-sm','id' => 'halfShift','autocomplete'=>'off']) !!}
                      @if ($errors->has('halfShift')) <p class="help-block red">* {{ $errors->first('halfShift') }}</p> @endif
 
 
@@ -158,52 +156,5 @@
              return today;
         }
         document.getElementById("dates").innerHTML = currentDate();
-
-
-        $(document).ready(function() {
-            $("#province").change(function(){
-
-                $.get("{{ url('/api/dropdown/districts/province')}}",
-                    { option: $(this).val()},
-                    function(data) {
-                        $('#district').empty();
-                        $('#municipality').empty();
-                        $('#ward').empty();
-                        $('#district').removeAttr('disabled');
-                        $('#district').append("<option value='0'>Select one</option>");
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#district').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-
-            });
-            $("#district").change(function(){
-                $.get("{{ url('/api/dropdown/municipalities/district')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#municipality').empty();
-                        $('#municipality').removeAttr('disabled');
-                        $('#municipality').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#municipality').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-            $("#municipality").change(function(){
-                $.get("{{ url('/api/dropdown/wards/municipality')}}",
-                    { option: $(this).val() },
-                    function(data) {
-                        $('#ward').empty();
-                        $('#ward').removeAttr('disabled');
-                        $('#ward').append("<option value='0'>Select one</option>");
-                        $.each(data, function(key, element) {
-                            $('#ward').append("<option value="+ key +">" + element + "</option>");
-                        });
-                    });
-            });
-
-        })
     </script>
 @endsection

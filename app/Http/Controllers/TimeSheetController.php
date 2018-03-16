@@ -8,8 +8,10 @@ use App\User;
 use App\Staff;
 use App\Department;
 use App\TimeSheet;
+use App\timeSheetFile;
 use Auth;
 use Illuminate\Support\Facades\Validator;
+use Yajra\Datatables\Datatables;
 
 class TimeSheetController extends Controller
 {
@@ -17,32 +19,35 @@ class TimeSheetController extends Controller
     public  $currentMonth;
     public   $currentYr ;
 
-
-
-
     public function addTimeSheet(Request $request)
    {
 
        $formData  = $request->all(['Dates','jobNumber','leave','surfaceOfOrdinary','doubleOverTime','normalOvertime','standBy','nightAllowance','halfShift']);
 
           $this->validateInput($request->all())->validate();
-        
-            $newTimeSheetRecord                      = new TimeSheet();
-            $newTimeSheetRecord->staffName       =$request->staffName;
-            $newTimeSheetRecord->jobNumber           =$request->jobNumber;
-            $newTimeSheetRecord->leave               =$request->leave;
-            $newTimeSheetRecord->surfaceOfOrdinary   =$request->surfaceOfOrdinary;
+          $staffDepartmentId   =User::find($request->staffName)->departmentId;
+          if($staffDepartmentId == $request->jobNumber)
+          {
+             $newTimeSheetRecord                    = new TimeSheet();
+            $newTimeSheetRecord->staffName          =$request->staffName;
+            $newTimeSheetRecord->jobNumber          =$request->jobNumber;
+            $newTimeSheetRecord->leave              =$request->leave;
+            $newTimeSheetRecord->surfaceOfOrdinary  =$request->surfaceOfOrdinary;
             $newTimeSheetRecord->doubleOverTime     =$request->doubleOverTime;
             $newTimeSheetRecord->normalOvertime     =$request->normalOvertime;
             $newTimeSheetRecord->standBy            =$request->standBy;
-            $newTimeSheetRecord->postalCode          =0;
+            $newTimeSheetRecord->postalCode         =0;
             $newTimeSheetRecord->nightAllowance     =$request->nightAllowance;
-            $newTimeSheetRecord->halfShift     =$request->halfShift;
-            $newTimeSheetRecord->currentDate      =\Carbon\Carbon::now();
+            $newTimeSheetRecord->halfShift          =$request->halfShift;
+            $newTimeSheetRecord->currentDate        =\Carbon\Carbon::now();
             $newTimeSheetRecord->save();
 
-        return  $this->createTimeSheetFile($request->staffName,$formData);
-
+          $this->createTimeSheetFile($request->staffName,$formData);
+          return $this->goBack();
+          }
+          else{
+            return $this->mismatchDepartmentNames();
+          }
 
    }
 
@@ -64,12 +69,10 @@ class TimeSheetController extends Controller
           array_pad($data,-1,$data['jobNumber']);
 
         }
-      
-
-         $dataValues     = array_keys($data);
+        $dataValues     = array_keys($data);
         $cellValues     = array_values($data);
 
-        $dayPosition  =$this->positionOfToday()+1;
+        $dayPosition  =$this->positionOfToday();
         $currentDy    =$this->now();
 
         $cMonthDates  =$this->currentMonthDates();
@@ -162,7 +165,6 @@ class TimeSheetController extends Controller
            });
        })->download('xlsx');
 
-return $this->goBack();
 
    }
    public function viewCreateTimeSheet()
@@ -233,9 +235,6 @@ return $this->goBack();
             'alert-type'=>'success'
                     );
       return redirect()::to('createTimeSheet')->with($notification);
-
-
-
    }
 
         protected function validateInput(array $data)
@@ -259,5 +258,137 @@ return $this->goBack();
     {
       return view('timeSheets.timeSheets');
     }
+    public function mismatchDepartmentNames()
+    {
+      $notification = array(
+            'message'=>'Mismatch in department names',
+            'alert-type'=>'error'
+                    );
+      return back()->with($notification);
+
+    }
    
+   public function getTimeSheet()
+   {  
+
+          $staffTimeSheet =timeSheetFile::with(['department','staff'])->get();
+   
+
+           return Datatables::of($staffTimeSheet)
+           ->addColumn('action', function ($staffTimeSheet) {
+               return '<a href="staffTimeSheet/'.$staffTimeSheet->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i> view</a>';
+           })
+           ->make(true);
+   }
+
+   public function staffTimeSheet($id)
+   {
+    
+        $timeSheetFileRecord = timeSheetFile::with(['staff','department'])->where('id',$id)->first();
+        //return $timeSheetFileRecord;
+        return view('timeSheets.timesheetProfile',compact('timeSheetFileRecord'));
+   }
+
+   public function addTimeSheetFile(Request $request)
+   {
+
+       $this->validateFileUpload($request->all())->validate();
+       $staff = Staff::find($request->staffName);
+
+       if($request->department == $staff->departmentId)
+       {
+
+     $fullname   = $staff->name."_".$staff->surname;
+     $destinationFolder = 'staff/timesheets' ."-". $fullname;
+
+    if (!\File::exists($destinationFolder)) {
+      $createDir = \File::makeDirectory($destinationFolder, 0777, true);
+    }
+
+    $fileName = $request->file('fileName')->getClientOriginalName();
+    $fileFullPath = $destinationFolder . '/' . $fileName;
+
+    if (!\File::exists($fileFullPath)) 
+      {
+
+      $request->file('fileName')->move($destinationFolder, $fileName);
+      
+     $newFile             =new timeSheetFile();
+     $newFile->staffName  =$request->staffName;
+     $newFile->department =$request->department;
+     $newFile->fileName   =$fileName;
+     $newFile->filePath   =$fileFullPath;
+     $newFile->save();
+     return $this->recordSaved();
+
+        }
+
+       }
+       else{
+        return $this->mismatchDepartmentNames();
+       }
+
+        
+   }
+
+    protected function validateFileUpload(array $data)
+    {
+        return Validator::make($data, [
+            
+          'staffName' => 'required|unique:time_sheet_files',
+            'department' => 'required ',
+            'fileName' => 'required'
+        ]);
+
+    }
+     protected function validateFileUpdate(array $data)
+    {
+        return Validator::make($data, [
+              'fileName' => 'required'
+        ]);
+
+    }
+    public function recordSaved()
+    {
+       $notification = array(
+            'message'=>'File uploaded successfully',
+            'alert-type'=>'success'
+                    );
+      return back()->with($notification);
+
+    }
+    public function updateSheet(Request $request)
+    {
+       $this->validateFileUpdate($request->all())->validate();
+     $destinationFolder = 'staff/timesheets' ."_". $request->id;
+
+    if (!\File::exists($destinationFolder)) 
+      {
+      $createDir = \File::makeDirectory($destinationFolder, 0777, true);
+      }
+
+    $fileName = $request->file('fileName')->getClientOriginalName();
+    $fileFullPath = $destinationFolder . '/' . $fileName;
+
+    if (!\File::exists($fileFullPath)) 
+      {
+
+      $request->file('fileName')->move($destinationFolder, $fileName);
+
+      $oldFile   =timeSheetFile::find($request->id)
+                                  ->update(['filePath'=>$fileFullPath,
+                                            'fileName'=>$fileName]);
+     return $this->fileUpdatedSuccessfully();
+
+        }
+    }
+    public function fileUpdatedSuccessfully()
+    {
+       $notification = array(
+            'message'=>'File updated successfully',
+            'alert-type'=>'success'
+                    );
+      return back()->with($notification);
+    }
+    
 }

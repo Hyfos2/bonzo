@@ -1,36 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Department;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
 {
     public function addDepartment(Request $request)
     {
-        $new        = new  Department();
-   	 $new->name  = $request->name;
-   	 $new->save();
 
-        $notification = array(
-            'message'=>'new department was added',
-            'alert-type'=>'success'
-                    );
+         $this->validator($request->all())->validate();
 
-        return back()->with($notification);
+            $new        = new  Department();
+         	  $new->name  = $request->name;
+         	  $new->save();
+
+              $notification = array(
+                  'message'=>'New department was added',
+                  'alert-type'=>'success'
+                          );
+
+              return back()->with($notification);
     }
 
    public function getDepartment()
    {
 
-        $dpartments = \DB::table('departments')
-            ->get();
+        //$dpartments = \App\Department::query();
+     $dpartments =  Department::select(array('id','name','created_at'));
 
         return Datatables::of($dpartments)
-            ->addColumn('action', function ($dpartments) {
-                return '<a href="#edit-'.$dpartments->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+            ->addColumn('action', function (Department $dpartments)
+            {
+                return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditDepartment" onclick ="launchUpdateDepartmentModal($idss);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
             ->make(true);
     
@@ -39,4 +44,33 @@ class DepartmentController extends Controller
    {
     return view('departments.departmentsList');
    }
+   public function details($id)
+   {
+      $dept    =DEpartment::find($id);
+      return $dept;
+   }
+   public function editDepartment(Request $request)
+   {
+
+   //return $request->all();
+    $depart  =Department::find($request->deptID)
+              ->update(['name'=>$request->name]);
+
+              $notification = array(
+            'message'=>'Department name updated',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification); 
+
+   }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'unique:departments'
+
+        ]);
+
+    }
 }

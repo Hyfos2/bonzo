@@ -36,6 +36,7 @@
                         @if ($errors->has('grade')) <p  v-bind:class="{hidden :isHidden}"  class="help-block red">*{{ $errors->first('grade') }}</p> @endif
                     </div>
                 </div>
+                
 
                  <div class="form-group">
                     {!! Form::label('salary', 'Salary', array('class' => 'col-md-2 control-label')) !!}

@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+@include('staff.editGrade')
+
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{url('/welcome')}}">Home</a></li>
         <li class="active">Staff Grades</li>
@@ -48,5 +50,44 @@
                 ]
             });
         });
+
+         function launchUpdateGradeModal(id) {
+            
+
+            if (!id) {
+                $('#gradeID').modal('show');
+                // $(".modal-body #deptID").val('');
+                var idCompany = $("#idCompany").val();
+                $("#modalEditDepartment #company").val(idCompany);
+                $("#modalEditDepartment #name").val('');
+                $("#modalEditDepartment #acronym").val('');
+                return;
+            }
+            $(".modal-body #deptID").val(id);
+                //var id =id;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{!! url('/gradeDetails/"+ id + "')!!}",
+                success: function (data) {
+                    if (data!== null)
+                     {
+                         $("#modalEditGrade #grade").val(data.grade);
+                         $("#modalEditGrade #salary").val(data.salary);
+                         $("#modalEditGrade #gradeID").val(id);
+                    }
+                    
+                    else {
+                        $("#modalEditGrade #grade").val(data.grade);
+                        $("#modalEditGrade #salary").val(data.salary);
+                    }
+                }
+            });
+
+        }
+
+        @if (count($errors) > 0)
+      $('#modalAddGrade').modal('show');
+    @endif
     </script>
 @endpush

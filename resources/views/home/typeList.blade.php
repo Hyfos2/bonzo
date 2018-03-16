@@ -1,4 +1,4 @@
-@extends('master')
+W@extends('master')
 @section('content')
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('/welcome') }}">Home</a></li>

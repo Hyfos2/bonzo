@@ -15,6 +15,7 @@ class LeaveController extends Controller
 {
     public $error;
     public function getLeavedays()
+
     {
         $leaveDays =LeaveDay::with('staff','user')->where('pending',2)->where('approved',1)
             ->get();
@@ -108,26 +109,32 @@ class LeaveController extends Controller
 
     public function acceptRequest($id)
     {
+           
 
         $updateTheRecord    =LeaveDay::with('user','staff')->find($id);
+
         if($updateTheRecord->pending ==2 || $updateTheRecord->pending ==3)
-    {
-       return trigger_error('the record was accepted already');
-    }
+        {
+           return trigger_error('the record was accepted already');
+        }
 
-                $latestChanges      =$updateTheRecord->update(['approved'=>1,
-                                                            'pending'=>2,
-                                                             'approvedBy'=>Auth::user()->id]);
+    $latestChanges  = $updateTheRecord->update(['approved'=>1,
+                                                'pending'=>2,
+                                                'approvedBy'=>Auth::user()->id
+                                                ]);
+    
 
 
-    $remainingDays   = $updateTheRecord->staff->annualLeaveDays - $updateTheRecord->daysTaken;
+    $remainingDays = $updateTheRecord->staff->annualLeaveDays - $updateTheRecord->daysTaken;
 
-   $staffTable   =Staff::find($updateTheRecord->staffId)
-                                         ->update(['annualLeaveDays'=>$remainingDays]);
+    $staffTable    = Staff::find($updateTheRecord->staffId)
+                            ->update([
+                                'annualLeaveDays'=>$remainingDays
+                        ]);
 
-            $HodDetails =User::find(Auth::user()->id);
+    $HodDetails   = User::find(Auth::user()->id);
 
-\Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
+        \Mail::to($updateTheRecord->user->email)->send(new requestAcceptance($updateTheRecord,$HodDetails));
         return "updated successfully";
     }
 
@@ -209,6 +216,10 @@ class LeaveController extends Controller
 
     }
 
+    public function updateStaffOnLeaveColumn()
+    {
+
+    }
 
     
 

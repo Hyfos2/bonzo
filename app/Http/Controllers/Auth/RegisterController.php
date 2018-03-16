@@ -13,14 +13,6 @@ class RegisterController extends Controller
    
     use RegistersUsers;
     
-    //protected $redirectTo = '/home';
-
-    // public function __construct()
-    // {
-    //     $this->middleware('guest');
-    // }
-
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -33,7 +25,7 @@ class RegisterController extends Controller
     {
 
         $generateUserPassword   = $this->generateRandomString();
-        return User::create([ 
+             return User::create([ 
             'email' => $data['email'],
             'name' => $data['name'],
             'surname' => $data['surname'],
@@ -45,6 +37,9 @@ class RegisterController extends Controller
             'userName' => $generateUserPassword,
             'password' => bcrypt($generateUserPassword)
         ]);
+        
+        
+       
 
     }
 

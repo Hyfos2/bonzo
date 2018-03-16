@@ -3,16 +3,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id='depTitle'>New Departments</h4>
+                <h4 class="modal-title" id='depTitle'>New Department</h4>
             </div>
 
             <div class="modal-body">
-                {!! Form::open(['url' => 'addDepartment', 'method' => 'post', 'class' => 'form-horizontal', 'id'=>"updateDepartmentForm" ]) !!}
+                {!! Form::open(['url' => 'addDepartment', 'method' => 'post', 'class' => 'form-horizontal', 'id'=>"addDepartmentForm" ,"v-on:submit" =>"addDepartment" ]) !!}
+
                 <div class="form-group">
                     {!! Form::label('Name', 'Name', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::text('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
-                        @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
+                        {!! Form::text('name',old('name'),['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off','v-model'=>'name','v-validate' =>"'alpha_spaces'"]) !!}
+                        <span class="help-block"  v-cloak v-if="submition && wrongDepartment" style="color:red;">@{{nameFB}}</span>
+                        <span style="color: red;"  v-cloak v-show="errors.has('name')" class="help is-danger">@{{errors.first('name') }}</span>
+                         @if ($errors->has('name')) <p  v-bind:class="{hidden :isHidden}"  class="help-block red">*{{ $errors->first('name') }}</p> @endif
                     </div>
                 </div>
 

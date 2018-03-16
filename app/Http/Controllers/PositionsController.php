@@ -32,7 +32,9 @@ class PositionsController extends Controller
 
         return Datatables::of($positions)
             ->addColumn('action', function ($positions) {
-                return '<a href="#edit-'.$positions->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                // return '<a href="#edit-'.$positions->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+                  return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditPosition" onclick ="launchUpdatePositionModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
             ->make(true);
     }
@@ -41,5 +43,9 @@ class PositionsController extends Controller
      {
         return view('positions.positionsList');
     }
+    public function positionDetails($id)
+    {
+                 $position =Position::find($id);
+                 return $position;
+    }
 }
-

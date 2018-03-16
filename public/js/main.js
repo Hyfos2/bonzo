@@ -3,11 +3,13 @@ const ERRORS = {
 
 // Users
      nameField:'The name field is required',
+    departmentNameField:'The department name field is required',
+    positionNameField:'The position name field is required',
     surnameField :'The surname field is required',
     emailField: 'The email field is required',
-     positionField: 'The position field is required',
-     gradeField: 'The grade field is required',
-     gdeNmbeField:'The grade field is required',
+    positionField: 'The position field is required',
+    gradeField: 'The grade field is required',
+    gdeNmbeField:'The grade field is required',
      salaryField:'The salary field is required',
     
     dobField: 'Pick your date of birth',
@@ -52,11 +54,6 @@ if (document.querySelector('#registrationForm')) {
           isHidden: false,
         submition: false
     },
-       // mounted: function(){
-       //  var vm = this;
-       //  $(this.$el)
-       // .on('change', function() {})
-       // },
     computed: {
         wrongName:function() {
             if(this.name === '') {
@@ -116,29 +113,19 @@ if (document.querySelector('#registrationForm')) {
         getSubDepartments:function()
         {
             var id = this.departmentId;
-            var cat   =[];
+            $('#subDepartmentId').empty();
             axios.get('getSubDepartments/'+id)
                 .then(function (response){
+                    $('#subDepartmentId').append("<option  selected disabled>Select Sub Department</option>");
                     response.data.forEach(function (value, key) {
-
-                        $('#sub_drone_type_id').append("<option  value=" + value.id + ">" + value.name + "</option>");
-                      cat.push(value);
-                       console.log(cat) ;
+                        $('#subDepartmentId').prepend("<option  value=" + value.id + ">" + value.name + "</option>");
                     });
-
-                    // response.data.map(function(value, key) {
-                    //
-                    // });
-
-                    // $$.each(response, function (key, value) {
-                    //     $('#sub_drone_type_id').append("<option  value=" + value.id + ">" + value.name + "</option>");
-                    // });
-
                 })
                 .catch(function(error){
 
                });
         },
+       
     watch:
             {
                 email:function()
@@ -396,7 +383,6 @@ if (document.querySelector('#hodAction')) {
                          setTimeout(function(){ a.className = a.className.replace("show", ""); }, 2000);
             axios.post('acceptRequest/'+recordID)
                         .then(function (response) {
-
                         if(response.status ===200 && response.statusText ==="OK")
                          {
 
@@ -426,6 +412,251 @@ if (document.querySelector('#hodAction')) {
     }
 })
 }
+
+if (document.querySelector('#addDepartmentForm')) {
+   new Vue({
+    el: "#addDepartmentForm",
+    data: {
+       
+        name: '',
+        isHidden: false,
+        submition: false
+    },
+    computed: {
+        wrongDepartment:function()
+        {  if(this.name === '')
+                    {
+                        this.nameFB = ERRORS.departmentNameField;
+                        return true
+                    }
+            return false }
+
+    },
+    methods: {
+        addDepartment:function(event) {
+            this.submition = true;
+            this.$validator.validateAll();
+            if(this.wrongDepartment ||this.errors.any())
+                event.preventDefault();
+            else {
+                    return true;
+                }
+        }
+
+
+    },
+       watch:
+           {
+               name:function()
+               {
+                   let str = this.name;
+
+                   if(str.length > 0)
+                       return    this.isHidden = true;
+
+               }
+
+           }
+})
+}
+
+if (document.querySelector('#updateDepartmentForm')) {
+    new Vue({
+        el: "#updateDepartmentForm",
+        data: {
+
+            name: '',
+            isHidden: false,
+            submition: false
+        },
+        computed: {
+            wrongDepartment:function()
+            {  if(this.name === '')
+            {
+                this.nameFB = ERRORS.departmentNameField;
+                return true
+            }
+                return false }
+
+        },
+        methods: {
+            updateDepartment:function(event) {
+                this.submition = true;
+                this.$validator.validateAll();
+                if(this.wrongDepartment ||this.errors.any())
+                    event.preventDefault();
+                else {
+                    return true;
+                }
+            }
+
+
+        },
+        watch:
+            {
+                name:function()
+                {
+                    let str = this.name;
+
+                    if(str.length > 0)
+                        return    this.isHidden = true;
+
+                }
+
+            }
+    })
+}
+
+if (document.querySelector('#addPositionForm')) {
+   new Vue({
+    el: "#addPositionForm",
+    data: {
+       
+        name: '',
+        isHidden: false,
+        submition: false
+    },
+    computed: {
+        wrongPosition:function()
+        {  if(this.name === '')
+                    {
+                        this.nameFB = ERRORS.positionNameField;
+                        return true
+                    }
+            return false }
+
+    },
+    methods: {
+        addPosition:function(event) {
+            this.submition = true;
+            this.$validator.validateAll();
+            if(this.wrongPosition ||this.errors.any())
+                event.preventDefault();
+            else {
+                    return true;
+                }
+        }
+
+
+    },
+       watch:
+           {
+               name:function()
+               {
+                   let str = this.name;
+
+                   if(str.length > 0)
+                       return    this.isHidden = true;
+
+               }
+
+           }
+})
+}
+
+if (document.querySelector('#updateGradeForm')) {
+    new Vue({
+        el: "#updateGradeForm",
+        data: {
+
+            salary: '',
+            grade:'',
+            isHidden: false,
+            submition: false
+        },
+        computed: {
+            wrongUpdateGrade:function()
+            {  if(this.grade === '')
+            {
+                this.gradeFB = ERRORS.gradeField;
+                return true
+            }
+                return false },
+                 wrongUpdateSalary:function()
+            {  if(this.salary === '')
+            {
+                this.salaryFB = ERRORS.salaryField;
+                return true
+            }
+                return false }
+
+
+        },
+        methods: {
+            updateGrade:function(event) {
+                this.submition = true;
+                this.$validator.validateAll();
+                if(this.wrongUpdateSalary  || this.wrongUpdateGrade ||this.errors.any())
+                    event.preventDefault();
+                else {
+                    return true;
+                }
+            }
+
+
+        },
+        watch:
+            {
+                 grade:function()
+                {
+                    let str = this.grade;
+
+                    if(str.length > 0)
+                        return    this.isHidden = true;
+
+                }
+
+            }
+    })
+}
+
+
+if (document.querySelector('#addCatForm')) {
+    new Vue({
+        el: "#addCatForm",
+        data: {
+
+            departmentId: '',
+            name:'',
+            isHidden: false,
+            submition: false
+        },
+        computed: {
+            wrongDpt:function()
+            {  if(this.departmentId === '')
+            {
+                this.dptFB = ERRORS.departmentNameField;
+                return true
+            }
+                return false },
+                 wrongCatName:function()
+            {  if(this.name === '')
+            {
+                this.catNameFB = ERRORS.subDepartmentField;
+                return true
+            }
+                return false }
+
+
+        },
+        methods: {
+            addCat:function(event) {
+                this.submition = true;
+                this.$validator.validateAll();
+                if(this.wrongDpt  || this.wrongCatName ||this.errors.any())
+                    event.preventDefault();
+                else {
+                    return true;
+                }
+            }
+
+
+        }
+    })
+}
+
+
+
 
 
 // if (document.querySelector('#rejectReasonForm')) {

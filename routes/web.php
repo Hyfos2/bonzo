@@ -12,6 +12,7 @@ Route::post('/site/login',
     'uses'=>'loginController@login',
 	'as'  =>'app.login'
 ]);
+
 Route::get('/welcome','HomeController@welcome');
 
 /*TimeSheet*/
@@ -19,6 +20,11 @@ Route::get('/createTimeSheet','TimeSheetController@viewCreateTimeSheet');
 Route::post('/addTimeSheet','TimeSheetController@addTimeSheet');
 Route::get('/timeSheets','TimeSheetController@timeSheets');
 Route::get('/spreadSheet','TimeSheetController@index');
+Route::get('getTimeSheet','TimeSheetController@getTimeSheet');
+Route::get('/staffTimeSheet/{id}','TimeSheetController@staffTimeSheet');
+Route::post('addTimeSheetFile','TimeSheetController@addTimeSheetFile');
+Route::put('updateSheet','TimeSheetController@updateSheet');
+//Route::get('staffTimeSheet','TimeSheetController@staffTimeSheet')
 
 /*User*/
 Route::get('/register','UsersController@registernewUser');
@@ -45,7 +51,6 @@ Route::get('getPendingRequest','LeaveController@getPendingRequest');
 Route::get('rejectedRequests','LeaveController@rejectedRequests');
 Route::get('getRejectedRequest','LeaveController@getRejectedRequest');
 
-
 /*Staff*/
 Route::post('/addLeave','StaffController@addLeave');
 Route::post('/addStaff','StaffController@addStaff');
@@ -60,8 +65,8 @@ Route::get('/getStaff/','StaffController@getStaff');
 /*Grades*/
 Route::get('/getGrades','GradesController@getGrades');
 Route::post('addGrade','GradesController@addGrade');
-
-
+Route::get('gradeDetails/{id}','GradesController@gradeDetails');
+Route::put('editGrade','GradesController@editGrade');
 
 /*Employment Type*/
 Route::get('/employmentGroup','EmploymentTypeController@index');
@@ -72,11 +77,14 @@ Route::get('/getTypes','EmploymentTypeController@getTypes');
 Route::post('addDepartment','DepartmentController@addDepartment');
 Route::get('getDepartment','DepartmentController@getDepartment');
 Route::get('/departments','DepartmentController@departmentList');
+Route::put('editDepartment','DepartmentController@editDepartment');
+Route::get('departmentsDetails/{id}','DepartmentController@details');
 
 /*Positions*/
 Route::get('getPositions','PositionsController@getPositions');
 Route::get('/positions','PositionsController@getPositionsList');
 Route::post('/addPosition','PositionsController@create');
+Route::get('positionDetails/{id}','PositionsController@positionDetails');
 
 /*Shifts*/
 Route::get('/getShifts','ShiftController@getShifts')->name('getShifts');
@@ -89,9 +97,9 @@ Route::get('getShiftTeam','ShiftController@getShiftTeam');
 Route::get('workingHours','ShiftController@workingHours');
 
 
-// /*Categories*/
+/*Categories*/
 Route::resource('categories','CategoryController');
-
+Route::get('getCategories','CategoryController@getCategories');
 
 Route::view('email','mails.AdminMail');
 

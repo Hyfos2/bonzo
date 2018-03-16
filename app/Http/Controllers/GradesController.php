@@ -14,7 +14,7 @@ class GradesController extends Controller
 
        $this->validator($request->all())->validate();
 
-       $newGrade     = Grade::create($request->all());
+        $newGrade     = Grade::create($request->all());
        
         $notification = array(
             'message'=>'new grade was added',
@@ -27,12 +27,16 @@ class GradesController extends Controller
    public function getGrades()
    {
    	$grades = \DB::table('grades')
-        ->get();
+                ->get();
 
 		return Datatables::of($grades)
-            ->addColumn('action', function ($grades) {
-                return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
+            ->addColumn('action', function ($grades) 
+            {
+                //return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
+
+                   return '<a  class="btn btn-xs btn-primary"  data-toggle="modal"  data-target=".modalEditGrade" onclick ="launchUpdateGradeModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
+
             ->make(true);
 
    }
@@ -43,5 +47,33 @@ class GradesController extends Controller
         ]);
 
     }
+
+    public function gradeDetails($id)
+    {
+      
+      $grade   = Grade::find($id);
+      return $grade;
+
+    }
+
+    public function editGrade(Request $request)
+    {
+        return $request->all();
+        
+        $grade   = Grade::find($request->gradeID)
+                          ->update(['salary'=>$request->salary,
+                                  'grade'=>$request->grade]);
+
+
+          $notification = array(
+            'message'=>'Grade was update',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
+
+
+    }
 }
-//->addColumn('actions', '<a class="btn btn-xs btn-alt" data-toggle="modal" onClick="launchUpdateUserModal({{$id}});" data-target=".modalEditUser" >Edit</a>
+
+

@@ -64,7 +64,7 @@
                     {!! Form::label('Department', 'Department', array('class' => 'col-md-3 control-label')) !!}
                     <div class="col-md-6">
 
-                        {!! Form::select('departmentId',$selectDept,"",['class' => 'form-control' ,'id' => 'departmentId','v-model '=>"departmentId" ,'placeholder'=>'Select Department']) !!}
+                        {!! Form::select('departmentId',$selectDept,"",['class' => 'form-control' ,'id' => 'departmentId','v-model '=>"departmentId" ,'placeholder'=>'Select Department' ,'v-on:change'=>'getSubDepartments']) !!}
 
                         {{--<select  name="departmentId"  v-cloak class="form-control" v-model ="departmentId" :onchange="getSubDepartments()">--}}
                             {{--@foreach($departments as $type)--}}
@@ -80,12 +80,8 @@
                     {!! Form::label('Sub Department', 'Sub Department', array('class' => 'col-md-3 control-label')) !!}
                     <div class="col-md-6">
 
-                        <select  name="subDepartmentId"  v-cloak class="form-control" v-model ="subDepartmentId">
-                            {{--<option  v:for="category in categories" value="@{{category.id}}"> @{{category.name}}</option>--}}
-                            {{--@foreach($departments as $type)--}}
-
-                            {{--@endforeach--}}
-                        </select>
+                        <select  name="subDepartmentId"  v-cloak class="form-control" v-model ="subDepartmentId" id="subDepartmentId">
+                                                   </select>
 
                         <span class="help-block"  v-cloak v-if="submition && wrongSubDpt" style="color:red;">@{{subDptFB}}</span>
                     </div>

@@ -6,9 +6,13 @@
      font-size: 12px; 
 }
 </style>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
+<script src="{{asset('js/jquery-1.10.2.js')}}"></script>
+
 <!-- <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script> -->
-<script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+
+<!-- <script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script> -->
+<script src="{{asset('js/jquery.timepicker.js')}}"></script>
 
 
     <script>

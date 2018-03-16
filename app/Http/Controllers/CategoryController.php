@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use App\Category;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -13,14 +16,42 @@ class CategoryController extends Controller
     }
 
   
-    public function create()
-    {
-    
-    }
+  public function getCategories()
+   {
+    $subdpt = Category::with('department')
+                ->get();
+
+        return Datatables::of($subdpt)
+            ->addColumn('action', function ($subdpt) 
+            {
+                //return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
+
+                   return '<a  class="btn btn-xs btn-primary"  data-toggle="modal"  data-target=".modalEditSubDept" onclick ="launchUpdateSubDeptModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
+
+            ->make(true);
+
+   }
 
 
     public function store(Request $request)
     {
+    //return $request->all();
+
+         $this->validator($request->all())->validate();
+
+        $new  = new Category();
+        $new->departmentId     =$request->departmentId;
+        $new->name             =$request->name;
+        $new->save();
+
+
+    $notification = array(
+            'message'=>'New Sub Department  was added',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
         
     }
 
@@ -48,4 +79,14 @@ class CategoryController extends Controller
     {
         
     }
+     protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'unique:categories'
+        ]);
+
+    }
+
+
+
 }

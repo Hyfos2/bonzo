@@ -19,16 +19,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LeaveRequest;
 use App\Mail\AdminMail;
-
 use Mockery\Exception;
 use Yajra\Datatables\Datatables;
 
 class StaffController extends Controller
 {
-
-
     protected $leave;
-
     public function __construct(LeaveDaysService $LeaveDaysService)
     {
         $this->leave = $LeaveDaysService;
@@ -88,7 +84,7 @@ class StaffController extends Controller
     {
         $staff = Staff::with(['department', 'position', 'grade', 'employment'])->get();
 
-        return \Datatables::of($staff)
+        return Datatables::of($staff)
             ->addColumn('action', function ($staff) {
                 return '<a href="getStaffDetail/' . $staff->id . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i>view</a>';
             })

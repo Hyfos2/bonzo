@@ -38,5 +38,8 @@ class Staff extends Model
     {
         return $this->belongsTo(Category::class,'subDepartmentId','id');
     }
-
+    public function timeSheetFile()
+    {
+        return $this->hasOne(timeSheetFile::class);
+}
 }

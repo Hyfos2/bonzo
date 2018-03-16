@@ -81,8 +81,6 @@
 @endsection
 @push('scripts')
     <script>
-       var name ="{{\Auth::user()->name}}"+" "+ "{{\Auth::user()->surname}}";
-       console.log("name --",name);
         $(function() {
             $('#leaveTable').DataTable({
                 processing: true,

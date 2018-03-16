@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="description" content="Employee Management System">
   <meta name="keywords" content="Employee Management System">
-  <link rel="icon" type="image/x-icon" sizes="16x16" href="{{ asset('/img/icons/menu.png') }}">
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="{{ asset('/img/main.png') }}">
   <title>How Mine EMS</title>
 
    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -31,12 +31,10 @@
  -->
     <link href="{{asset('css/jquery.dataTables.min.css')}}">
     <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
+ <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
+    
 
-<style>
-
-    /*label {*/
-        /*font-size: 14px;*/
-    /*}*/
+<style>ss
       [v-cloak] { display:none; }
 
     .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate
@@ -123,7 +121,7 @@
          
           <div class="text-center s-widget m-b-25 dropdown" id="profile-menu">
             <a href="#" data-toggle="dropdown">
-              <img class="profile-pic animated" src="{{ asset('/img/icon/menu.png') }}" alt="HowMine">
+              <img class="profile-pic animated" src="{{ asset('/img/main.png') }}" alt="HowMine">
             </a>
             <ul class="dropdown-menu profile-menu">
               {{--<li><a href="{{ url('all-messages') }}">Messages</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>--}}
@@ -189,10 +187,10 @@
 
 <script src="{{ asset('js/jquery.tokeninput.js') }}"></script>
 
-   <!-- {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>--}} -->
-  <!--  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
- -->
-   <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+   <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+  <!--  <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script> -->
 
    <script src="{{ asset('js/vue.js') }}"></script>
     <script src="{{asset('js/vee-validate.js')}}"></script>
@@ -200,9 +198,8 @@
     <script>
         Vue.use(VeeValidate);
     </script>
-  <!--   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios@0.17.0/index.min.js"></script> -->
-     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-     <script type="text/javascript" src="{{asset('js/axios.min.js')}}"></script>
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <!-- <script type="text/javascript" src="{{asset('js/axios.min.js')}}"></script> -->
 
 
    <script src="{{ asset('js/main.js') }}"></script>
@@ -239,11 +236,9 @@
      $("#shiftHours").tokenInput("{!! url('/getShiftDetails')!!}",{tokenLimit:1});
 </script>
    
-  <!--  <script src="{{ asset('js/toggles.js') }}"></script> -->
+
   @stack('scripts')
-  <!--  @include('flashy::message') -->
 
 </body>
   </html>
-
 

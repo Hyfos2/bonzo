@@ -39,20 +39,22 @@
                     </div>
                 </div>
             </a>
-
-
-
-
     </div>
 </div>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="{{asset('js/highcharts.js')}}"></script> -->
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+     <!--  <script src="{{asset('js/drilldown.js')}}"></script>
+    <script src="{{asset('js/exporting.js')}}"></script> -->
+     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script>
 
         var first =   {!! $first !!};
         var two =     {!! $two !!};
+        var third =     {!! $third !!};
+        var forth =     {!! $forth !!};
+        var fifth =     {!! $fifth !!};
 
         Highcharts.chart('taskCharts', {
             chart: {
@@ -67,20 +69,6 @@
             title: {
                 text: ''
             },
-            exporting: {
-                buttons: [
-                    {
-                        symbol: 'diamond',
-                        x: -62,
-                        symbolFill: '#B5C9DF',
-                        hoverSymbolFill: '#779ABF',
-                        _titleKey: 'printButtonTitle',
-                        onclick: function() {
-                            alert('click!')
-                        }
-                    }
-                ]
-            },
             tooltip: {
                 pointFormat: '<b>{point.percentage:.1f}% ({point.y})</b>'
             },
@@ -91,45 +79,108 @@
                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                 }
             },
-            {{--plotOptions: {--}}
-                {{--series: {--}}
-                    {{--cursor: 'pointer',--}}
-                    {{--point: {--}}
-                        {{--events: {--}}
-                            {{--click: function () {--}}
-                                {{--var str  =this.name;--}}
-                                {{--if(str.includes("New"))--}}
-                                {{--{--}}
-                                    {{--document.location.href = "{!! url('/taskChart') !!}"+"/"+ this.name+"/"+newTaskID;--}}
-                                {{--}else--}}
-                                {{--{--}}
-                                    {{--document.location.href = "{!! url('/taskChart') !!}"+"/"+ this.name;--}}
-                                {{--}--}}
-
-                            {{--}--}}
-                        {{--}--}}
-                    {{--}--}}
-                {{--}--}}
-            {{--},--}}
-
+             plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
             series: [{
                 name: 'Departments',
                 colorByPoint: true,
                 data: [
                     {
-                        name: 'HR',
+                        name: 'Finance',
                         y: first
                     },  {
-                        name: 'Financial',
+                        name: 'Human Resources',
                         y: two,
                         sliced: true,
                         selected: true
 
+                    }
+                    ,  {
+                        name: 'Mining',
+                        y: third,
+                        sliced: true,
+                        selected: true
+
+                    }
+                    ,  {
+                        name: 'Technical Services',
+                        y: forth,
+                        sliced: true,
+                        selected: true
+
+                    }
+                    ,  {
+                        name: 'Security',
+                        y: fifth,
+                        sliced: true,
+                        selected: true
+
                     }]
-            }]
+            }],
+            drilldown: {
+                series: [
+                {
+                    id: 'Finance',
+                    data: [
+                        ['Cats', 4],
+                        ['Dogs', 2],
+                        ['Cows', 1],
+                        ['Sheep', 2],
+                        ['Pigs', 1]
+                    ]
+                },
+                {
+                    id: 'Human Resources',
+                    data: [
+                        ['Cats', 4],
+                        ['Dogs', 2],
+                        ['Cows', 1],
+                        ['Sheep', 2],
+                        ['Pigs', 1]
+                    ]
+                },
+                {
+                    id: 'Mining',
+                    data: [
+                        ['Cats', 4],
+                        ['Dogs', 2],
+                        ['Cows', 1],
+                        ['Sheep', 2],
+                        ['Pigs', 1]
+                    ]
+                },
+                {
+                    id: 'Technical Services',
+                    data: [
+                        ['Cats', 4],
+                        ['Dogs', 2],
+                        ['Cows', 1],
+                        ['Sheep', 2],
+                        ['Pigs', 1]
+                    ]
+                },
+                {
+                    id: 'Security',
+                    data: [
+                        ['Cats', 4],
+                        ['Dogs', 2],
+                        ['Cows', 1],
+                        ['Sheep', 2],
+                        ['Pigs', 1]
+                    ]
+                }
+                  ]
+            }
 
         });
-    </script><script>
+    </script>
+    <script>
         Highcharts.chart('container', {
             chart: {
                 type: 'column'

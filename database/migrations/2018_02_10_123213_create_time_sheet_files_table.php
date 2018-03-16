@@ -15,11 +15,12 @@ class CreateTimeSheetFilesTable extends Migration
     {
         Schema::create('time_sheet_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('staffId')->unsigned();
-            $table->integer('departmentId')->unsigned();
-            $table->string('timeSheetFile');
-            $table->foreign('staffId')->references('id')->on('staff');
-            $table->foreign('departmentId')->references('id')->on('departments');
+            $table->integer('staffName')->unsigned();
+            $table->integer('department')->unsigned();
+            $table->string('fileName');
+            $table->string('filePath');
+            $table->foreign('staffName')->references('id')->on('staff');
+            $table->foreign('department')->references('id')->on('departments');
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+@include('positions.positionsList')
     <ol class="breadcrumb hidden-xs">
         
         <li><a href="{{ url('/welcome') }}">Home</a></li>
@@ -49,6 +50,43 @@
                 ]
             });
         });
+
+         function launchUpdatePositionModal(id) {
+            
+
+            if (!id) {
+                $('#deptID').modal('show');
+                // $(".modal-body #deptID").val('');
+                var idCompany = $("#idCompany").val();
+                $("#modalEditDepartment #company").val(idCompany);
+                $("#modalEditDepartment #name").val('');
+                $("#modalEditDepartment #acronym").val('');
+                return;
+            }
+            $(".modal-body #deptID").val(id);
+                //var id =id;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{!! url('/positionDetails/"+ id + "')!!}",
+                success: function (data) {
+                    if (data!== null) {
+                        $("#modalEditDepartment #name").val(data.name);
+                         $("#modalEditDepartment #positionID").val(id);
+                    }
+                    else {
+                        $("#modalEditDepartment #name").val('');
+                    }
+                }
+            });
+
+        }
+        @if (count($errors) > 0)
+
+// $('#modalEditDepartment').modal('show');
+$('#modalAddDepartment').modal('show');
+
+    @endif
     </script>
 @endpush
 

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    <!-- Breadcrumb -->
+@include('timeSheets.addTimeSheet')
 @if(Auth::user())
     @if(Auth::user()->positionId==2)
     <ol class="breadcrumb hidden-xs">
@@ -27,9 +27,11 @@
     <h4 class="page-title">Time Sheets List</h4>
     <!-- Alternative -->
     
-    <div class="block-area " id="alternative-buttons" >
-        <h3 class="block-title">Staff Time Sheets List</h3>
     
+    <div class="block-area" id="alternative-buttons">
+        <h3 class="block-title">Staff List</h3>
+         <a class="btn btn-sm" data-toggle="modal" onClic data-target=".modalAddTimeSheet">New Upload 
+        </a>
     </div>
    
 
@@ -38,13 +40,12 @@
     <div class="block-area" id="responsiveTable">
 
         <div class="table-responsive overflow">
-            <table class="table tile table-striped" id="departmentsTable">
+            <table class="table tile table-striped" id="timeSheetTable">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Created At</th>
-                    <th>Name</th>
-                    <th>Acronym</th>
+                    <th>Staff Name</th>
+                    <th>Department</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -52,4 +53,32 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+
+        jQuery(document).ready(function($) {
+
+            $(function () {
+                $('#timeSheetTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{!!url('/getTimeSheet/')!!}',
+                    columns: [
+                        {data: 'id', name: 'id'},
+                        {data: function(d) {
+                            return d.staff.name +" "+d.staff.surname;
+                        }, name: 'name'},
+
+                        {data: function(d)
+                            {
+                                return d.department.name
+                            }, name: 'surname'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false}
+
+                    ]
+                });
+            });
+        });
+    </script>
+@endpush
 
