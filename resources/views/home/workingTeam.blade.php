@@ -1,4 +1,4 @@
-@extends('master')
+u@extends('master')
 
 @section('content')
     @if(Auth::user())

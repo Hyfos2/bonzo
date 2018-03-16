@@ -11,7 +11,7 @@
 
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Categories</h3>
-        <a class="btn btn-sm" data-toggle="modal" onClick="launchAddDepartmentModal();" data-target=".modalAddSubDept">New
+        <a class="btn btn-sm" data-toggle="modal"  data-target=".modalAddSubDept">New
         </a>
     </div>
 
@@ -53,35 +53,21 @@
 
          function launchUpdateSubDeptModal(id) {
             
-
-            if (!id) {
-                $('#gradeID').modal('show');
-                // $(".modal-body #deptID").val('');
-                var idCompany = $("#idCompany").val();
-                $("#modalEditDepartment #company").val(idCompany);
-                $("#modalEditDepartment #name").val('');
-                $("#modalEditDepartment #acronym").val('');
-                return;
-            }
             $(".modal-body #deptID").val(id);
                 //var id =id;
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "{!! url('/gradeDetails/"+ id + "')!!}",
+                url: "{!! url('/catDetails/"+ id + "')!!}",
                 success: function (data) {
                     if (data!== null)
                      {
                         console.log('data',data);
-                         $("#modalEditGrade #grade").val(data.grade);
-                         $("#modalEditGrade #salary").val(data.salary);
-                         $("#modalEditGrade #gradeID").val(id);
+                         $("#modalUpdateCat #department").val(data.department.name);
+                         $("#modalUpdateCat #name").val(data.name);
+                         $("#modalUpdateCat #catID").val(id);
                     }
-                    
-                    else {
-                        $("#modalEditGrade #grade").val(data.grade);
-                        $("#modalEditGrade #salary").val(data.salary);
-                    }
+                
                 }
             });
 

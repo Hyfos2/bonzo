@@ -2,7 +2,7 @@ Vue.config.devtools = true;
 const ERRORS = {
 
 // Users
-     nameField:'The name field is required',
+    nameField:'The name field is required',
     departmentNameField:'The department name field is required',
     positionNameField:'The position name field is required',
     surnameField :'The surname field is required',
@@ -10,18 +10,16 @@ const ERRORS = {
     positionField: 'The position field is required',
     gradeField: 'The grade field is required',
     gdeNmbeField:'The grade field is required',
-     salaryField:'The salary field is required',
-    
+    salaryField:'The salary field is required',
     dobField: 'Pick your date of birth',
     dateOfEmploymentField:'Pick a date of recruitment',
     employmentTypeIdField:'The employment type is required',
     employeeNumberField:'The employee number is required',
     departmentIdField:'The department field is required',
     subDepartmentField:'The sub department field is required',
-      roleField:'The role field is required',
+    roleField:'The role field is required',
     genderField:'The gender field is required',
-   
-   
+    typeField:'Employment type is required',
     typeIdField:'Fill in the product type',
     specificationField:'Fill in the product specification',
     orderedDateField:'Fill in the product ordered date',
@@ -33,7 +31,6 @@ const ERRORS = {
     productNameField:'Fill in the Product Name',
     quantityField:'Fill in the Product Quantity',
     regionField: 'Fill in the region',
-   // positionField:'Fill in the position',
     physicalAddressField:'Fill in the Physical Address',
     cellphoneField:'Fill in the cellphone'
 };
@@ -655,46 +652,90 @@ if (document.querySelector('#addCatForm')) {
     })
 }
 
+if (document.querySelector('#UpdateCatForm')) {
+    new Vue({
+        el: "#UpdateCatForm",
+        data: {
+
+            name: '',
+            isHidden: false,
+            submition: false
+        },
+        computed: {
+                 wrongCatName:function()
+            {  if(this.name === '')
+            {
+                this.salaryFB = ERRORS.subDepartmentField;
+                return true
+            }
+                return false }
 
 
+        },
+        methods: {
+            updateCat:function(event) {
+                this.submition = true;
+                this.$validator.validateAll();
+                if(this.wrongCatName ||this.errors.any())
+                    event.preventDefault();
+                else {
+                    return true;
+                }
+            }
 
 
-// if (document.querySelector('#rejectReasonForm')) {
-//     // var recordId = document.getElementById('recordId').value;
-//     // var x = document.getElementById("snackbar");
-//     // var y = document.getElementById("successBar");
-//     // var z = document.getElementById("error");
-//     var count =0;
-//    new Vue({
-//     el: "#rejectReasonForm",
-//     methods: {
-//         rejectReason:function()
-//         {
-//              axios.post('rejectReason/'+recordId)
-//                         .then(function (response) {
+        },
+        watch:
+            {
+                 grade:function()
+                {
+                    let str = this.grade;
 
-//                         if( response.status ==200 && response.statusText =="OK")
-//                          {
+                    if(str.length > 0)
+                        return    this.isHidden = true;
 
-//                          //     y.className = "show";
-//                          // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 4000);
-//                         // console.timeEnd(y);
+                }
 
-//                          }
+            }
+    })
+}
 
-//                             console.log(response);
-//                         })
+if (document.querySelector('#addEmploymentTypeForm')) {
+    new Vue({
+        el: "#addEmploymentTypeForm",
+        data: {
+            name:'',
+            isHidden: false,
+            submition: false
+        },
+        computed: {
+            wrongEmploymentType:function()
+            {  if(this.name === '')
+            {
+                this.typeFB = ERRORS.typeField;
+                return true
+            }
+                return false }
 
-//                         .catch(function (error) {
-                            
-//                                             });
+        },
+        methods: {
+            addEmploymentType:function(event) {
+                this.submition = true;
+                this.$validator.validateAll();
+                if(this.wrongEmploymentType ||this.errors.any())
+                    event.preventDefault();
+                else {
+                    return true;
+                }
+            }
 
 
-//         }
+        }
+    })
+}
 
-//     }
-// })
-// }
+
+//
 
 
 

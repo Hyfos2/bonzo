@@ -26,7 +26,7 @@ class CategoryController extends Controller
             {
                 //return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
 
-                   return '<a  class="btn btn-xs btn-primary"  data-toggle="modal"  data-target=".modalEditSubDept" onclick ="launchUpdateSubDeptModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                   return '<a  class="btn btn-xs btn-primary"  data-toggle="modal"  data-target=".modalUpdateCat" onclick ="launchUpdateSubDeptModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
 
             ->make(true);
@@ -70,7 +70,7 @@ class CategoryController extends Controller
     
     public function update(Request $request, $id)
     {
-        
+        return $request->name;
     }
 
     
@@ -86,7 +86,25 @@ class CategoryController extends Controller
         ]);
 
     }
+    public function catDetails($id)
 
+    {
+        $cat  =Category::with('department')->find($id);
+        return $cat;
 
+    }
+    public function updateCat(Request $request)
+    {
+
+        $update   =Category::find($request->catID)->update(['name'=>$request->name]);
+
+         $notification = array(
+            'message'=>'Sub Department  was updated',
+            'alert-type'=>'success'
+                    );
+
+        return back()->with($notification);
+
+    }
 
 }

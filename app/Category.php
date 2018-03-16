@@ -8,6 +8,8 @@ use App\Staff;
 
 class Category extends Model
 {
+
+    protected $guarded =[];
     public function staff()
     {
     	return $this->hasMany(Staff::class);

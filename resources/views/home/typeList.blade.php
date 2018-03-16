@@ -1,4 +1,4 @@
-W@extends('master')
+@extends('master')
 @section('content')
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('/welcome') }}">Home</a></li>
@@ -22,6 +22,7 @@ W@extends('master')
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Created at</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -41,6 +42,7 @@ W@extends('master')
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                     {data: 'created_at', name: 'created_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });

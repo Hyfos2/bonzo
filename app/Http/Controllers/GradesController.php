@@ -43,7 +43,7 @@ class GradesController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'grade' => 'unique:grades,grade'
+            'grade' => 'unique:grades'
         ]);
 
     }
@@ -58,7 +58,6 @@ class GradesController extends Controller
 
     public function editGrade(Request $request)
     {
-        return $request->all();
         
         $grade   = Grade::find($request->gradeID)
                           ->update(['salary'=>$request->salary,
@@ -66,13 +65,10 @@ class GradesController extends Controller
 
 
           $notification = array(
-            'message'=>'Grade was update',
-            'alert-type'=>'success'
-                    );
+            'message'=>'Grade was updated',
+            'alert-type'=>'success');
 
         return back()->with($notification);
-
-
     }
 }
 

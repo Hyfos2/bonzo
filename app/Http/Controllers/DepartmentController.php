@@ -35,7 +35,7 @@ class DepartmentController extends Controller
 
             ->addColumn('action', function (Department $dpartments)
             {
-                return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditDepartment" onclick ="launchUpdateDepartmentModal($idss);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditDepartment" onclick ="launchUpdateDepartmentModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
             })
             ->make(true);
     

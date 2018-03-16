@@ -19,17 +19,7 @@
    <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toggles.css') }}" rel="stylesheet">
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
-
-    <!-- <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet"> -->
-  <!--  <link href="{{ asset('/css/perfect-scrollbar.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/collapsable.css') }}" rel="stylesheet"> -->
-  <!-- <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/token-input.css') }}" rel="stylesheet">-->
-  <!-- <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
- -->
-    <link href="{{asset('css/jquery.dataTables.min.css')}}">
+  <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
  <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
     
@@ -190,8 +180,6 @@
    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-  <!--  <script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script> -->
-
    <script src="{{ asset('js/vue.js') }}"></script>
     <script src="{{asset('js/vee-validate.js')}}"></script>
     <script src="{{asset('js/vee-validate2.js')}}"></script>
@@ -199,7 +187,7 @@
         Vue.use(VeeValidate);
     </script>
      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-     <!-- <script type="text/javascript" src="{{asset('js/axios.min.js')}}"></script> -->
+    
 
 
    <script src="{{ asset('js/main.js') }}"></script>

@@ -98,8 +98,13 @@ Route::get('workingHours','ShiftController@workingHours');
 
 
 /*Categories*/
+
+Route::post('updateCat','CategoryController@updateCat');
 Route::resource('categories','CategoryController');
 Route::get('getCategories','CategoryController@getCategories');
+Route::get('catDetails/{id}','CategoryController@catDetails');
+
+
 
 Route::view('email','mails.AdminMail');
 
