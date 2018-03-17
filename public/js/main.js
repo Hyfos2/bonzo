@@ -46,7 +46,6 @@ if (document.querySelector('#registrationForm')) {
           departmentId: '',
            roleId: '',
         subDepartmentId: '',
-        categories:[],
         gradeId: '',
           isHidden: false,
         submition: false
@@ -113,7 +112,7 @@ if (document.querySelector('#registrationForm')) {
             $('#subDepartmentId').empty();
             axios.get('getSubDepartments/'+id)
                 .then(function (response){
-                    $('#subDepartmentId').append("<option  selected disabled>Select Sub Department</option>");
+                    $('#subDepartmentId').prepend("<option  selected disabled>Select Sub Department</option>");
                     response.data.forEach(function (value, key) {
                         $('#subDepartmentId').prepend("<option  value=" + value.id + ">" + value.name + "</option>");
                     });

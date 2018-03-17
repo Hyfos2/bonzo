@@ -186,7 +186,7 @@
                     <td width="100%" height="40" width="560">
                     
                                 <p  style="height:90px; margin-bottom:8px; background-color:whitesmoke; padding:8px; color:#A3B5B5; text-align: center; font-size:10;">
-                                    This message is intended for a registered  user ({{$email}}) to  How Mine,Employee Management System.If you are not this person please delete this message.Else, if you are having a problem with the button above use this (http://localhost:8000) instead.All rights reserved.
+                                    This message is intended for a registered  user ({{$email}}) to  How Mine,Employee Management System.If you are not this person please delete this message.Else, if you are having a problem with the button above use this  link (http://localhost:8000) instead.All rights reserved.
                             
                         </p>
 

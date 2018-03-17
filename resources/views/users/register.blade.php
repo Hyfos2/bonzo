@@ -66,12 +66,6 @@
 
                         {!! Form::select('departmentId',$selectDept,"",['class' => 'form-control' ,'id' => 'departmentId','v-model '=>"departmentId" ,'placeholder'=>'Select Department' ,'v-on:change'=>'getSubDepartments']) !!}
 
-                        {{--<select  name="departmentId"  v-cloak class="form-control" v-model ="departmentId" :onchange="getSubDepartments()">--}}
-                            {{--@foreach($departments as $type)--}}
-                                {{--<option  value="{{$type->id}}" @if(old('departmentId') == $type->id) {{ 'selected' }} @endif> {{$type->name}}</option>--}}
-                            {{--@endforeach--}}
-                        {{--</select>--}}
-
                         <span class="help-block"  v-cloak v-if="submition && wrongDpt" style="color:red;">@{{dptFB}}</span>
                     </div>
                 </div>
@@ -81,7 +75,7 @@
                     <div class="col-md-6">
 
                         <select  name="subDepartmentId"  v-cloak class="form-control" v-model ="subDepartmentId" id="subDepartmentId">
-                                                   </select>
+                        </select>
 
                         <span class="help-block"  v-cloak v-if="submition && wrongSubDpt" style="color:red;">@{{subDptFB}}</span>
                     </div>

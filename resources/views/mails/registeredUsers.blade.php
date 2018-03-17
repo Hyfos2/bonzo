@@ -116,7 +116,7 @@
                             <tr>
                                 <td width="100%" style="font-size: 14px; text-align: left; color:#2E363F; line-height: 24px; " height="20">
 
-                                   You have sign up anaccount with How Mine Employee Management System.Below are your credentials;<br>
+                                   You have sign up an account with How Mine Employee Management System.Below are your credentials;<br>
                                     - email :   {{$email}}<br>
                                     - password: <strong> {{$password}}</strong><br>
                                 
@@ -132,7 +132,7 @@
 
                             <tr>
                                 <td width="100%" style="font-size: 14px; text-align: center; color:#87919F; line-height: 24px; " height="20">
-                                    <button class="btn info"   href="{{ env('APP_URL') }}">Log in</button>
+                                    <button class="btn info"   href="http://localhost:8000">Log in</button>
     
                                 </td>
                             </tr>
@@ -186,8 +186,8 @@
                 <tr >
                     <td width="100%" height="35" width="560">
                     
-                                <p  style="height:100px; margin-bottom:8px; background-color:whitesmoke; padding:15px; color:#A3B5B5;">
-                                    This message is intended for a registered  user ({{$email}}) to  How Mine,Employmee Management System.If you are not this person please delete this message.Else, if you are having a problem with the button above use this link instead.All rights reserved.  
+                                <p  style="height:90px; margin-bottom:8px; background-color:whitesmoke; padding:8px; color:#A3B5B5; text-align: center; font-size:10;">
+                                    This message is intended for a registered  user ({{$email}}) to  How Mine,Employmee Management System.If you are not this person please delete this message.Else, if you are having a problem with the button above use this  link (http://localhost:8000) instead.All rights reserved.  
                             
                         </p>
 
