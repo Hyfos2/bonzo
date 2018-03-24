@@ -7,8 +7,7 @@
         <a>
             <div class="box box-info">
                 <div class="box-header">
-                    <h5 class="box-title" style="margin-left:5px;">Staff on Leave <a href="{{'welcome'}}" class="btn btn-sm">Working Staff</a>
-                     <a id="save-pdf" class="btn btn-sm">Download Pdf</a></h5>
+                    <h5 class="box-title" style="margin-left:5px;">Working Staff  <a href="{{'getstaffOnleave'}}" class="btn btn-sm">Staff on Leave</a> <a id="save-pdf" class="btn btn-sm">Download Pdf</a></h5>
                     
                     <hr class="whiter m-b-20">
                 </div>
@@ -23,6 +22,8 @@
 
 
     </div>
+
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script type="text/javascript">
@@ -44,20 +45,18 @@
         ['Human Resources', two],
         ['Mining', third],
         ['Technical Services', forth],
-        ['Security', fifth]
+        ['Security ', fifth]
       ]);
 
       // Set chart options
-      var options = {'title':'Number of Staff on Leave Per Department',
+      var options = {'title':'Number of Working Staff per Department',
                      'height':500};
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-    
-      chart.draw(
-            data,
-        options);
-      
+
+     chart.draw(data,options);
+
     var btnSave = document.getElementById('save-pdf');
 
   google.visualization.events.addListener(chart, 'ready', function () {
@@ -69,8 +68,7 @@
     doc.addImage(chart.getImageURI(), 0, 0);
     doc.save('chart.pdf');
   }, false);
-
-      
     }
     </script>
+
     @endsection

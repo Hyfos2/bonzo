@@ -10,9 +10,9 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>START DATE</th>
-                    <th>END DATE</th>
-                    <th>DAYS TAKEN</th>
+                    <th>LOGIN  DATE</th>
+                    <th>LOGOUT DATE</th>
+                    <th>TIME TAKEN</th>
                 </tr>
                 </thead>
 

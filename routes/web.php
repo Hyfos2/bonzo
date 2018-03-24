@@ -104,6 +104,8 @@ Route::resource('categories','CategoryController');
 Route::get('getCategories','CategoryController@getCategories');
 Route::get('catDetails/{id}','CategoryController@catDetails');
 
+Route::get('getstaffOnleave','HomeController@getWorkingStaffGraph');
+
 
 
 Route::view('email','mails.AdminMail');
