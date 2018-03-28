@@ -43,7 +43,7 @@
                             <div id="tasknotes">
                                 <div class="block-area" id="horizontal">
 
-                                    <h3 class="block-title">USER ACTIVITIES</h3>
+                                    <h3 class="block-title">USER MACHINE DETAILS</h3>
 
                                     @include('users.activities')
 

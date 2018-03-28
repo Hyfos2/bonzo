@@ -1,5 +1,5 @@
  @if (Auth::user())
-           @if(Auth::user()->positionId ==1  || Auth::user()->positionId == 4)
+           @if(Auth::user()->gradeId ==11 || Auth::user()->roleId == 1  || Auth::user()->positionId == 20)
             <li class="dropdown">
                 <a class="sa-side-timeBoss " href="#">
                     <span class="menu-item">SHIFT HOURS </span>
@@ -25,7 +25,7 @@
 
                 </ul>
             </li>
-             @elseif(Auth::user()->positionId ==3)
+             @else
            <li class="dropdown">
                 <a class="sa-side-timeBoss" href="#">
                     <span class="menu-item">SHIFT HOURS</span>
@@ -36,20 +36,11 @@
                             <span class="">Working Hours</span>
                         </a>
                     </li> 
-                </ul>
-            </li>
-            
-              @elseif(Auth::user()->positionId ==2)
-           <li class="dropdown">
-                <a class="sa-side-timeBoss" href="#">
-                    <span class="menu-item">SHIFT HOURS</span>
-                </a>
-                <ul class="list-unstyled menu-item">
-                    <li>
-                        <a class="" href="{{ url('workingHours') }}">
-                            <span class="">Working Hours</span>
+                      <li>
+                        <a class="" href="{{ url('workingTeam') }}">
+                            <span class="">Staff on Shift</span>
                         </a>
-                    </li> 
+                    </li>
                 </ul>
             </li>
              @endif

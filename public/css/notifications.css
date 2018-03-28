@@ -67,7 +67,7 @@ However, delay the fade out process for 2.5 seconds */
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-    #errorMessage {
+    #error {
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
@@ -82,7 +82,7 @@ However, delay the fade out process for 2.5 seconds */
     bottom: 38px;
 }
 
-#errorMessage.show {
+#error.show {
     visibility: visible; 
 -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;

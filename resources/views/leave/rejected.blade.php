@@ -79,7 +79,6 @@
             </table>
         </div>
     </div>
-    {{--@include('departments.edit')--}}
     @include('staff.newLeave')
 @endsection
 @push('scripts')

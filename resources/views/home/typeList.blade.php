@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+@include('Errors.error')
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('/welcome') }}">Home</a></li>
         <li class="active">Employment Types</li>
@@ -9,8 +10,12 @@
 
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Employment Type List</h3>
-        <a class="btn btn-sm" data-toggle="modal" data-target=".modalEmploymentType">New
+          @if (Auth::user())
+        @if(Auth::user()->roleId != 1)
+        <a class="btn btn-sm hidden" data-toggle="modal" data-target=".modalEmploymentType">New
         </a>
+         @endif
+        @endif
     </div>
 
 

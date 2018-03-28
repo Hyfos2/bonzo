@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Category;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -24,9 +25,16 @@ class CategoryController extends Controller
         return Datatables::of($subdpt)
             ->addColumn('action', function ($subdpt) 
             {
-                //return '<a href="#edit-'.$grades->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>';
+                 if(Auth::user()->roleId == 1)
+              {
 
                    return '<a  class="btn btn-xs btn-primary"  data-toggle="modal"  data-target=".modalUpdateCat" onclick ="launchUpdateSubDeptModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+               }
+
+                   if(Auth::user()->roleId == 2)
+              {
+                   return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalError"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+              }
             })
 
             ->make(true);

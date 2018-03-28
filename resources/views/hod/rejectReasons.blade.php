@@ -14,7 +14,7 @@
                 <div class="form-group">
                     {!! Form::label('Reason', 'Reason', array('class' => 'col-md-2 control-label')) !!}
                     <div class="col-md-10">
-                        {!! Form::textarea('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off']) !!}
+                        {!! Form::textarea('name',NULL,['class' => 'form-control input-sm','id' => 'name','autocomplete'=>'off','rows'=>6]) !!}
                         @if ($errors->has('name')) <p class="help-block red">*{{ $errors->first('name') }}</p> @endif
                     </div>
                 </div>

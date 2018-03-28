@@ -5,7 +5,7 @@ use App\Position;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
-
+use Auth;
 
 class PositionsController extends Controller
 {
@@ -32,9 +32,14 @@ class PositionsController extends Controller
 
         return Datatables::of($positions)
             ->addColumn('action', function ($positions) {
-                // return '<a href="#edit-'.$positions->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-
+                     if(Auth::user()->roleId == 1)
+                  {
                   return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditPosition" onclick ="launchUpdatePositionModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+              }
+              if(Auth::user()->roleId == 2)
+              {
+                   return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalError"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+              }
             })
             ->make(true);
     }
@@ -42,7 +47,7 @@ class PositionsController extends Controller
     public function getPositionsList()
      {
         return view('positions.positionsList');
-    }
+      }
     public function positionDetails($id)
     {
                  $position =Position::find($id);

@@ -57,7 +57,7 @@ class StaffController extends Controller
 
             // \Flashy::message('user added');
             $notification = array(
-                'message' => 'new staff member was added',
+                'message' => 'New staff member was added',
                 'alert-type' => 'success'
             );
 
@@ -95,7 +95,7 @@ class StaffController extends Controller
     {
         $currentUser  =User::find(\Auth::user()->id);
 
-            $this->validator($request->all())->validate();
+        $this->validator($request->all())->validate();
 
             $getDetails = Staff::where('id', $request->staffId)->first();
             $calculateOffdays = abs(strtotime($request->endDate) - strtotime($request->startDate));
@@ -133,13 +133,7 @@ class StaffController extends Controller
                 return $this->startDateAndEndDateMustNotBeEqual($startDate, $endDate);
 
             }
-            // if($request->startDate < $currentDate)
-            // {
-            //     $startDate = $request->startDate;
-            //     return $this->invalidStartDate($startDate);
-            // }
-
-
+    
             if ($currentDate == $request->startDate) {
 
 
@@ -176,13 +170,35 @@ class StaffController extends Controller
 
                 $adminDetails = User::where('roleId', 1)->select('email', 'name', 'surname')->first();
                 $getDepartmentdetails = Department::find($staffDepartment);
-               // Mail::to($adminDetails->email)->send(new AdminMail($getDepartmentdetails, $adminDetails, $leaveDays));
+                
+                try{
+                    Mail::to($adminDetails->email)->send(new AdminMail($getDepartmentdetails, $adminDetails, $leaveDays));
+                    return $this->leave->displayEmailSuccessNotification();
+                }
+                catch (Exception $e){
 
-                return $this->leave->displayEmailSuccessNotification();
+                    $notification = array(
+                    'message' => 'Leave Request has been created, but failed to send an email',
+                    'alert-type' => 'error'
+                        );
+                            return back()->with($notification);
+
+                }
+                
             }
 
-           // Mail::to($this->getHodDetails($staffDepartment)->email)->send(new LeaveRequest($user, $getDetails, $leaveDays));
+           try{
+            Mail::to($this->getHodDetails($staffDepartment)->email)->send(new LeaveRequest($user, $getDetails, $leaveDays));
             return $this->leave->displaySuccessNotification();
+           } 
+          catch (Exception $e){
+
+                    $notification = array(
+                    'message' => 'Leave Request has been created, but failed to send an email',
+                    'alert-type' => 'error'
+                        );
+                            return back()->with($notification);
+                        }
 
 
     }

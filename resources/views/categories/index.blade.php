@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
 @include('categories.edit')
+@include('Errors.error')
 
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{url('/welcome')}}">Home</a></li>
@@ -11,8 +12,12 @@
 
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Categories</h3>
-        <a class="btn btn-sm" data-toggle="modal"  data-target=".modalAddSubDept">New
+         @if (Auth::user())
+        @if(Auth::user()->roleId != 1)
+        <a class="btn btn-sm hidden" data-toggle="modal"  data-target=".modalAddSubDept">New
         </a>
+        @endif
+        @endif
     </div>
 
 

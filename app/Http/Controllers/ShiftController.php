@@ -7,6 +7,7 @@ use App\ShiftHour;
 use App\workingStaff;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
+use  Auth;
 
 
 class ShiftController extends Controller
@@ -51,7 +52,16 @@ class ShiftController extends Controller
 
         return Datatables::of($shifts)
             ->addColumn('action', function ($shifts) {
-                return '<a href="#edit-'.$shifts->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+              if(Auth::user()->roleId ==1)
+
+                {
+                  return '<a href="#edit-'.$shifts->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                }
+              if(Auth::user()->roleId == 2)
+                {
+                     return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalError"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                }
             })
             ->make(true);
          
@@ -64,7 +74,15 @@ class ShiftController extends Controller
 
        return Datatables::of($teamOnshifts)
            ->addColumn('action', function ($teamOnshifts) {
-               return '<a href="#edit-'.$teamOnshifts->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+              if(Auth::user()->roleId ==1)
+                {
+               return '<a href="#edit-'.$teamOnshifts->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';}
+
+                       if(Auth::user()->roleId == 2)
+              {
+                   return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalError"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+              }
            })
            ->make(true);
 

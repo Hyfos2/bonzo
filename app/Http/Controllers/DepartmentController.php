@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Department;
 use Illuminate\Support\Facades\Validator;
-
+use Auth;
 class DepartmentController extends Controller
 {
     public function addDepartment(Request $request)
@@ -35,7 +35,19 @@ class DepartmentController extends Controller
 
             ->addColumn('action', function (Department $dpartments)
             {
-                return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditDepartment" onclick ="launchUpdateDepartmentModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+               
+              
+                if(Auth::user()->roleId == 1)
+                  {
+                     return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalEditDepartment" onclick ="launchUpdateDepartmentModal(1);"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+                  }
+                  if(Auth::user()->roleId == 2){
+                     return '<a  class="btn btn-xs btn-primary"   data-toggle="modal"  data-target=".modalError"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+
+
+                  }
+                 
             })
             ->make(true);
     
@@ -46,7 +58,7 @@ class DepartmentController extends Controller
    }
    public function details($id)
    {
-      $dept    =DEpartment::find($id);
+      $dept    =Department::find($id);
       return $dept;
    }
    public function editDepartment(Request $request)

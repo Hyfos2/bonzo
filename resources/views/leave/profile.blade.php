@@ -33,7 +33,7 @@
                                   
                                    <input type="hidden" id="recordId" value="{{$leaveRequestProfile->id}}">
                                   
-                                    <button id="accept" v-on:click.onces="acceptRequest" class="btn btn-primary" style="margin-left:5px; ">Accept</button>
+                                    <button id="accept" v-on:click="acceptRequest" class="btn btn-primary" style="margin-left:5px; ">Accept</button>
 
 
                                       <button id="reject" class="btn btn-primary"  data-toggle="modal" data-target=".modalRejectReason" style="margin-left:5px;">Reject</button>
@@ -137,7 +137,7 @@
     </div>
     <div id="snackbar">Accepting the Request..</div>
     <div id="successBar">Successfully accepted.An email was send to the requester.</div>
-        <div id="error">Leave request was accepted already.</div>
+    <div id="error">Leave request was accepted already.</div>
 
     
 

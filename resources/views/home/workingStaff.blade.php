@@ -1,22 +1,20 @@
 @extends('master')
 @section('content')
+@include('Errors.error')
 
-    @if(Auth::user())
-    @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{url('welcome')}}">Home</a></li>
         <li class="active">Working Hours List</li>
     </ol>
-    @endif
-    @endif
+    
 
     <h4 class="page-title">Working Hours List</h4>
     <!-- Alternative -->
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Working Hours List</h3>
         @if(Auth::user())
-            @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
-        <a class="btn btn-sm" data-toggle="modal" data-target=".modalAddShiftHours">New
+            @if(Auth::user()->positionId !=11 || Auth::user()->roleId!=1)
+        <a class="btn btn-sm hidden" data-toggle="modal" data-target=".modalAddShiftHours">New
         </a>
             @endif
         @endif

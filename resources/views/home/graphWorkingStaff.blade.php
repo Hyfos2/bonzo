@@ -7,7 +7,7 @@
         <a>
             <div class="box box-info">
                 <div class="box-header">
-                    <h5 class="box-title" style="margin-left:5px;">Working Staff  <a href="{{'getstaffOnleave'}}" class="btn btn-sm">Staff on Leave</a> <a id="save-pdf" class="btn btn-sm">Download Pdf</a></h5>
+                    <h5 class="block-title" style="margin-left:5px;">Working Staff  <a href="{{'getstaffOnleave'}}" class="btn btn-sm">Staff on Leave</a> <a id="save-pdf" class="btn btn-sm">Download Pdf</a></h5>
                     
                     <hr class="whiter m-b-20">
                 </div>

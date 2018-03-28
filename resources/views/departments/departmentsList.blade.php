@@ -2,6 +2,7 @@
 
 @section('content')
 @include('departments.editDepartment')
+@include('Errors.error')
 
     <ol class="breadcrumb hidden-xs">
         <li><a href="{{ url('/welcome') }}"></a>Home</li>
@@ -12,8 +13,12 @@
     <!-- Alternative -->
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Departments List</h3>
-        <a class="btn btn-sm" data-toggle="modal"  data-target=".modalAddDepartment">New
+         @if (Auth::user())
+        @if(Auth::user()->roleId != 1)
+        <a class="btn btn-sm hidden" data-toggle="modal"   data-target=".modalAddDepartment">New
         </a>
+        @endif
+        @endif
     </div>
 
 
@@ -26,7 +31,7 @@
                     <th>Id</th>
                     <th>Name</th>
                      <th>Created At</th>
-                    <th>Actions</th>
+                    <th >Actions</th>
                 </tr>
                 </thead>
             </table>
@@ -48,6 +53,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
+
                 ]
             });
         });

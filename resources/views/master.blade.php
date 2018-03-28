@@ -10,20 +10,18 @@
   <link rel="icon" type="image/x-icon" sizes="16x16" href="{{ asset('/img/main.png') }}">
   <title>How Mine EMS</title>
 
-   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/generics.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/form.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/awesome.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/form.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toggles.css') }}" rel="stylesheet">
     <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
-  <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('css/vue.css') }}" rel="stylesheet">
- <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
-    
-
+    <link href="{{ asset('css/token-input.css') }}" rel="stylesheet"/>
 <style>ss
       [v-cloak] { display:none; }
 
@@ -91,13 +89,6 @@
           </div>
           <div class="pull-left tm-icon">
           </div>
-          <div id="time" class="pull-right">
-            <span id="hours"></span>
-            :
-            <span id="min"></span>
-            :
-            <span id="sec"></span>
-          </div>
         </div>
       </div>
     </header>
@@ -114,9 +105,6 @@
               <img class="profile-pic animated" src="{{ asset('/img/main.png') }}" alt="HowMine">
             </a>
             <ul class="dropdown-menu profile-menu">
-              {{--<li><a href="{{ url('all-messages') }}">Messages</a> <i class="icon left">&#61903;</i><i class="icon right">&#61815;</i></li>--}}
-              {{--<li><a href="{{ url('user-profile') }}">Profile</a> <i class="icon left">--}}
-                  {{--&#61903;</i><i class="icon right">&#61815;</i></li>--}}
               <li>
 
                  
@@ -155,8 +143,7 @@
               </a>
             </li>
             @if (\Auth::check())
-
-                @include('menu.staff')
+              @include('menu.staff')
              @include('menu.timeSheet')
              @include('menu.companyStructure')
              @include('menu.shiftHours')
@@ -186,7 +173,9 @@
     <script>
         Vue.use(VeeValidate);
     </script>
-     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+     
+     <script src="{{asset('js/axios.min.js')}}"></script>
     
 
 

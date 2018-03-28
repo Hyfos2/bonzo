@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
 @include('positions.positionsList')
+@include('Errors.error')
     <ol class="breadcrumb hidden-xs">
         
         <li><a href="{{ url('/welcome') }}">Home</a></li>
@@ -9,8 +10,12 @@
     <h4 class="page-title">Positions</h4>
     <div class="block-area" id="alternative-buttons">
         <h3 class="block-title">Positions List</h3>
-        <a class="btn btn-sm" data-toggle="modal" onClick="launchAddDepartmentModal();" data-target=".modalAddPosition">New
+         @if (Auth::user())
+        @if(Auth::user()->roleId != 1)
+        <a class="btn btn-sm hidden" data-toggle="modal"  data-target=".modalAddPosition">New
         </a>
+        @endif
+        @endif
     </div>
 
     <!-- Responsive Table -->
@@ -20,10 +25,8 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                   
                     <th>Name</th>
-            
-                     <th>Created At</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

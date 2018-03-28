@@ -220,8 +220,7 @@ new Vue({
             if(this.wrongName || this.wrongSurname || this.wrongDob  || this.wrongdateOfEmploment  || this.wrongEmploymentTypeId  || this.wrongEmployeeNumber  || this.wrongDpt || this.wrongPstn || this.wrongGrade ||   this.errors.any());
                
                 {
-                     event.preventDefault()
-
+                     event.preventDefault();
                 }
         }
 
@@ -367,7 +366,7 @@ if (document.querySelector('#hodAction')) {
     var recordID = document.getElementById('recordId').value;
     var a = document.getElementById("snackbar");
     var b = document.getElementById("successBar");
-    var c = document.getElementById("errorMessage");
+    var c = document.getElementById("error");
     var count =0;
    new Vue({
     el: "#hodAction",
@@ -377,7 +376,7 @@ if (document.querySelector('#hodAction')) {
            
             a.className = "show";
                          setTimeout(function(){ a.className = a.className.replace("show", ""); }, 2000);
-            axios.post('acceptRequest/'+recordID)
+                        axios.post('acceptRequest/'+recordID)
                         .then(function (response) {
                         if(response.status ===200 && response.statusText ==="OK")
                          {
@@ -395,7 +394,7 @@ if (document.querySelector('#hodAction')) {
                             if(error.status ===500)
                          {
 
-                             c.className = "show";
+                        c.className = "show";
                          setTimeout(function(){ c.className = c.className.replace("show", ""); }, 3000);
 
 

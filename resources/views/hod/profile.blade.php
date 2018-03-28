@@ -14,7 +14,7 @@
         </ol>
         @endif
 
-    <h4 class="page-title">RECORD ID :{{ $leaveRequestProfile->id }}</h4>
+    <h4 class="page-title">RECORD ID :{{ $leaveRequestProfile->id}}</h4>
     <br>
 
     <div class="block-area container">

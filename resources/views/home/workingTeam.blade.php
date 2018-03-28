@@ -1,21 +1,21 @@
-u@extends('master')
+@extends('master')
 
 @section('content')
+@include('Errors.error')
+
     @if(Auth::user())
-        @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
             <ol class="breadcrumb hidden-xs">
                 <li><a href="{{url('welcome')}}">Home</a></li>
                 <li class="active">Working Team List</li>
             </ol>
-        @endif
 
         <h4 class="page-title">Working Team List</h4>
         <!-- Alternative -->
         <div class="block-area" id="alternative-buttons">
             <h3 class="block-title">Working Team List</h3>
 
-            @if(Auth::user()->positionId !=1 || Auth::user()->positionId!=3)
-                <a class="btn btn-sm"  href="{{url('allocateShifts')}}" >Allocate Shift
+            @if(Auth::user()->gradeId!=11 || Auth::user()->roleId!=1)
+                <a class="btn btn-sm hidden"  href="{{url('allocateShifts')}}" >Allocate Shift
                 </a>
             @endif
             @endif
