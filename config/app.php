@@ -48,7 +48,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
-        'Barryvdh\Debugbar\ServiceProvider',
+        // 'Barryvdh\Debugbar\ServiceProvider',
           MercurySeries\Flashy\FlashyServiceProvider::class,
 
        
@@ -95,7 +95,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
-        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        // 'Debugbar' => 'Barryvdh\Debugbar\Facade',
          'Flashy' => MercurySeries\Flashy\Flashy::class,
 
     ],
