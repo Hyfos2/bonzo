@@ -55,6 +55,16 @@ class RegisterController extends Controller
             return implode($pass);
 
     }
+
+    public function notification()
+    {
+        $notification = array(
+            'message'=>'new user add.An email was sent',
+            'alert-type'=>'success'
+        );
+
+        return back()->with($notification);
+    }
     
 
 

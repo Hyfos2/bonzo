@@ -143,7 +143,7 @@
               </a>
             </li>
             @if (\Auth::check())
-              @include('menu.staff')
+                @include('menu.staff')
              @include('menu.timeSheet')
              @include('menu.companyStructure')
              @include('menu.shiftHours')
